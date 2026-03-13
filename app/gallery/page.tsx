@@ -1,0 +1,179 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect, useCallback } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+
+const galleryImages = [
+  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop", alt: "Community gathering", title: "Community Gathering", kicker: "PROGRAMS" },
+  { src: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop", alt: "Training session", title: "Training Session", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop", alt: "Socioeconomic empowerment", title: "Socioeconomic Empowerment", kicker: "EMPOWERMENT" },
+  { src: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1600&auto=format&fit=crop", alt: "Graduation", title: "Graduation", kicker: "GRADUATES" },
+  { src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop", alt: "Team meeting", title: "Team Meeting", kicker: "TEAM" },
+  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop", alt: "Market day", title: "Market Day", kicker: "MARKET" },
+  { src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 1", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 2", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 3", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 4", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 5", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1524503033411-c9566986fc8f?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 6", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 7", title: "Portrait", kicker: "COMMUNITY" }
+];
+
+const mosaicClasses = [
+  "row-span-2 md:row-span-2",
+  "row-span-1 md:row-span-1",
+  "row-span-1 md:row-span-1",
+  "row-span-2 md:row-span-2",
+  "row-span-1 md:row-span-1",
+  "row-span-1 md:row-span-1",
+  "row-span-2 md:row-span-2",
+  "row-span-1 md:row-span-1",
+  "row-span-1 md:row-span-1",
+  "row-span-2 md:row-span-2",
+  "row-span-1 md:row-span-1",
+  "row-span-1 md:row-span-1",
+  "row-span-2 md:row-span-2",
+];
+
+export default function GalleryPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const openAt = useCallback((idx: number) => {
+    setCurrentIndex(idx);
+    setIsOpen(true);
+    if (typeof document !== "undefined") document.body.style.overflow = "hidden";
+  }, []);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+    if (typeof document !== "undefined") document.body.style.overflow = "";
+  }, []);
+
+  const prev = useCallback(() => {
+    setCurrentIndex((i) => (i - 1 + galleryImages.length) % galleryImages.length);
+  }, []);
+
+  const next = useCallback(() => {
+    setCurrentIndex((i) => (i + 1) % galleryImages.length);
+  }, []);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (!isOpen) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, close, prev, next]);
+
+  return (
+    <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
+
+      <section className="relative min-h-[60vh] w-full overflow-hidden bg-[#0C3F3C]">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={galleryImages[0].src}
+            alt={galleryImages[0].alt}
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent md:w-[60%]" />
+          <div className="absolute left-0 top-0 h-full w-16 bg-[#045C55]/28 md:w-24" />
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 pt-16 md:px-8 md:pb-16 md:pt-20">
+          <div className="max-w-2xl">
+            <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+              <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
+              <span className="text-white/70">/</span>
+              <Link href="/about" className="transition-colors hover:text-white/80">About Us</Link>
+              <span className="text-white/70">/</span>
+              <span>Gallery</span>
+            </div>
+
+            <div className="mb-8 h-[2px] w-9 bg-white/90" />
+
+            <h1 className="text-[3.2rem] sm:text-[4.2rem] md:text-[6.0rem] lg:text-[6.6rem] font-black uppercase leading-[0.9] tracking-tight text-white">
+              <span className="block">PHOTO</span>
+              <span className="block font-light italic text-white/95 tracking-tight">GALLERY</span>
+            </h1>
+
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
+              A visual journey through our programs, community work, and the inspiring women who make it all possible.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pt-12 pb-12 md:pb-16 lg:pb-20 font-sans relative z-10">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <div className="mb-6 flex items-center gap-3">
+            <span className="h-[1px] w-8 bg-[#00A991]" />
+            <div className="text-white/60 text-[10px] font-extrabold tracking-[0.25em] uppercase">PHOTO GALLERY</div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[220px] md:auto-rows-[260px]">
+            {galleryImages.map((img, idx) => (
+              <button
+                key={`${idx}-${img.src}`}
+                onClick={() => openAt(idx)}
+                className={`relative block w-full h-full overflow-hidden group transition-all duration-300 ${mosaicClasses[idx] ?? ''} ${idx === 0 ? 'ring-2 ring-[#00A991] ring-inset' : ''}`}
+                aria-label={`Open gallery image ${idx + 1}`}
+              >
+                <div className="relative w-full h-full">
+                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center" />
+                </div>
+
+                <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold px-3 py-1">{img.kicker}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative w-full overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+            alt="Join our community"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-y-0 left-0 w-[78%] bg-gradient-to-r from-[#06564F]/80 via-[#0A6D66]/60 to-transparent md:w-[62%]" />
+          <div className="absolute left-0 top-0 h-full w-16 bg-[#045C55]/28 md:w-24" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-8 py-12 md:py-20">
+          <div className="max-w-2xl text-left text-white">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-[2px] w-8 bg-white/30" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/90">GET INVOLVED</span>
+            </div>
+
+            <h2 className="font-extrabold text-4xl md:text-[4.8rem] leading-[0.9] tracking-tight">
+              <span className="block">JOIN OUR</span>
+              <span className="block font-light italic text-white/90 text-4xl md:text-[5.6rem]">COMMUNITY</span>
+            </h2>
+
+            <p className="mt-6 text-[14px] md:text-[16px] max-w-lg text-white/90 leading-relaxed">
+              Partner with us, volunteer, or donate — every action helps us reach more women across Rwanda and build a stronger nation together.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href="/partner" className="inline-flex items-center justify-center rounded-md bg-white px-4 py-2 text-[13px] font-semibold text-[#007A71]">PARTNER WITH US</Link>
+              <Link href="/careers" className="inline-flex items-center justify-center rounded-md border border-white/30 px-4 py-2 text-[13px] text-white/90">VIEW CAREERS</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  );
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g4" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0E8E7F"/>
+      <stop offset="100%" stop-color="#0A7A6E"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g4)" />
+  <g fill="rgba(255,255,255,0.05)">
+    <path d="M120 200c120-80 320-120 520-60s260 200 400 240 320 20 320 20v300H120z"/>
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="56" fill="#fff">Image 4 — Market Access</text>
+</svg>

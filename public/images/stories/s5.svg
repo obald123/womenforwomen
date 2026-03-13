@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g5" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0AA18F"/>
+      <stop offset="100%" stop-color="#098B78"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g5)" />
+  <g fill="rgba(255,255,255,0.06)">
+    <rect x="120" y="120" width="420" height="260" rx="20"/>
+    <rect x="860" y="360" width="240" height="180" rx="12"/>
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="56" fill="#fff">Image 5 — Cooperatives</text>
+</svg>

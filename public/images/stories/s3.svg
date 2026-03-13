@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g3" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0B9E89"/>
+      <stop offset="100%" stop-color="#0A6D66"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g3)" />
+  <g fill="rgba(255,255,255,0.06)">
+    <ellipse cx="400" cy="700" rx="280" ry="140"/>
+    <ellipse cx="1200" cy="180" rx="220" ry="110"/>
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="56" fill="#fff">Image 3 — Graduation</text>
+</svg>

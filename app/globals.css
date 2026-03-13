@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Hide scrollbar for partners carousel while keeping programmatic scrolling */
+.partners-scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  scrollbar-color: transparent transparent;
+}
+.partners-scrollbar-hidden::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+  background: transparent;
+}
+.partners-scrollbar-hidden::-webkit-scrollbar-thumb,
+.partners-scrollbar-hidden::-webkit-scrollbar-track {
+  background: transparent;
+}
