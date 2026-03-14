@@ -6,19 +6,19 @@ import { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop", alt: "Community gathering", title: "Community Gathering", kicker: "PROGRAMS" },
-  { src: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop", alt: "Training session", title: "Training Session", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop", alt: "Socioeconomic empowerment", title: "Socioeconomic Empowerment", kicker: "EMPOWERMENT" },
-  { src: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1600&auto=format&fit=crop", alt: "Graduation", title: "Graduation", kicker: "GRADUATES" },
-  { src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop", alt: "Team meeting", title: "Team Meeting", kicker: "TEAM" },
-  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop", alt: "Market day", title: "Market Day", kicker: "MARKET" },
-  { src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 1", title: "Portrait", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 2", title: "Portrait", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 3", title: "Portrait", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 4", title: "Portrait", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 5", title: "Portrait", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1524503033411-c9566986fc8f?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 6", title: "Portrait", kicker: "COMMUNITY" },
-  { src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1600&auto=format&fit=crop", alt: "Portrait 7", title: "Portrait", kicker: "COMMUNITY" }
+  { src: "/images/site/gallery-1.jpg", alt: "Community gathering", title: "Community Gathering", kicker: "PROGRAMS" },
+  { src: "/images/site/gallery-2.jpg", alt: "Training session", title: "Training Session", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-3.jpg", alt: "Socioeconomic empowerment", title: "Socioeconomic Empowerment", kicker: "EMPOWERMENT" },
+  { src: "/images/site/gallery-4.jpg", alt: "Graduation", title: "Graduation", kicker: "GRADUATES" },
+  { src: "/images/site/gallery-5.jpg", alt: "Team meeting", title: "Team Meeting", kicker: "TEAM" },
+  { src: "/images/site/gallery-6.jpg", alt: "Market day", title: "Market Day", kicker: "MARKET" },
+  { src: "/images/site/gallery-7.jpg", alt: "Portrait 1", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-8.jpg", alt: "Portrait 2", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-9.jpg", alt: "Portrait 3", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-10.jpg", alt: "Portrait 4", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-11.jpg", alt: "Portrait 5", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-12.jpg", alt: "Portrait 6", title: "Portrait", kicker: "COMMUNITY" },
+  { src: "/images/site/gallery-13.jpg", alt: "Portrait 7", title: "Portrait", kicker: "COMMUNITY" }
 ];
 
 const mosaicClasses = [
@@ -140,7 +140,7 @@ export default function GalleryPage() {
       <section className="relative w-full overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+            src="/images/site/join-community.jpg"
             alt="Join our community"
             fill
             priority

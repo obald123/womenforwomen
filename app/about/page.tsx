@@ -43,7 +43,7 @@ export default function AboutPage() {
       <section className="relative h-[75vh] min-h-[520px] w-full flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2000&auto=format&fit=crop"
+            src="/images/site/about-hero.jpg"
             alt="About Us Hero"
             fill
             className="object-cover object-center"
@@ -110,7 +110,7 @@ export default function AboutPage() {
               {/* Large Image - Top Left and Bottom Left */}
               <div className="relative overflow-hidden row-span-2">
                 <Image 
-                  src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1000"
+                  src="/images/site/about-grid-1.jpg"
                   alt="Cohort 2024"
                   fill
                   className="object-cover"
@@ -126,7 +126,7 @@ export default function AboutPage() {
               {/* Top Right Image */}
               <div className="relative overflow-hidden h-[208px]">
                 <Image 
-                  src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000"
+                  src="/images/site/about-grid-2.jpg"
                   alt="Learning Together"
                   fill
                   className="object-cover"
@@ -142,7 +142,7 @@ export default function AboutPage() {
               {/* Bottom Right Image */}
               <div className="relative overflow-hidden h-[208px]">
                 <Image 
-                  src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1000"
+                  src="/images/site/about-grid-3.jpg"
                   alt="Skills Training"
                   fill
                   className="object-cover"
@@ -227,7 +227,7 @@ export default function AboutPage() {
             {/* LEFT SIDE - IMAGE */}
             <div className="relative overflow-hidden h-[400px] lg:h-[500px]">
               <Image
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000"
+            src="/images/site/impact-approach.jpg"
                 alt="Women in classroom"
                 fill
                 className="object-cover"
@@ -364,7 +364,7 @@ export default function AboutPage() {
         {/* LEFT - Image */}
         <div className="relative hidden lg:block w-[48%] flex-shrink-0">
           <Image
-            src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1200"
+            src="/images/site/impact-hero.jpg"
             alt="Women in Rwanda market"
             fill
             className="object-cover object-center"
@@ -417,7 +417,7 @@ export default function AboutPage() {
         {/* Background image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2000&auto=format&fit=crop"
+            src="/images/site/join-community.jpg"
             alt="Join our community"
             fill
             className="object-cover object-center"

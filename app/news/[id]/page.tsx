@@ -22,8 +22,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
       date: "2026",
       excerpt:
         "This story is still being prepared. Please check back soon for the full update.",
-      image:
-        "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1800&auto=format&fit=crop",
+      image: "/images/site/home-hero.jpg",
       category: "News",
     } satisfies NewsItem);
 

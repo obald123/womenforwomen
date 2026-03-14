@@ -108,7 +108,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
         <div className="relative flex flex-col bg-[#11221F] text-white">
           <div className="relative h-64 md:h-72">
             <Image
-              src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1400&auto=format&fit=crop"
+              src="/images/site/join-community.jpg"
               alt="Women in Rwanda"
               fill
               className="object-cover object-center"

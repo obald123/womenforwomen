@@ -54,7 +54,7 @@ export default function Home() {
         {/* Hero Image Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=2000&auto=format&fit=crop"
+            src="/images/site/home-hero.jpg"
             alt="Women Empowerment Rwanda"
             fill
             className="object-cover object-center brightness-90"
@@ -130,7 +130,7 @@ export default function Home() {
               {/* First Image - Large */}
               <div className="relative overflow-hidden rounded-lg row-span-2">
                 <Image 
-                  src="https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=1000"
+                  src="/images/site/home-grid-1.jpg"
                   alt="Women learning together"
                   fill
                   className="object-cover"
@@ -139,7 +139,7 @@ export default function Home() {
               {/* Second Image - Small with Overlay */}
               <div className="relative overflow-hidden rounded-lg">
                 <Image 
-                  src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1000"
+                  src="/images/site/home-grid-2.jpg"
                   alt="Community gathering"
                   fill
                   className="object-cover"
@@ -154,7 +154,7 @@ export default function Home() {
               {/* Third Image - Small */}
               <div className="relative overflow-hidden rounded-lg">
                 <Image 
-                  src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000"
+                  src="/images/site/home-grid-3.jpg"
                   alt="Skills training"
                   fill
                   className="object-cover"
@@ -238,7 +238,7 @@ export default function Home() {
             {/* Card 1 */}
             <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
               <Image 
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000"
+                src="/images/site/programs-core.jpg"
                 alt="Strengthening Women-Led Businesses"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -257,7 +257,7 @@ export default function Home() {
             {/* Card 2 */}
             <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
               <Image 
-                src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000"
+                src="/images/site/programs-complementary.jpg"
                 alt="Socioeconomic Empowerment"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -276,7 +276,7 @@ export default function Home() {
             {/* Card 3 */}
             <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
               <Image 
-                src="https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?q=80&w=1000"
+                src="/images/site/programs-graduate.jpg"
                 alt="Graduation Out of Poverty"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -300,7 +300,7 @@ export default function Home() {
         {/* Background image and layered color wash to match the reference */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2200&auto=format&fit=crop"
+            src="/images/site/home-impact.jpg"
             alt="Women receiving certificates"
             fill
             className="object-cover object-center"
@@ -416,7 +416,7 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-[6px] md:grid-cols-12">
             <article className="group relative min-h-[320px] overflow-hidden md:col-span-5 md:min-h-[470px]">
               <Image
-                src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1800&auto=format&fit=crop"
+                src="/images/site/gallery-1.jpg"
                 alt="From Setbacks to Strength"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
@@ -433,7 +433,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-[6px] md:col-span-7 md:grid-cols-2 md:grid-rows-2">
               <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1400&auto=format&fit=crop"
+                  src="/images/site/gallery-2.jpg"
                   alt="Empowered Women, Thriving Communities"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
@@ -449,7 +449,7 @@ export default function Home() {
 
               <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?q=80&w=1400&auto=format&fit=crop"
+                  src="/images/site/gallery-3.jpg"
                   alt="Empowering Change through Skill Building"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
@@ -465,7 +465,7 @@ export default function Home() {
 
               <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1400&auto=format&fit=crop"
+                  src="/images/site/gallery-4.jpg"
                   alt="Celebrating the Graduation of 100 Women in Ibare"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
@@ -481,7 +481,7 @@ export default function Home() {
 
               <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1400&auto=format&fit=crop"
+                  src="/images/site/gallery-5.jpg"
                   alt="From Dreams to Determination"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
@@ -504,7 +504,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="relative min-h-[360px] md:min-h-[640px]">
             <Image
-              src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=1800&auto=format&fit=crop"
+              src="/images/site/impact-hero.jpg"
               alt="Woman farmer in Rwanda"
               fill
               className="object-cover"
@@ -594,22 +594,22 @@ export default function Home() {
               {
                 title: "DIGNITY",
                 image:
-                  "https://images.unsplash.com/photo-1531123414780-f74242c2b052?q=80&w=1200&auto=format&fit=crop",
+                  "/images/site/gallery-6.jpg",
               },
               {
                 title: "EMPOWERMENT",
                 image:
-                  "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=1200&auto=format&fit=crop",
+                  "/images/site/gallery-7.jpg",
               },
               {
                 title: "SUSTAINABILITY",
                 image:
-                  "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1200&auto=format&fit=crop",
+                  "/images/site/gallery-8.jpg",
               },
               {
                 title: "SOLIDARITY",
                 image:
-                  "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop",
+                  "/images/site/gallery-9.jpg",
               },
             ].map((value) => (
               <article key={value.title} className="group relative min-h-[260px] overflow-hidden md:min-h-[420px]">
@@ -633,7 +633,7 @@ export default function Home() {
       <section className="relative isolate min-h-[420px] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2200&auto=format&fit=crop"
+            src="/images/site/join-community.jpg"
             alt="Women in community fields"
             fill
             className="object-cover object-center"

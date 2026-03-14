@@ -31,7 +31,7 @@ const programTabs = [
       "Women for Women Rwanda's CORE Program is at the heart of this endeavor. It reaches across rural and semi-urban landscapes, bringing hope and empowerment to vulnerable women, including widows and survivors.",
       "In this journey, women embark on a year-long exploration of self-discovery and growth. Through education, they gain a deeper understanding of their rights, financial literacy, health, and advocacy, igniting the spark of change."
     ],
-    image: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/site/programs-core.jpg",
     imageAlt: "Women seated together during a training session",
     badgeValue: "25+",
     badgeLabel: "YEARS OF IMPACT"
@@ -45,7 +45,7 @@ const programTabs = [
     paragraphs: [
       "At Women for Women Rwanda, our commitment to socioeconomic empowerment extends beyond individual growth. Recognizing that true progress requires a unified approach, our complementary initiatives extend to men's engagement, community advocacy, GBV prevention, and adolescent girls programming."
     ],
-    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/site/programs-complementary.jpg",
     imageAlt: "Socioeconomic empowerment"
   },
   {
@@ -58,7 +58,7 @@ const programTabs = [
       "After completing our 12-month program, graduates embark on a pathway to graduation out of poverty — becoming change-makers, business owners, cooperative leaders, and advocates. Through graduate support, women receive advanced training, access additional resources, improve their vocational skills, and connect to other graduates for production and employment.",
       "We know that women may need additional tools to overcome their challenges, especially in starting and growing their businesses, after graduation. By connecting women to financial services, advanced business and vocational training, and support networks, we increase opportunities to grow their businesses and unlock their full potential."
     ],
-    image: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/site/programs-graduate.jpg",
     imageAlt: "Graduate program participants"
   }
 ];
@@ -75,7 +75,7 @@ export default function ProgramsPage() {
       <section className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden bg-[#0C3F3C]">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070"
+            src="/images/site/programs-hero.jpg"
             alt="Students walking across a campus"
             fill
             priority
@@ -593,7 +593,7 @@ export default function ProgramsPage() {
       <section className="relative min-h-[320px] md:min-h-[420px] lg:min-h-[520px] w-full overflow-hidden bg-[#0C3F3C]">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070"
+            src="/images/site/join-community.jpg"
             alt="Community gathering"
             fill
             priority={false}

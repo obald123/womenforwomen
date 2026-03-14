@@ -21,8 +21,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Women for Women",
-    template: "%s | Women for Women",
+    default: "Women for Women Rwanda",
+    template: "%s | Women for Women Rwanda",
   },
   description: "Figma-matched Women for Women website",
 };

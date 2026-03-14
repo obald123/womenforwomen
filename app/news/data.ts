@@ -15,7 +15,7 @@ export const articles: NewsItem[] = [
     excerpt:
       "We welcomed 300 new women into our 12-month training program focused on livelihoods and leadership.",
     image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-1.jpg",
     category: "Program Update",
   },
   {
@@ -25,7 +25,7 @@ export const articles: NewsItem[] = [
     excerpt:
       "Graduates sold products and built new commercial relationships at a community market fair.",
     image:
-      "https://images.unsplash.com/photo-1504198458649-3128b932f49b?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-2.jpg",
     category: "Impact Story",
   },
   {
@@ -35,7 +35,7 @@ export const articles: NewsItem[] = [
     excerpt:
       "Early results from our digital VSLA pilot show improved savings practices and record-keeping.",
     image:
-      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-3.jpg",
     category: "Program Update",
   },
 ];
@@ -49,7 +49,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "A look into how our core empowerment programs are creating lasting change in rural communities across seven districts in Rwanda.",
     image:
-      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-4.jpg",
   },
   {
     id: "s2",
@@ -59,7 +59,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Vocational skills training continues to transform women's lives, giving them the tools they need to build sustainable livelihoods.",
     image:
-      "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-5.jpg",
   },
   {
     id: "s3",
@@ -69,7 +69,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "One hundred women celebrated their graduation from the Stronger Women, Stronger Nation program in Mareba Sector, Bugesera District.",
     image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-6.jpg",
   },
   {
     id: "s4",
@@ -79,7 +79,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Graduates are connecting with buyers at regional markets, increasing incomes and business opportunities.",
     image:
-      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-7.jpg",
   },
   {
     id: "s5",
@@ -89,7 +89,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Cooperatives supported by our programs are now supplying local markets and creating steady livelihoods.",
     image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-8.jpg",
   },
   {
     id: "s6",
@@ -99,7 +99,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "A new collaboration will extend training and support services to an additional three districts this year.",
     image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-9.jpg",
   },
   {
     id: "s7",
@@ -109,7 +109,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Village savings groups adopted digital ledgers, improving transparency and boosting member confidence.",
     image:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-10.jpg",
   },
   {
     id: "s8",
@@ -119,7 +119,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Women-led cooperatives expanded distribution to new local markets, increasing incomes across households.",
     image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-11.jpg",
   },
   {
     id: "s9",
@@ -129,7 +129,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "A new bootcamp equips entrepreneurs with pricing, budgeting, and sales skills for sustainable growth.",
     image:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-12.jpg",
   },
   {
     id: "s10",
@@ -139,7 +139,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Participants marked graduation with community leaders, showcasing new enterprises and success stories.",
     image:
-      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-13.jpg",
   },
   {
     id: "s11",
@@ -149,7 +149,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "A multi-week training series strengthened governance, teamwork, and decision-making skills.",
     image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/home-hero.jpg",
   },
   {
     id: "s12",
@@ -159,7 +159,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "A graduate used small grants and mentorship to turn a market stall into a thriving business.",
     image:
-      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/home-impact.jpg",
   },
   {
     id: "s13",
@@ -169,7 +169,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "New district partnerships help the program reach more women in rural communities.",
     image:
-      "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/impact-hero.jpg",
   },
   {
     id: "s14",
@@ -179,7 +179,7 @@ export const stories: NewsItem[] = [
     excerpt:
       "Local forums connect graduates with mentors, buyers, and peer support groups.",
     image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/join-community.jpg",
   },
 ];
 
@@ -194,7 +194,7 @@ export const events = [
     excerpt:
       "A hands-on training session for savings group leaders to learn mobile money management and digital record-keeping tools.",
     image:
-      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-1.jpg",
   },
   {
     id: "e2",
@@ -206,7 +206,7 @@ export const events = [
     excerpt:
       "Watch as 25 women entrepreneurs pitch their business plans for seed funding awards.",
     image:
-      "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-2.jpg",
   },
   {
     id: "e3",
@@ -218,7 +218,7 @@ export const events = [
     excerpt:
       "Celebrate with 75 young women as they graduate from the ABADACOGORA adolescent girls program.",
     image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-3.jpg",
   },
   {
     id: "e4",
@@ -230,7 +230,7 @@ export const events = [
     excerpt:
       "An open forum for community members to discuss program results and upcoming initiatives.",
     image:
-      "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-4.jpg",
   },
   {
     id: "e5",
@@ -242,6 +242,6 @@ export const events = [
     excerpt:
       "An evening gala to celebrate achievements and raise funds to expand our trainings.",
     image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop",
+      "/images/site/gallery-5.jpg",
   },
 ];

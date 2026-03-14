@@ -11,7 +11,7 @@ export default function DonatePage() {
     <div className="relative min-h-screen bg-[#111C1B]">
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2200&auto=format&fit=crop"
+          src="/images/site/join-community.jpg"
           alt="Women for Women Rwanda"
           fill
           className="object-cover object-center"

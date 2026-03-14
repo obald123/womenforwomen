@@ -13,7 +13,7 @@ const teamTabs = [
     paragraphs: [
       "Our Board of Directors provides strategic oversight and governance to ensure Women for Women Rwanda fulfills its mission with accountability and impact."
     ],
-    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/site/gallery-1.jpg",
     imageAlt: "Board meeting"
   },
   {
@@ -24,41 +24,58 @@ const teamTabs = [
     paragraphs: [
       "Our leadership team runs programs on the ground, builds partnerships, and supports our graduates to thrive." 
     ],
-    image: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1600&auto=format&fit=crop",
+    image: "/images/site/gallery-2.jpg",
     imageAlt: "Leadership"
   }
 ];
 
 const boardMembers = [
-  { name: "Jane Mukasa", role: "Chairperson", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" },
-  { name: "Elijah Nkurunziza", role: "Treasurer", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" },
-  { name: "Amina Uwase", role: "Secretary", image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=800&auto=format&fit=crop" },
-  { name: "Pauline Iradukunda", role: "Member", image: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=800&auto=format&fit=crop" },
-  { name: "Grace Niyonsaba", role: "Member", image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop" },
-  { name: "Beatrice Habimana", role: "Member", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" }
+  { name: "Jane Mukasa", role: "Chairperson", image: "/images/site/gallery-1.jpg" },
+  { name: "Elijah Nkurunziza", role: "Treasurer", image: "/images/site/gallery-1.jpg" },
+  { name: "Amina Uwase", role: "Secretary", image: "/images/site/gallery-1.jpg" },
+  { name: "Pauline Iradukunda", role: "Member", image: "/images/site/gallery-1.jpg" },
+  { name: "Grace Niyonsaba", role: "Member", image: "/images/site/gallery-1.jpg" },
+  { name: "Beatrice Habimana", role: "Member", image: "/images/site/gallery-1.jpg" }
 ];
 
 const teamMembers = [
-  { name: "Mr. Nkusi Bukeye Eric", role: "Team", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" },
-  { name: "Beatrice Biyoga", role: "Team", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" },
-  { name: "Debra Bowers", role: "Team", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" },
-  { name: "Alice Uwimana", role: "Team", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" },
-  { name: "Josephine Mukamana", role: "Team", image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop" },
-  { name: "Claire Niyonzima", role: "Team", image: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800&auto=format&fit=crop" },
-  { name: "Pauline Iradukunda", role: "Team", image: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop" },
-  { name: "Grace Niyonsaba", role: "Team", image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop" },
-  { name: "Beatrice Habimana", role: "Team", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" },
-  { name: "Anne Mukarubega", role: "Team", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop" },
-  { name: "Esther Uwizeyimana", role: "Team", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" },
-  { name: "Ruth Kayitesi", role: "Team", image: "https://images.unsplash.com/photo-1524503033411-c9566986fc8f?q=80&w=800&auto=format&fit=crop" },
-  { name: "Clementine Niyigena", role: "Team", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" },
-  { name: "Martha Ingabire", role: "Team", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" }
+  { name: "Mr. Nkusi Bukeye Eric", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Beatrice Biyoga", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Debra Bowers", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Alice Uwimana", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Josephine Mukamana", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Claire Niyonzima", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Pauline Iradukunda", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Grace Niyonsaba", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Beatrice Habimana", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Anne Mukarubega", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Esther Uwizeyimana", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Ruth Kayitesi", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Clementine Niyigena", role: "Team", image: "/images/site/gallery-1.jpg" },
+  { name: "Martha Ingabire", role: "Team", image: "/images/site/gallery-1.jpg" }
 ];
 
 const leadership = [
-  { name: "Susan Kamanzi", role: "Executive Director", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" },
-  { name: "Mark Rwagasana", role: "Program Director", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop" },
-  { name: "Claire Bizimana", role: "Operations Lead", image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=400&auto=format&fit=crop" }
+  { name: "Susan Kamanzi", role: "Executive Director", image: "/images/site/gallery-1.jpg" },
+  { name: "Mark Rwagasana", role: "Program Director", image: "/images/site/gallery-1.jpg" },
+  { name: "Claire Bizimana", role: "Operations Lead", image: "/images/site/gallery-1.jpg" }
+];
+
+const teamImages = [
+  "/images/site/gallery-1.jpg",
+  "/images/site/gallery-2.jpg",
+  "/images/site/gallery-3.jpg",
+  "/images/site/gallery-4.jpg",
+  "/images/site/gallery-5.jpg",
+  "/images/site/gallery-6.jpg",
+  "/images/site/gallery-7.jpg",
+  "/images/site/gallery-8.jpg",
+  "/images/site/gallery-9.jpg",
+  "/images/site/gallery-10.jpg",
+  "/images/site/gallery-11.jpg",
+  "/images/site/gallery-12.jpg",
+  "/images/site/gallery-13.jpg",
+  "/images/site/home-hero.jpg",
 ];
 
 export default function TeamPage() {
@@ -73,7 +90,7 @@ export default function TeamPage() {
       <section className="relative min-h-[52vh] w-full overflow-hidden bg-[#0C3F3C]">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+            src="/images/site/join-community.jpg"
             alt="Community gathering"
             fill
             priority
@@ -161,10 +178,10 @@ export default function TeamPage() {
 
           <div className="mt-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {members.map((m) => (
+              {members.map((m, idx) => (
                 <div key={m.name} className="overflow-hidden bg-white">
                   <div className="relative h-[360px] sm:h-[420px] w-full">
-                    <Image src={m.image} alt={m.name} fill className="object-cover object-center" />
+                    <Image src={teamImages[idx % teamImages.length]} alt={m.name} fill className="object-cover object-center" />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#06564F]/85 via-[#06564F]/40 to-transparent" />
                     <div className="absolute left-4 top-4 bg-[#00A991] text-white text-[11px] font-bold px-3 py-1 z-10">{m.role}</div>
                   </div>
@@ -194,7 +211,7 @@ export default function TeamPage() {
       <section className="relative w-full overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop"
+            src="/images/site/join-community.jpg"
             alt="Join our community"
             fill
             priority

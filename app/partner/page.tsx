@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const partners = [
-  { name: "MIGEPROF", logo: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop" },
-  { name: "MINICOM", logo: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop" },
-  { name: "MINAGRI", logo: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" },
-  { name: "Private Sector", logo: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" },
-  { name: "Women's Chamber", logo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" }
+  { name: "MIGEPROF", logo: "/images/site/gallery-1.jpg" },
+  { name: "MINICOM", logo: "/images/site/gallery-2.jpg" },
+  { name: "MINAGRI", logo: "/images/site/gallery-3.jpg" },
+  { name: "Private Sector", logo: "/images/site/gallery-4.jpg" },
+  { name: "Women's Chamber", logo: "/images/site/gallery-5.jpg" }
 ];
 
 export default function PartnerPage() {
@@ -18,7 +18,7 @@ export default function PartnerPage() {
       <section className="relative min-h-[40vh] w-full overflow-hidden bg-[#0C3F3C]">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1472653431158-6364773b2a56?q=80&w=2070&auto=format&fit=crop"
+            src="/images/site/partner-hero.jpg"
             alt="Partners"
             fill
             priority
