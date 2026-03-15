@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { Heart, ChevronDown } from 'lucide-react';
+import { Heart, ChevronDown, Menu, X } from 'lucide-react';
 import { useDonateModal } from './donate-modal-provider';
 
 type DropdownId = 'about' | 'programs' | null;
@@ -12,6 +12,8 @@ export function SiteHeader() {
   const pathname = usePathname() || '';
   const { openDonateModal } = useDonateModal();
   const [openDropdown, setOpenDropdown] = useState<DropdownId>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState<DropdownId>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const programsRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +38,11 @@ export function SiteHeader() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setMobileOpen(null);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setIsFixed(window.scrollY > 20);
@@ -199,7 +206,7 @@ export function SiteHeader() {
         </nav>
 
         {/* RIGHT SIDE ACTIONS */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-3 shrink-0">
           {/* DONATE BUTTON */}
           <button
             type="button"
@@ -219,10 +226,107 @@ export function SiteHeader() {
           </Link>
         </div>
 
+        {/* MOBILE TOGGLE */}
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className="md:hidden inline-flex items-center justify-center p-2 text-[#0D2323]"
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
         </div>
       </header>
 
       {isFixed && <div aria-hidden style={{ height: headerHeight }} />}
+
+      {/* MOBILE MENU */}
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-40">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <div className="absolute right-0 top-0 h-full w-[85%] max-w-[360px] bg-white shadow-xl p-6 overflow-y-auto">
+            <div className="mb-6">
+              <div className="text-[11px] font-black tracking-[0.3em] text-[#00A991] uppercase">
+                Menu
+              </div>
+            </div>
+            <nav className="flex flex-col gap-4">
+              <Link href="/" className={navLinkClass(pathname === '/')}>HOME</Link>
+
+              <button
+                type="button"
+                onClick={() => setMobileOpen((prev) => (prev === 'about' ? null : 'about'))}
+                className={`flex items-center justify-between ${navLinkClass(isAboutActive)}`}
+              >
+                ABOUT US
+                <ChevronDown className={`h-4 w-4 transition-transform ${mobileOpen === 'about' ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileOpen === 'about' && (
+                <div className="ml-3 flex flex-col gap-2">
+                  <Link href="/about#mission-vision" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Mission and Vision
+                  </Link>
+                  <Link href="/team#team-section" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Our Team
+                  </Link>
+                  <Link href="/gallery#gallery-grid" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Our Gallery
+                  </Link>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setMobileOpen((prev) => (prev === 'programs' ? null : 'programs'))}
+                className={`flex items-center justify-between ${navLinkClass(isProgramsActive)}`}
+              >
+                OUR PROGRAMS
+                <ChevronDown className={`h-4 w-4 transition-transform ${mobileOpen === 'programs' ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileOpen === 'programs' && (
+                <div className="ml-3 flex flex-col gap-2">
+                  <Link href="/programs?tab=01#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Core Program
+                  </Link>
+                  <Link href="/programs?tab=02#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Complementary Program
+                  </Link>
+                  <Link href="/programs?tab=03#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Graduate Program
+                  </Link>
+                </div>
+              )}
+
+              <Link href="/impact" className={navLinkClass(pathname.startsWith('/impact'))}>IMPACT</Link>
+              <Link href="/news" className={navLinkClass(pathname.startsWith('/news'))}>NEWS</Link>
+            </nav>
+
+            <div className="mt-8 flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  openDonateModal();
+                }}
+                className="flex items-center justify-center gap-2 rounded-[3px] bg-[#C73D35] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white"
+              >
+                <Heart size={14} fill="currentColor" />
+                Donate
+              </button>
+              <Link
+                href="/partner"
+                className="rounded-[3px] bg-[#00A991] px-4 py-3 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white"
+              >
+                Partner With Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

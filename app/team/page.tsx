@@ -54,6 +54,7 @@ export default function TeamPage() {
   const [activeTab, setActiveTab] = useState("01");
   const [board, setBoard] = useState<any[]>(fallbackBoard);
   const [team, setTeam] = useState<any[]>(fallbackTeam);
+  const [selectedMember, setSelectedMember] = useState<any | null>(null);
 
   useEffect(() => {
     publicFetch<any>("/api/public/team")
@@ -180,7 +181,13 @@ export default function TeamPage() {
                   <div className="p-5 text-left">
                     <div className="font-black text-base text-[#0D2323]">{m.name}</div>
                     <div className="mt-3">
-                      <Link href="#" className="text-[#00A991] font-semibold text-[10px]">VIEW BIO</Link>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedMember(m)}
+                        className="text-[#00A991] font-semibold text-[10px]"
+                      >
+                        VIEW BIO
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -201,6 +208,63 @@ export default function TeamPage() {
       </section>
 
       <JoinCommunitySection />
+
+      {selectedMember && (
+        <div className="fixed inset-0 z-[90] bg-black/70 overflow-y-auto">
+          <div className="min-h-screen flex items-center justify-center p-6">
+            <div className="w-full max-w-3xl bg-white shadow-2xl">
+              <div className="relative min-h-[280px] w-full overflow-hidden bg-[#0C3F3C]">
+                <Image
+                  src={selectedMember.photo || "/images/site/home-hero.jpg"}
+                  alt={selectedMember.name}
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-black/45" />
+                <div className="absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/45 to-transparent md:w-[55%]" />
+                <div className="absolute right-6 top-6">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedMember(null)}
+                    className="text-[10px] font-black tracking-[0.2em] text-white/80 hover:text-white"
+                  >
+                    CLOSE
+                  </button>
+                </div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <div className="mb-3 inline-flex bg-[#00A991] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                    {selectedMember.role}
+                  </div>
+                  <div className="text-3xl md:text-4xl font-black uppercase leading-[0.95]">
+                    {selectedMember.name}
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-8 py-8">
+                <p className="text-[15px] leading-relaxed text-[#5F6E6C]">
+                  {selectedMember.bio || "Bio coming soon."}
+                </p>
+                <div className="mt-8 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedMember(null)}
+                    className="inline-flex items-center gap-2 text-[#007A71] font-bold uppercase text-[11px] tracking-[0.22em]"
+                  >
+                    Back to Team
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#007A71]">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 6H2M6 10L2 6L6 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
