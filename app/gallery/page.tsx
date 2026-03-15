@@ -149,7 +149,14 @@ export default function GalleryPage() {
                   className="object-cover object-center" />
                 </div>
 
-                <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold px-3 py-1">{img.kicker}</div>
+                <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold px-3 py-1">
+                  {img.kicker}
+                </div>
+                <div className="absolute left-4 right-4 bottom-4 z-10">
+                  <div className="inline-block bg-[#0B2E2B]/80 text-white text-[11px] font-bold uppercase tracking-[0.18em] px-3 py-2">
+                    {img.title || img.alt}
+                  </div>
+                </div>
               </button>
             ))}
           </div>

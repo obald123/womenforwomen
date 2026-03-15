@@ -51,7 +51,8 @@ export default function NewsPage() {
   const visibleStories = filteredStories.slice(0, visibleCount);
   const canLoadMore = visibleCount < filteredStories.length;
   const featured = articles[0] || null;
-  const featuredEvent = events[0] || null;
+  const featuredEvent = events.find((ev) => ev.isFeatured) || events[0] || null;
+  const otherEvents = featuredEvent ? events.filter((ev) => ev.id !== featuredEvent.id) : events;
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
@@ -243,13 +244,17 @@ export default function NewsPage() {
               <div className="relative min-h-[260px] md:min-h-[320px] overflow-hidden group">
                 <Image src={resolveImageUrl(featuredEvent.coverImage) || FALLBACK_IMAGE} alt={featuredEvent.title} fill sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105 object-center" />
                 <div className="absolute top-4 left-4">
-                  <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">FEATURED EVENT</span>
+                  <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">
+                    {featuredEvent.badgeLabel || (featuredEvent.isFeatured ? "FEATURED EVENT" : "EVENT")}
+                  </span>
                 </div>
               </div>
 
               <div className="bg-[#0B2E2B] p-8 flex flex-col justify-center border-l border-[#0E3A36]">
                 <div>
-                  <span className="inline-block bg-[#00A991] text-[#05201f] text-[10px] uppercase px-2 py-1 tracking-[0.12em]">EVENT</span>
+                  <span className="inline-block bg-[#00A991] text-[#05201f] text-[10px] uppercase px-2 py-1 tracking-[0.12em]">
+                    {featuredEvent.badgeLabel || "EVENT"}
+                  </span>
                 </div>
 
                 <h3 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase leading-tight tracking-tight">
@@ -280,13 +285,15 @@ export default function NewsPage() {
 
           <div className="mt-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {events.map((ev) => (
+              {otherEvents.map((ev) => (
                 <article key={ev.id} className="bg-[#061E1C] border border-[#0E3A36] overflow-hidden group hover:shadow-lg transition-shadow duration-300">
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <Image src={resolveImageUrl(ev.coverImage) || FALLBACK_IMAGE} alt={ev.title} fill sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105 object-center" />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#05201f]/70 to-transparent pointer-events-none z-10" />
                     <div className="absolute top-3 left-3 z-20">
-                      <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">EVENT</span>
+                      <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">
+                        {ev.badgeLabel || (ev.isFeatured ? "FEATURED EVENT" : "EVENT")}
+                      </span>
                     </div>
                   </div>
 
@@ -301,7 +308,7 @@ export default function NewsPage() {
 
                     <p className="text-[#9FB0AE] text-[12px] mb-3">{ev.excerpt}</p>
 
-                    <Link href="#" className="inline-flex items-center gap-2 text-[#00A991] font-semibold uppercase text-[10px]">
+                    <Link href={`/events/${ev.slug}`} className="inline-flex items-center gap-2 text-[#00A991] font-semibold uppercase text-[10px]">
                       LEARN MORE
                       <span className="transition-transform duration-300 group-hover:translate-x-2">
                         <svg width="14" height="10" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">

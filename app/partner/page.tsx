@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { publicFetch } from "../../lib/publicApi";
 import {
   Mail,
   Phone,
@@ -98,6 +99,9 @@ export default function PartnerPage() {
     message: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const setField =
     (field: keyof FormValues) =>
@@ -118,7 +122,11 @@ export default function PartnerPage() {
       nextErrors.email = "Enter a valid email address.";
     }
     if (!values.phone.trim()) nextErrors.phone = "Phone number is required.";
-    if (!values.message.trim()) nextErrors.message = "Message is required.";
+    if (!values.message.trim()) {
+      nextErrors.message = "Message is required.";
+    } else if (values.message.trim().length < 10) {
+      nextErrors.message = "Message must be at least 10 characters.";
+    }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -126,7 +134,27 @@ export default function PartnerPage() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
-    // TODO: hook up to backend or email service.
+    setIsSubmitting(true);
+    setSubmitted(false);
+    setSubmitError("");
+    publicFetch<any>("/api/public/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...values,
+        name: values.name.trim(),
+        email: values.email.trim(),
+        phone: values.phone.trim(),
+        organization: values.organization.trim(),
+        message: values.message.trim(),
+      }),
+    } as any)
+      .then(() => {
+        setSubmitted(true);
+        setValues({ name: "", email: "", phone: "", organization: "", message: "" });
+      })
+      .catch(() => setSubmitError("Something went wrong. Please try again."))
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -295,11 +323,22 @@ export default function PartnerPage() {
                   )}
                 </div>
                 <div className="md:col-span-2">
+                  {submitted && (
+                    <div className="mb-4 border border-[#CFE7E4] bg-[#E8F6F4] px-4 py-3 text-[12px] text-[#0D2323]">
+                      Thanks! Your message has been received.
+                    </div>
+                  )}
+                  {submitError && (
+                    <div className="mb-4 border border-[#F2D5D5] bg-[#FBEAEA] px-4 py-3 text-[12px] text-[#8E2B2B]">
+                      {submitError}
+                    </div>
+                  )}
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="inline-flex items-center gap-3 bg-[#007A71] px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] text-white"
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
