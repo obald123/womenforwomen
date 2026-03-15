@@ -3,17 +3,25 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { Heart } from 'lucide-react';
+import { Heart, ChevronDown } from 'lucide-react';
 import { useDonateModal } from './donate-modal-provider';
+
+type DropdownId = 'about' | 'programs' | null;
 
 export function SiteHeader() {
   const pathname = usePathname() || '';
   const { openDonateModal } = useDonateModal();
+  const [openDropdown, setOpenDropdown] = useState<DropdownId>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const programsRef = useRef<HTMLDivElement>(null);
 
-  const navClass = (path: string) => {
+  const isAboutActive =
+    pathname === '/' ? false : pathname.startsWith('/about') || pathname === '/team' || pathname === '/gallery';
+  const isProgramsActive = pathname.startsWith('/programs');
+
+  const navLinkClass = (active: boolean) => {
     const base = 'text-[12px] font-bold uppercase tracking-[0.12em] transition-colors';
-    const isActive = path === '/' ? pathname === '/' : pathname && pathname.startsWith(path);
-    return `${base} ${isActive ? 'text-[#00A991] hover:text-[#008472]' : 'text-[#666666] hover:text-[#00A991]'}`;
+    return `${base} ${active ? 'text-[#00A991] hover:text-[#008472]' : 'text-[#666666] hover:text-[#00A991]'}`;
   };
 
   const headerRef = useRef<HTMLElement | null>(null);
@@ -36,9 +44,26 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (
+        aboutRef.current && !aboutRef.current.contains(target) &&
+        programsRef.current && !programsRef.current.contains(target)
+      ) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const headerClass = isFixed
     ? 'fixed top-0 left-0 right-0 z-50 w-full bg-white border-b border-gray-100 shadow-md transition-all'
     : 'sticky top-0 z-50 w-full bg-white border-b border-gray-100';
+
+  const dropdownPanel =
+    'absolute left-0 top-full pt-1 min-w-[200px] transition-opacity duration-150';
 
   return (
     <>
@@ -64,20 +89,111 @@ export function SiteHeader() {
         </Link>
 
         {/* CENTER NAVIGATION */}
-        <nav className="hidden flex-1 items-center justify-center gap-12 md:flex">
-          <Link href="/about" className={navClass('/about')}>
-            ABOUT
+        <nav className="hidden flex-1 items-center justify-center gap-10 md:flex">
+          {/* HOME */}
+          <Link href="/" className={navLinkClass(pathname === '/')}>
+            HOME
           </Link>
 
-          <Link href="/programs" className={navClass('/programs')}>
-            PROGRAMS
-          </Link>
+          {/* ABOUT US DROPDOWN */}
+          <div
+            ref={aboutRef}
+            className="relative"
+            onMouseEnter={() => setOpenDropdown('about')}
+            onMouseLeave={() => setOpenDropdown((prev) => (prev === 'about' ? null : prev))}
+          >
+            <div className={openDropdown === 'about' ? 'border-b-2 border-[#00A991]' : ''}>
+              <Link
+                href="/about"
+                className={`flex items-center gap-1 ${navLinkClass(isAboutActive)}`}
+                aria-haspopup="true"
+                aria-expanded={openDropdown === 'about'}
+              >
+                ABOUT US
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${openDropdown === 'about' ? 'rotate-180' : ''}`} />
+              </Link>
+            </div>
+            {openDropdown === 'about' && (
+              <div className={dropdownPanel}>
+                <div className="rounded-sm border border-gray-100 bg-white py-2 shadow-lg">
+                  <Link
+                    href="/about#mission-vision"
+                    className="block px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-400 hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    Mission and Vision
+                  </Link>
+                  <Link
+                    href="/team#team-section"
+                    className="block px-4 py-2 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    Our Team
+                  </Link>
+                  <Link
+                    href="/gallery#gallery-grid"
+                    className="block px-4 py-2 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    Our Gallery
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
 
-          <Link href="/impact" className={navClass('/impact')}>
+          {/* OUR PROGRAMS DROPDOWN */}
+          <div
+            ref={programsRef}
+            className="relative"
+            onMouseEnter={() => setOpenDropdown('programs')}
+            onMouseLeave={() => setOpenDropdown((prev) => (prev === 'programs' ? null : prev))}
+          >
+            <div className={openDropdown === 'programs' ? 'border-b-2 border-[#00A991]' : ''}>
+              <Link
+                href="/programs"
+                className={`flex items-center gap-1 ${navLinkClass(isProgramsActive)}`}
+                aria-haspopup="true"
+                aria-expanded={openDropdown === 'programs'}
+              >
+                OUR PROGRAMS
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${openDropdown === 'programs' ? 'rotate-180' : ''}`} />
+              </Link>
+            </div>
+            {openDropdown === 'programs' && (
+              <div className={dropdownPanel}>
+                <div className="rounded-sm border border-gray-100 bg-white py-2 shadow-lg min-w-[220px]">
+                  <Link
+                    href="/programs?tab=01#program-details"
+                    className="block px-4 py-2.5 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    Core Program
+                  </Link>
+                  <Link
+                    href="/programs?tab=02#program-details"
+                    className="block px-4 py-2.5 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    Complementary Program
+                  </Link>
+                  <Link
+                    href="/programs?tab=03#program-details"
+                    className="block px-4 py-2.5 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    Graduate Program
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link href="/impact" className={navLinkClass(pathname.startsWith('/impact'))}>
             IMPACT
           </Link>
 
-          <Link href="/news" className={navClass('/news')}>
+          <Link href="/news" className={navLinkClass(pathname.startsWith('/news'))}>
             NEWS
           </Link>
         </nav>

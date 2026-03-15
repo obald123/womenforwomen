@@ -4,6 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { HeroSlider } from "../components/hero-slider";
+import { JoinCommunitySection } from "../components/join-community-section";
+
+const GALLERY_HERO_IMAGES = [
+  "/images/wfw/slide 5 - photo gallery/Stronger Women Stronger Nation.jpg",
+  "/images/wfw/slide 5 - photo gallery/Abadacogora.jpg",
+  "/images/wfw/slide 5 - photo gallery/Men Engage.jpeg",
+  "/images/wfw/slide 5 - photo gallery/Couples Dialogue.jpg",
+];
 
 const galleryImages = [
   { src: "/images/site/gallery-1.jpg", alt: "Community gathering", title: "Community Gathering", kicker: "PROGRAMS" },
@@ -74,25 +83,19 @@ export default function GalleryPage() {
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
 
-      <section className="relative min-h-[60vh] w-full overflow-hidden bg-[#0C3F3C]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={galleryImages[0].src}
-            alt={galleryImages[0].alt}
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent md:w-[60%]" />
-          <div className="absolute left-0 top-0 h-full w-16 bg-[#045C55]/28 md:w-24" />
-        </div>
-
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 pt-16 md:px-8 md:pb-16 md:pt-20">
-          <div className="max-w-2xl">
-            <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
-              <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
-              <span className="text-white/70">/</span>
-              <Link href="/about" className="transition-colors hover:text-white/80">About Us</Link>
+      <HeroSlider
+        images={GALLERY_HERO_IMAGES}
+        altPrefix="Gallery"
+        overlayClassName="inset-y-0 left-0 w-[70%] md:w-[60%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent"
+        className="min-h-[60vh]"
+      >
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-7xl px-6 pb-12 pt-16 md:px-8 md:pb-16 md:pt-20">
+            <div className="max-w-2xl">
+              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+                <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
+                <span className="text-white/70">/</span>
+                <Link href="/about" className="transition-colors hover:text-white/80">About Us</Link>
               <span className="text-white/70">/</span>
               <span>Gallery</span>
             </div>
@@ -109,9 +112,10 @@ export default function GalleryPage() {
             </p>
           </div>
         </div>
-      </section>
+        </div>
+      </HeroSlider>
 
-      <section className="bg-white pt-12 pb-12 md:pb-16 lg:pb-20 font-sans relative z-10">
+      <section id="gallery-grid" className="bg-white pt-12 pb-12 md:pb-16 lg:pb-20 font-sans relative z-10">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="mb-6 flex items-center gap-3">
             <span className="h-[1px] w-8 bg-[#00A991]" />
@@ -154,25 +158,7 @@ export default function GalleryPage() {
           <div className="max-w-2xl text-left text-white">
             <div className="mb-6 flex items-center gap-4">
               <span className="h-[2px] w-8 bg-white/30" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/90">GET INVOLVED</span>
-            </div>
-
-            <h2 className="font-extrabold text-4xl md:text-[4.8rem] leading-[0.9] tracking-tight">
-              <span className="block">JOIN OUR</span>
-              <span className="block font-light italic text-white/90 text-4xl md:text-[5.6rem]">COMMUNITY</span>
-            </h2>
-
-            <p className="mt-6 text-[14px] md:text-[16px] max-w-lg text-white/90 leading-relaxed">
-              Partner with us, volunteer, or donate — every action helps us reach more women across Rwanda and build a stronger nation together.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/partner" className="inline-flex items-center justify-center rounded-md bg-white px-4 py-2 text-[13px] font-semibold text-[#007A71]">PARTNER WITH US</Link>
-              <Link href="/careers" className="inline-flex items-center justify-center rounded-md border border-white/30 px-4 py-2 text-[13px] text-white/90">VIEW CAREERS</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <JoinCommunitySection />
 
     </div>
   );

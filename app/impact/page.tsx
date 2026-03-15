@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { HeroSlider } from "../components/hero-slider";
+import { JoinCommunitySection } from "../components/join-community-section";
 import {
   TrendingUp,
   Users,
@@ -12,6 +14,12 @@ import {
   Heart,
   Wifi,
 } from "lucide-react";
+
+const IMPACT_HERO_IMAGES = [
+  "/images/wfw/Home page/Over 25 years of transformation.jpg",
+  "/images/wfw/Home page/Strengthening women-led businesses.jpg",
+  "/images/wfw/Home page/Socio-economic empowerment.jpg",
+];
 
 type StatItem = {
   end: number;
@@ -130,41 +138,111 @@ const milestones = [
   },
 ];
 
+const successStories = [
+  {
+    name: "Nikuze Esther",
+    program: "Adolescent Girls Program",
+    image: "/images/site/gallery-1.jpg",
+    title: "From Teenage Motherhood To Self-Belief",
+    quote:
+      "WfW-Rwanda gave me friends, sisters, and even parents. We studied life skills together, learning about our bodies, about parenting, saving, and much more.",
+    body:
+      "At 14, Esther became pregnant while in Senior 4. After her mother passed away during her eighth month of pregnancy, she was left entirely alone. Through WfW-Rwanda's adolescent girls program, she regained confidence, learned hair braiding and make-up skills, and rebuilt her sense of self-worth.",
+  },
+  {
+    name: "Mukarakundo Olive",
+    program: "Core Program",
+    image: "/images/site/gallery-2.jpg",
+    title: "From Market Stall To Business Leader",
+    quote:
+      "The program helped me turn my small stall into a stable business and gave me a support network I can count on.",
+    body:
+      "With training in business planning, savings, and leadership, Mukarakundo expanded her customer base, improved her products, and built a steady income for her family.",
+  },
+  {
+    name: "Kirungi Viviane",
+    program: "Graduate Support",
+    image: "/images/site/gallery-3.jpg",
+    title: "Building A Future Through Graduate Support",
+    quote:
+      "I learned to price my products, keep records, and plan for growth. My confidence changed everything.",
+    body:
+      "Graduate support connected Kirungi to mentors, finance fairs, and new markets. She now mentors other women starting similar businesses.",
+  },
+  {
+    name: "Claudine",
+    program: "Core Program",
+    image: "/images/site/gallery-4.jpg",
+    title: "Skills To Stability",
+    quote:
+      "I can provide for my children and make decisions for our future. That is real freedom.",
+    body:
+      "Claudine completed vocational training and joined a savings group. The support helped her invest in equipment and build a reliable income stream.",
+  },
+  {
+    name: "Odette Nyirankundimana",
+    program: "Core Program",
+    image: "/images/site/gallery-5.jpg",
+    title: "Confidence Through Community",
+    quote:
+      "The group became my family. Together we learned, saved, and lifted each other.",
+    body:
+      "Odette used the program's health and financial literacy sessions to improve her family's well-being and became a local advocate for women's rights.",
+  },
+  {
+    name: "Umutoni Clementine",
+    program: "Adolescent Girls Program",
+    image: "/images/site/gallery-6.jpg",
+    title: "From Setbacks To Self-Worth",
+    quote:
+      "I found a path back to school and a future I can shape on my own terms.",
+    body:
+      "Umutoni rejoined education while learning life skills and income generation. She now supports younger girls in her community.",
+  },
+];
+
 export default function ImpactPage() {
+  const [activeStory, setActiveStory] = useState(0);
+  const currentStory = successStories[activeStory];
+
+  const goPrev = () => {
+    setActiveStory((prev) => (prev - 1 + successStories.length) % successStories.length);
+  };
+
+  const goNext = () => {
+    setActiveStory((prev) => (prev + 1) % successStories.length);
+  };
+
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
       {/* HERO */}
-      <section className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden bg-[#0C3F3C]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/impact-hero.jpg"
-            alt="Our Impact"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B5E57]/85 via-[#0B5E57]/35 to-transparent" />
-        </div>
+      <HeroSlider
+        images={IMPACT_HERO_IMAGES}
+        altPrefix="Our Impact"
+        overlayClassName="bg-gradient-to-r from-[#0B5E57]/85 via-[#0B5E57]/35 to-transparent"
+        className="min-h-[calc(100vh-4rem)]"
+      >
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-7xl px-6 pb-12 pt-14 lg:px-10">
+            <div className="max-w-3xl text-white">
+              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                <Link href="/" className="transition-colors hover:text-white">Home</Link>
+                <span className="text-white/60">/</span>
+                <span>Our Impact</span>
+              </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 pt-14 lg:px-10">
-          <div className="max-w-3xl text-white">
-            <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-              <Link href="/" className="transition-colors hover:text-white">Home</Link>
-              <span className="text-white/60">/</span>
-              <span>Our Impact</span>
+              <h1 className="text-5xl md:text-7xl font-black uppercase leading-[0.95]">
+                OUR
+                <span className="block font-light italic text-white/80">IMPACT</span>
+              </h1>
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/85 md:text-base">
+                Over 23 years, we have expanded and adapted our programs to support more than 80,000
+                marginalized women across the country.
+              </p>
             </div>
-
-            <h1 className="text-5xl md:text-7xl font-black uppercase leading-[0.95]">
-              OUR
-              <span className="block font-light italic text-white/80">IMPACT</span>
-            </h1>
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/85 md:text-base">
-              Over 23 years, we have expanded and adapted our programs to support more than 80,000
-              marginalized women across the country.
-            </p>
           </div>
         </div>
-      </section>
+      </HeroSlider>
 
       {/* STATS */}
       <section className="bg-[#F4F7F6]">
@@ -204,7 +282,7 @@ export default function ImpactPage() {
                 sectors and districts of our current operation, spanning seven districts.
               </p>
               <p>
-                In an innovative approach, we introduced the Men’s Engagement Program (MEP) to
+                In an innovative approach, we introduced the Men's Engagement Program (MEP) to
                 address gender inequalities and combat discriminatory customs and gender-based
                 violence.
               </p>
@@ -212,7 +290,7 @@ export default function ImpactPage() {
           </div>
 
           <div className="relative">
-            <div className="relative h-[380px] w-full overflow-hidden">
+            <div className="relative h-[460px] w-full overflow-hidden md:h-[520px] lg:h-[620px]">
               <Image
                 src="/images/site/impact-approach.jpg"
                 alt="Districts covered"
@@ -262,7 +340,7 @@ export default function ImpactPage() {
       </section>
 
       {/* DIGITAL TRANSFORMATION */}
-      <section className="bg-[#0B1E1A] py-16 text-white min-h-[calc(100vh-4rem)] flex items-center">
+      <section className="bg-[#0B1E1A] py-16 text-white min-h-screen flex items-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-6 flex items-center gap-3 text-[#7BB6AF]">
             <span className="h-[2px] w-8 bg-[#0A8F82]" />
@@ -298,45 +376,115 @@ export default function ImpactPage() {
         </div>
       </section>
 
-      {/* JOIN OUR COMMUNITY */}
-      <section className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/join-community.jpg"
-            alt="Join our community"
-            fill
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A7F73]/82 via-[#0A7F73]/45 to-transparent" />
-        </div>
+      {/* SUCCESS STORIES */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <div className="mb-4 flex items-center gap-3 text-[#007A71]">
+                <span className="h-[2px] w-10 bg-[#007A71]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.32em]">
+                  Real Stories, Real Impact
+                </span>
+              </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-          <div className="max-w-2xl text-white">
-            <div className="mb-5 flex items-center gap-3 text-white/80">
-              <span className="h-[2px] w-10 bg-white/50" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.34em]">Get Involved</span>
+              <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.92] text-[#0D2323]">
+                Success
+                <span className="ml-2 font-light italic text-[#007A71]">Stories</span>
+              </h2>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-black uppercase leading-[0.95]">
-              Join Our
-              <span className="block font-light italic text-white/70">Community</span>
-            </h2>
-
-            <p className="mt-5 max-w-lg text-[14px] leading-relaxed text-white/85">
-              Partner with us, volunteer, or donate. Every action helps us reach more women across Rwanda.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/partner" className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-[12px] font-bold uppercase tracking-[0.2em] text-[#0A7F73]">
-                Partner with us
-              </Link>
-              <Link href="/careers" className="inline-flex items-center justify-center rounded-md border border-white/40 px-6 py-3 text-[12px] font-bold uppercase tracking-[0.2em] text-white">
-                View careers
-              </Link>
+            <div className="hidden items-center gap-3 md:flex">
+              <button
+                type="button"
+                aria-label="Previous story"
+                onClick={goPrev}
+                className="flex h-12 w-12 items-center justify-center border border-[#DDE7E4] text-[#007A71]"
+              >
+                <span className="text-xl leading-none">&lt;</span>
+              </button>
+              <button
+                type="button"
+                aria-label="Next story"
+                onClick={goNext}
+                className="flex h-12 w-12 items-center justify-center border border-[#DDE7E4] text-[#007A71]"
+              >
+                <span className="text-xl leading-none">&gt;</span>
+              </button>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="relative overflow-hidden">
+              <div className="relative h-[360px] w-full sm:h-[420px] lg:h-[480px]">
+                <Image
+                  src={currentStory.image}
+                  alt={currentStory.program}
+                  fill
+                  className="object-cover object-center"
+                />
+              </div>
+              <div className="absolute left-6 top-6 bg-[#007A71] px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-white">
+                {currentStory.program}
+              </div>
+            </div>
+
+            <div className="bg-[#FBFAF7] p-8 lg:p-10">
+              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center bg-[#E7F6F3] text-[#007A71]">
+                <span className="text-2xl leading-none">"</span>
+              </div>
+              <div className="text-[11px] font-black uppercase tracking-[0.3em] text-[#007A71]">
+                {currentStory.name}, Age 17
+              </div>
+              <h3 className="mt-3 text-3xl md:text-4xl font-black uppercase leading-tight text-[#0D2323]">
+                {currentStory.title}
+              </h3>
+              <div className="mt-4 border-l-2 border-[#007A71] pl-5 text-[14px] leading-relaxed text-[#6B7574]">
+                <p className="italic">"{currentStory.quote}"</p>
+                <p className="mt-4">{currentStory.body}</p>
+              </div>
+              <div className="mt-8 flex items-center gap-2">
+                {successStories.map((story, idx) => (
+                  <span
+                    key={story.name}
+                    className={`h-[3px] ${
+                      idx === activeStory ? "w-10 bg-[#007A71]" : "w-6 bg-[#CFE4E1]"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {successStories.map((story, idx) => (
+              <button
+                key={story.name}
+                type="button"
+                onClick={() => setActiveStory(idx)}
+                className="relative h-[200px] overflow-hidden text-left"
+                aria-label={`View story for ${story.name}`}
+              >
+                <Image
+                  src={story.image}
+                  alt={story.name}
+                  fill
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B2B27]/85 via-[#0B2B27]/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <div className="text-[12px] font-bold leading-tight">{story.name}</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/70">
+                    {story.program}
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </section>
+
+      <JoinCommunitySection />
     </div>
   );
 }

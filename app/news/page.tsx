@@ -5,6 +5,14 @@ import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { articles, stories, events } from "./data";
+import { HeroSlider } from "../components/hero-slider";
+import { JoinCommunitySection } from "../components/join-community-section";
+
+const NEWS_HERO_IMAGES = [
+  "/images/wfw/Home page/Over 25 years of transformation.jpg",
+  "/images/wfw/slide 2/Born from resilience.jpg",
+  "/images/wfw/slide 2/Learn, share and support.jpeg",
+];
 
 export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -37,39 +45,35 @@ export default function NewsPage() {
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
 
-      <section className="relative min-h-[52vh] w-full overflow-hidden bg-[#0C3F3C]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={featured.image}
-            alt={featured.title}
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-y-0 left-0 w-[75%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/60 to-transparent md:w-[62%]" />
-        </div>
+      <HeroSlider
+        images={NEWS_HERO_IMAGES}
+        altPrefix="News and Events"
+        overlayClassName="inset-y-0 left-0 w-[75%] md:w-[62%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/60 to-transparent"
+        className="min-h-screen"
+      >
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-16 md:px-6 md:pb-20 md:pt-20">
+            <div className="max-w-3xl">
+              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+                <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
+                <span className="text-white/70">/</span>
+                <span>News &amp; Events</span>
+              </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-16 md:px-6 md:pb-20 md:pt-20">
-          <div className="max-w-3xl">
-            <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
-              <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
-              <span className="text-white/70">/</span>
-              <span>News &amp; Events</span>
+              <div className="mb-8 h-[2px] w-9 bg-white/90" />
+
+              <h1 className="text-5xl font-extrabold uppercase leading-[0.92] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[6.5rem]">
+                NEWS <span className="inline-block">&amp;</span>
+                <span className="block mt-2 font-light italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl">EVENTS</span>
+              </h1>
+
+              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
+                Stay up to date with the latest stories, program updates, upcoming events, and community celebrations from Women for Women Rwanda.
+              </p>
             </div>
-
-            <div className="mb-8 h-[2px] w-9 bg-white/90" />
-
-            <h1 className="text-5xl font-extrabold uppercase leading-[0.92] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[6.5rem]">
-              NEWS <span className="inline-block">&amp;</span>
-              <span className="block mt-2 font-light italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl">EVENTS</span>
-            </h1>
-
-            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
-              Stay up to date with the latest stories, program updates, upcoming events, and community celebrations from Women for Women Rwanda.
-            </p>
           </div>
         </div>
-      </section>
+      </HeroSlider>
 
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -304,36 +308,7 @@ export default function NewsPage() {
         </div>
       </section>
 
-      <section className="relative min-h-[46vh] w-full overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image src={featured.image} alt="Join our community" fill className="object-cover object-center" />
-          <div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-[#007A71]/80 to-transparent pointer-events-none" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 md:px-8">
-          <div className="max-w-3xl">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-[2px] w-12 bg-white/60" />
-              <div className="text-[11px] uppercase tracking-[0.22em] text-white/90 font-semibold">GET INVOLVED</div>
-            </div>
-
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase text-white leading-[0.92]">
-              JOIN OUR
-              <span className="block mt-2 font-light italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#D6EDE8]">COMMUNITY</span>
-            </h2>
-
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/90">
-              Partner with us, volunteer, or donate — every action helps us reach more women across Rwanda and build a stronger nation together.
-            </p>
-
-            <div className="mt-8 flex gap-4">
-              <Link href="/partner" className="inline-block bg-white text-[#007A71] font-semibold uppercase text-sm px-4 py-2 rounded-sm">PARTNER WITH US</Link>
-              <Link href="/careers" className="inline-block border border-white/60 text-white uppercase text-sm px-4 py-2 rounded-sm">VIEW CAREERS</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <JoinCommunitySection />
     </div>
   );
 }

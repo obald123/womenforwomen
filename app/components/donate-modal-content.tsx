@@ -235,37 +235,15 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
             {theme.cta}
           </button>
 
-          <div className="flex items-center justify-center gap-4">
-            <div className="flex h-12 w-24 items-center justify-center border border-[#E6ECEC] bg-white px-3">
-              <svg
-                viewBox="0 0 66 22"
-                aria-label="Visa"
-                className="h-8 w-auto"
-                role="img"
-              >
-                <rect width="66" height="22" rx="2" fill="white" />
-                <path
-                  d="M25.4 17.4H23l1.5-9.3h2.4l-1.5 9.3ZM34.8 8.3c-.5-.2-1.2-.4-2.1-.4-2.3 0-3.9 1.2-3.9 2.9 0 1.3 1.2 2 2.1 2.5.9.4 1.2.7 1.2 1 0 .6-.7.9-1.4.9-.9 0-1.4-.1-2.2-.5l-.3-.1-.3 1.9c.5.2 1.5.4 2.4.4 2.4 0 4-1.2 4-3 0-1-.6-1.8-2-2.5-.8-.4-1.3-.7-1.3-1.1 0-.4.4-.8 1.3-.8.7 0 1.3.2 1.7.4l.2.1.3-1.7ZM41.2 8.1h-1.8c-.6 0-1 .2-1.2.8l-3.5 8.6h2.5l.5-1.4h3l.3 1.4h2.2l-2-9.4Zm-2.7 6.2 1.2-3.2.7 3.2h-1.9ZM18.3 8.1l-2.3 6.4-.3-1.5c-.4-1.4-1.6-3-3-3.8l2.1 8.2h2.5l3.7-9.3h-2.7Z"
-                  fill="#1A1F71"
-                />
-                <path
-                  d="M13.9 8.1h-3.8l-.1.2c2.9.7 4.8 2.4 5.6 4.5l-.8-4c-.1-.6-.6-.7-.9-.7Z"
-                  fill="#1A1F71"
-                />
-              </svg>
-            </div>
-            <div className="flex h-12 w-24 items-center justify-center border border-[#E6ECEC] bg-white px-3">
-              <svg
-                viewBox="0 0 64 24"
-                aria-label="Mastercard"
-                className="h-8 w-auto"
-                role="img"
-              >
-                <rect width="64" height="24" rx="2" fill="white" />
-                <circle cx="26" cy="12" r="8" fill="#EB001B" />
-                <circle cx="38" cy="12" r="8" fill="#F79E1B" />
-                <path d="M32 6.5a8 8 0 0 1 0 11 8 8 0 0 1 0-11Z" fill="#FF5F00" />
-              </svg>
+          <div className="flex items-center justify-center">
+            <div className="flex h-16 w-56 items-center justify-center border border-[#E6ECEC] bg-white px-4">
+              <Image
+                src="/images/site/Visa-Mastercard-1-1024x378.webp"
+                alt="Visa and Mastercard"
+                width={220}
+                height={80}
+                className="h-12 w-auto object-contain"
+              />
             </div>
           </div>
 

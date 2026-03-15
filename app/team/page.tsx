@@ -3,6 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { HeroSlider } from "../components/hero-slider";
+import { JoinCommunitySection } from "../components/join-community-section";
+
+const TEAM_HERO_IMAGES = [
+  "/images/wfw/slide 2/Born from resilience.jpg",
+  "/images/wfw/slide 2/Learn, share and support.jpeg",
+  "/images/wfw/slide 2/7 districts.jpg",
+];
 
 const teamTabs = [
   {
@@ -87,42 +95,53 @@ export default function TeamPage() {
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
 
-      <section className="relative min-h-[52vh] w-full overflow-hidden bg-[#0C3F3C]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/join-community.jpg"
-            alt="Community gathering"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-y-0 left-0 w-[78%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent md:w-[62%]" />
-          <div className="absolute left-0 top-0 h-full w-16 bg-[#045C55]/28 md:w-24" />
-        </div>
+      <HeroSlider
+        images={TEAM_HERO_IMAGES}
+        altPrefix="Our Team"
+        overlayClassName="bg-gradient-to-r from-[#0D6B63]/80 via-[#0D6B63]/35 to-transparent"
+        className="min-h-screen"
+      >
+        <div className="flex flex-1 flex-col">
+          <div className="flex flex-1 items-center">
+            <div className="mx-auto w-full max-w-7xl px-6 pt-20 lg:px-8">
+              <div className="max-w-4xl text-white">
+                <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/90">
+                  <Link href="/" className="transition-colors hover:text-white/80">
+                    Home
+                  </Link>
+                  <span className="text-white/60">/</span>
+                  <Link href="/about" className="transition-colors hover:text-white/80">
+                    About Us
+                  </Link>
+                  <span className="text-white/60">/</span>
+                  <span>Our Team</span>
+                </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-8 pb-12 pt-16 md:px-12 md:pb-16 md:pt-20">
-          <div className="max-w-3xl text-left text-white">
-            <div className="mb-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/90">
-              <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
-              <span className="mx-2 text-white/60">/</span>
-              <Link href="/about" className="transition-colors hover:text-white/80">About Us</Link>
-              <span className="mx-2 text-white/60">/</span>
-              <span>Our Team</span>
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-[900] leading-[0.85] tracking-tighter uppercase">
+                  MEET THE
+                  <span className="block font-extralight italic text-[#4DD9C4] py-2">
+                    TEAM
+                  </span>
+                  <span className="block">BEHIND</span>
+                  <span className="block">THE MISSION</span>
+                </h1>
+
+                <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-white/90 font-medium">
+                  Meet the dedicated leaders and staff guiding Women for Women Rwanda&apos;s
+                  mission to promote dignity, freedom, and equality for women.
+                </p>
+              </div>
             </div>
+          </div>
 
-            <div className="mb-6 h-[2px] w-9 bg-white/30" />
-
-            <h1 className="text-4xl md:text-[3.2rem] font-black uppercase leading-[0.92] tracking-tight">
-              <span className="block">OUR</span>
-              <span className="block font-light italic text-white/90">TEAM</span>
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-[14px] leading-relaxed text-white/90">
-              Meet the dedicated leaders and staff guiding Women for Women Rwanda's mission to promote dignity, freedom, and equality for women.
-            </p>
+          <div className="absolute bottom-12 right-12 z-20 hidden md:flex flex-col items-center gap-6">
+            <span className="text-[10px] font-bold text-white uppercase tracking-[0.5em] rotate-90 origin-right translate-y-8 opacity-70">
+              Scroll
+            </span>
+            <div className="h-24 w-[1px] bg-white/30" />
           </div>
         </div>
-      </section>
+      </HeroSlider>
 
       <section className="relative z-20 border-b border-[#D8DEDD] bg-[#E7ECEB]">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -150,7 +169,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      <section className="bg-white pt-12 md:pt-14">
+      <section id="team-section" className="bg-white pt-12 md:pt-14">
         <div className="mx-auto max-w-7xl px-4 md:px-8 relative">
           <div className="max-w-3xl pt-2 md:pt-5 text-left">
             <div className="mb-6 flex items-center gap-3 md:mb-5">
@@ -208,43 +227,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      <section className="relative w-full overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/join-community.jpg"
-            alt="Join our community"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-y-0 left-0 w-[78%] bg-gradient-to-r from-[#06564F]/80 via-[#0A6D66]/60 to-transparent md:w-[62%]" />
-          <div className="absolute left-0 top-0 h-full w-16 bg-[#045C55]/28 md:w-24" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-8 py-12 md:py-20">
-          <div className="max-w-2xl text-left text-white">
-            <div className="mb-6 flex items-center gap-4">
-              <span className="h-[2px] w-8 bg-white/30" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/90">GET INVOLVED</span>
-            </div>
-
-            <h2 className="font-extrabold text-4xl md:text-[4.8rem] leading-[0.9] tracking-tight">
-              <span className="block">JOIN OUR</span>
-              <span className="block font-light italic text-white/90 text-4xl md:text-[5.6rem]">COMMUNITY</span>
-            </h2>
-
-            <p className="mt-6 text-[12px] md:text-[14px] max-w-lg text-white/90 leading-relaxed">
-              Partner with us, volunteer, or donate — every action helps us reach more women across Rwanda and build a stronger nation together.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/partner" className="inline-flex items-center justify-center rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#007A71]">PARTNER WITH US</Link>
-              <Link href="/careers" className="inline-flex items-center justify-center rounded-md border border-white/30 px-5 py-3 text-sm text-white/90">VIEW CAREERS</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <JoinCommunitySection />
     </div>
   );
 }

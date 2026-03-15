@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Target, Eye, Shield, Users, Award, Heart, BookOpen, Handshake, Wrench, TrendingUp, Globe } from "lucide-react";
+import { HeroSlider } from "../components/hero-slider";
+import { JoinCommunitySection } from "../components/join-community-section";
+
+const ABOUT_HERO_IMAGES = [
+  "/images/wfw/slide 2/Born from resilience.jpg",
+  "/images/wfw/slide 2/Learn, share and support.jpeg",
+  "/images/wfw/slide 2/7 districts.jpg",
+];
 
 const values = [
   {
@@ -40,42 +48,38 @@ export default function AboutPage() {
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
       
       {/* HERO SECTION */}
-      <section className="relative h-[75vh] min-h-[520px] w-full flex items-center overflow-hidden bg-black">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/about-hero.jpg"
-            alt="About Us Hero"
-            fill
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0D6B63]/85 via-[#0D6B63]/40 to-transparent"></div>
-        </div>
+      <HeroSlider
+        images={ABOUT_HERO_IMAGES}
+        altPrefix="About Us"
+        overlayClassName="bg-gradient-to-r from-[#0D6B63]/85 via-[#0D6B63]/40 to-transparent"
+        className="min-h-screen"
+      >
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+            <div className="max-w-3xl">
+              <div className="mb-8 flex items-center gap-2 text-white/70">
+                <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors">
+                  HOME
+                </Link>
+                <span className="text-white/50">/</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">ABOUT US</span>
+              </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 w-full">
-          <div className="max-w-3xl">
-            {/* Breadcrumb */}
-            <div className="mb-8 flex items-center gap-2 text-white/70">
-              <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors">
-                HOME
-              </Link>
-              <span className="text-white/50">/</span>
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">ABOUT US</span>
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-[900] leading-[0.9] text-white tracking-tighter uppercase">
+                ABOUT<br />
+                <span className="font-extralight italic text-[#4DD9C4]">US</span>
+              </h1>
+
+              <p className="mt-6 text-sm md:text-base text-white leading-relaxed font-medium max-w-2xl">
+                Promoting dignity, freedom, and equality for women in Rwanda since 1997. A story of resilience, transformation, and community.
+              </p>
             </div>
-
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-[900] leading-[0.9] text-white tracking-tighter uppercase">
-              ABOUT<br />
-              <span className="font-extralight italic text-[#4DD9C4]">US</span>
-            </h1>
-
-            <p className="mt-6 text-sm md:text-base text-white leading-relaxed font-medium max-w-2xl">
-              Promoting dignity, freedom, and equality for women in Rwanda since 1997. A story of resilience, transformation, and community.
-            </p>
           </div>
         </div>
-      </section>
+      </HeroSlider>
 
       {/* BORN FROM RESILIENCE SECTION */}
-      <section className="py-20 bg-white">
+      <section id="mission-vision" className="py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* LEFT SIDE - CONTENT */}
@@ -412,61 +416,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* JOIN OUR COMMUNITY SECTION */}
-      <section className="relative w-full min-h-[480px] flex items-center overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/join-community.jpg"
-            alt="Join our community"
-            fill
-            className="object-cover object-center"
-          />
-          {/* teal gradient overlay — strong on left, fades right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0D6B63]/90 via-[#0D6B63]/60 to-transparent"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-12 py-20 w-full">
-          <div className="max-w-lg">
-            {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-[2px] w-5 bg-white/50"></div>
-              <div className="h-[2px] w-5 bg-white/50"></div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/80">Get Involved</span>
-            </div>
-
-            {/* Heading */}
-            <h2 className="text-6xl md:text-7xl font-black text-white uppercase leading-[0.95] mb-2">
-              JOIN OUR
-            </h2>
-            <h2 className="text-6xl md:text-7xl font-extralight italic text-white/80 uppercase leading-[0.95] mb-8">
-              COMMUNITY
-            </h2>
-
-            {/* Description */}
-            <p className="text-sm text-white/80 leading-relaxed mb-10 max-w-sm">
-              Partner with us, volunteer, or donate — every action helps us reach more women across Rwanda and build a stronger nation together.
-            </p>
-
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/get-involved"
-                className="bg-white text-[#0D6B63] px-8 py-3 text-[11px] font-black uppercase tracking-[0.2em] hover:bg-gray-100 transition-colors"
-              >
-                Partner With Us
-              </Link>
-              <Link
-                href="/get-involved"
-                className="border border-white text-white px-8 py-3 text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-colors"
-              >
-                View Careers
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <JoinCommunitySection />
 
     </div>
   );

@@ -5,10 +5,103 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Heart } from "lucide-react";
 import PartnersCarousel from "./components/partners-carousel";
+import { HeroSlider } from "./components/hero-slider";
+import { JoinCommunitySection } from "./components/join-community-section";
+
+const HOME_HERO_IMAGES = [
+  "/images/wfw/Home page/Strengthening women-led businesses.jpg",
+  "/images/wfw/Home page/Socio-economic empowerment.jpg",
+  "/images/wfw/Home page/Graduation out of poverty.JPG",
+  "/images/wfw/Home page/Empowering change through skills building.jpg",
+  "/images/wfw/Home page/Over 25 years of transformation.jpg",
+];
+
+function StatCounter({
+  end,
+  suffix = "+",
+  duration = 1800,
+}: {
+  end: number;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [value, setValue] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || hasAnimated) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        setHasAnimated(true);
+        let startTime: number | null = null;
+
+        const tick = (now: number) => {
+          if (startTime === null) startTime = now;
+          const progress = Math.min(1, (now - startTime) / duration);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setValue(Math.round(eased * end));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [end, duration, hasAnimated]);
+
+  const formatted = value.toLocaleString() + suffix;
+  return <div ref={ref}>{formatted}</div>;
+}
+
+type GlassCardFormat = "k" | "plus" | "moneyK" | "plain";
+
+function GlassCardStatCounter({
+  end,
+  format,
+  start,
+  duration = 1600,
+}: {
+  end: number;
+  format: GlassCardFormat;
+  start: boolean;
+  duration?: number;
+}) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+    let startTime: number | null = null;
+    const tick = (now: number) => {
+      if (startTime === null) startTime = now;
+      const progress = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * end));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [end, start, duration]);
+
+  const formatted =
+    format === "k"
+      ? `${value.toLocaleString()}K+`
+      : format === "plus"
+        ? `${value.toLocaleString()}+`
+        : format === "moneyK"
+          ? `$${value}K+`
+          : String(value);
+  return <>{formatted}</>;
+}
 
 export default function Home() {
   const glassCardRef = useRef<HTMLDivElement | null>(null);
   const [glassCardProgress, setGlassCardProgress] = useState(0);
+  const [glassCardAnimated, setGlassCardAnimated] = useState(false);
 
   useEffect(() => {
     const element = glassCardRef.current;
@@ -46,75 +139,88 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const el = glassCardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) setGlassCardAnimated(true);
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
       
-      {/* SECTION 1: HERO - 100% MATCH TO SCREENSHOT */}
-      <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-black">
-        {/* Hero Image Background */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/home-hero.jpg"
-            alt="Women Empowerment Rwanda"
-            fill
-            className="object-cover object-center brightness-90"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0D6B63]/75 via-[#0D6B63]/35 to-transparent"></div>
-        </div>
+      {/* SECTION 1: HERO - Sliding images from wfw/Home page */}
+      <HeroSlider
+        images={HOME_HERO_IMAGES}
+        altPrefix="Women Empowerment Rwanda"
+        overlayClassName="bg-gradient-to-r from-[#0D6B63]/75 via-[#0D6B63]/35 to-transparent"
+        className="min-h-screen"
+      >
+        <div className="flex flex-1 flex-col">
+          <div className="flex flex-1 items-center">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full pt-20">
+              <div className="max-w-4xl relative">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-[900] leading-[0.85] text-white tracking-tighter uppercase">
+                  STRONGER<br />
+                  <span className="font-extralight italic text-[#4DD9C4] block py-2">WOMEN,</span>
+                  <span className="block">STRONGER</span>
+                  <span className="block">NATION</span>
+                </h1>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 w-full pt-20">
-          <div className="max-w-4xl relative">
-            
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-[900] leading-[0.85] text-white tracking-tighter uppercase">
-              STRONGER<br />
-              <span className="font-extralight italic text-[#4DD9C4] block py-2">WOMEN,</span>
-              <span className="block">STRONGER</span>
-              <span className="block">NATION</span>
-            </h1>
+                <p className="mt-8 text-sm md:text-base text-white leading-relaxed font-medium max-w-2xl">
+                  Every woman possesses the potential to shape her world. When women unite, they wield the strength to create a brighter collective future for Rwanda.
+                </p>
 
-            <p className="mt-8 text-sm md:text-base text-white leading-relaxed font-medium max-w-2xl">
-              Every woman possesses the potential to shape her world. When women unite, they wield the strength to create a brighter collective future for Rwanda.
-            </p>
-            
-            <div className="mt-12 flex flex-wrap gap-5 pb-12">
-              {/* White Button */}
-              <Link href="/programs" className="rounded-sm bg-white px-7 py-3 text-[11px] font-black tracking-[0.2em] text-[#0D6B63] transition-all hover:bg-gray-100 uppercase">
-                Explore Programs
-              </Link>
-              {/* Transparent Border Button */}
-              <Link href="/impact" className="rounded-sm border-2 border-white/60 bg-white/5 backdrop-blur-sm px-7 py-3 text-[11px] font-black tracking-[0.2em] text-white transition-all hover:bg-white/10 uppercase">
-                See Our Impact
-              </Link>
+                <div className="mt-12 flex flex-wrap gap-5 pb-12">
+                  <Link href="/programs" className="rounded-sm bg-white px-7 py-3 text-[11px] font-black tracking-[0.2em] text-[#0D6B63] transition-all hover:bg-gray-100 uppercase">
+                    Explore Programs
+                  </Link>
+                  <Link href="/impact" className="rounded-sm border-2 border-white/60 bg-white/5 backdrop-blur-sm px-7 py-3 text-[11px] font-black tracking-[0.2em] text-white transition-all hover:bg-white/10 uppercase">
+                    See Our Impact
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Scroll Indicator - Bottom Right */}
-        <div className="absolute bottom-12 right-12 z-20 hidden md:flex flex-col items-center gap-6">
+          <div className="absolute bottom-12 right-12 z-20 hidden md:flex flex-col items-center gap-6">
             <span className="text-[10px] font-bold text-white uppercase tracking-[0.5em] rotate-90 origin-right translate-y-8 opacity-70">Scroll</span>
-            <div className="h-24 w-[1px] bg-white/30"></div>
+            <div className="h-24 w-[1px] bg-white/30" />
+          </div>
         </div>
-      </section>
+      </HeroSlider>
 
       {/* SECTION 2: STATS BAR */}
       <section className="bg-[#F0F7F6] py-8">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">80,000+</div>
+              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
+                <StatCounter end={80000} />
+              </div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Women Served Since 1997</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">3,160+</div>
+              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
+                <StatCounter end={3160} />
+              </div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">VSLAs Created Nationwide</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">390+</div>
+              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
+                <StatCounter end={390} />
+              </div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Digitalized Savings Groups</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">170+</div>
+              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
+                <StatCounter end={170} />
+              </div>
               <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Men Engaged as Advocates</div>
             </div>
           </div>
@@ -127,45 +233,58 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* LEFT SIDE - IMAGE GRID */}
             <div className="grid grid-cols-2 grid-rows-2 gap-3 h-[600px]">
-              {/* First Image - Large */}
-              <div className="relative overflow-hidden rounded-lg row-span-2">
+              {/* First Image - Large: COHORT 2024 */}
+              <div className="group relative overflow-hidden rounded-lg row-span-2">
                 <Image 
                   src="/images/site/home-grid-1.jpg"
-                  alt="Women learning together"
+                  alt="Women in cohort program"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-3 left-3">
+                  <span className="inline-block bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
+                    COHORT 2024
+                  </span>
+                </div>
               </div>
-              {/* Second Image - Small with Overlay */}
-              <div className="relative overflow-hidden rounded-lg">
+              {/* Second Image - LEARNING TOGETHER */}
+              <div className="group relative overflow-hidden rounded-lg">
                 <Image 
                   src="/images/site/home-grid-2.jpg"
                   alt="Community gathering"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                 <div className="absolute bottom-3 left-3">
-                  <div className="inline-block bg-[#00A991]/40 px-2 py-1">
-                    <span className="text-[8px] font-bold uppercase tracking-[0.15em] text-white">Learning Together</span>
-                  </div>
+                  <span className="inline-block bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
+                    LEARNING TOGETHER
+                  </span>
                 </div>
               </div>
-              {/* Third Image - Small */}
-              <div className="relative overflow-hidden rounded-lg">
+              {/* Third Image - SKILLS TRAINING */}
+              <div className="group relative overflow-hidden rounded-lg">
                 <Image 
                   src="/images/site/home-grid-3.jpg"
                   alt="Skills training"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-3 left-3">
+                  <span className="inline-block bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
+                    SKILLS TRAINING
+                  </span>
+                </div>
               </div>
             </div>
 
             {/* RIGHT SIDE - CONTENT */}
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-3">
-                <div className="h-[2px] w-8 bg-[#00A991]"></div>
+                <div className="h-[2px] w-8 bg-[#00A991]" />
                 <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#00A991]">Our Story</span>
               </div>
               
@@ -189,22 +308,22 @@ export default function Home() {
 
               {/* Program Pills/Tags */}
               <div className="flex flex-wrap gap-3 mt-4">
-                <span className="inline-block bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
+                <span className="inline-block border border-[#00A991]/30 bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
                   Health & Wellness
                 </span>
-                <span className="inline-block bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
+                <span className="inline-block border border-[#00A991]/30 bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
                   GBV Prevention
                 </span>
-                <span className="inline-block bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
-                  Women's Leadership
+                <span className="inline-block border border-[#00A991]/30 bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
+                  Women&apos;s Leadership
                 </span>
-                <span className="inline-block bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
+                <span className="inline-block border border-[#00A991]/30 bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
                   Business Skills
                 </span>
-                <span className="inline-block bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
+                <span className="inline-block border border-[#00A991]/30 bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
                   Vocational Training
                 </span>
-                <span className="inline-block bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
+                <span className="inline-block border border-[#00A991]/30 bg-[#E6F6F4] px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A991]">
                   Cooperative Building
                 </span>
               </div>
@@ -235,8 +354,8 @@ export default function Home() {
 
           {/* Program Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
-            <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
+            {/* Card 1 - Core Program */}
+            <Link href="/programs?tab=01" className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer block">
               <Image 
                 src="/images/site/programs-core.jpg"
                 alt="Strengthening Women-Led Businesses"
@@ -252,10 +371,10 @@ export default function Home() {
                   Strengthening<br />Women-Led<br />Businesses
                 </h3>
               </div>
-            </div>
+            </Link>
 
-            {/* Card 2 */}
-            <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
+            {/* Card 2 - Complementary */}
+            <Link href="/programs?tab=02" className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer block">
               <Image 
                 src="/images/site/programs-complementary.jpg"
                 alt="Socioeconomic Empowerment"
@@ -271,10 +390,10 @@ export default function Home() {
                   Socioeconomic<br />Empowerment
                 </h3>
               </div>
-            </div>
+            </Link>
 
-            {/* Card 3 */}
-            <div className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer">
+            {/* Card 3 - Graduate Program */}
+            <Link href="/programs?tab=03" className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer block">
               <Image 
                 src="/images/site/programs-graduate.jpg"
                 alt="Graduation Out of Poverty"
@@ -290,7 +409,7 @@ export default function Home() {
                   Graduation Out<br />of Poverty
                 </h3>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -352,7 +471,9 @@ export default function Home() {
               }}
             >
               <div>
-                <div className="text-4xl md:text-5xl font-black text-white">80K+</div>
+                <div className="text-4xl md:text-5xl font-black text-white">
+                  <GlassCardStatCounter end={80} format="k" start={glassCardAnimated} />
+                </div>
                 <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
                   Women Served
                   <br />
@@ -360,7 +481,9 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className="text-4xl md:text-5xl font-black text-white">500+</div>
+                <div className="text-4xl md:text-5xl font-black text-white">
+                  <GlassCardStatCounter end={500} format="plus" start={glassCardAnimated} />
+                </div>
                 <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
                   Business Plan
                   <br />
@@ -368,7 +491,9 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className="text-4xl md:text-5xl font-black text-white">$50K+</div>
+                <div className="text-4xl md:text-5xl font-black text-white">
+                  <GlassCardStatCounter end={50} format="moneyK" start={glassCardAnimated} />
+                </div>
                 <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
                   Business Awards
                   <br />
@@ -376,7 +501,9 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className="text-4xl md:text-5xl font-black text-white">10</div>
+                <div className="text-4xl md:text-5xl font-black text-white">
+                  <GlassCardStatCounter end={10} format="plain" start={glassCardAnimated} />
+                </div>
                 <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
                   Business Competitions
                   <br />
@@ -414,7 +541,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-[6px] md:grid-cols-12">
-            <article className="group relative min-h-[320px] overflow-hidden md:col-span-5 md:min-h-[470px]">
+            <Link href="/news/s1" className="group relative min-h-[320px] overflow-hidden md:col-span-5 md:min-h-[470px] block">
               <Image
                 src="/images/site/gallery-1.jpg"
                 alt="From Setbacks to Strength"
@@ -428,10 +555,10 @@ export default function Home() {
                   From Setbacks to Strength: 60 Girls Graduate from ABADACOGORA Program in Masaka
                 </h3>
               </div>
-            </article>
+            </Link>
 
             <div className="grid grid-cols-1 gap-[6px] md:col-span-7 md:grid-cols-2 md:grid-rows-2">
-              <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
+              <Link href="/news/s2" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
                 <Image
                   src="/images/site/gallery-2.jpg"
                   alt="Empowered Women, Thriving Communities"
@@ -445,9 +572,9 @@ export default function Home() {
                     Empowered Women, Thriving Communities
                   </h3>
                 </div>
-              </article>
+              </Link>
 
-              <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
+              <Link href="/news/s3" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
                 <Image
                   src="/images/site/gallery-3.jpg"
                   alt="Empowering Change through Skill Building"
@@ -461,9 +588,9 @@ export default function Home() {
                     Empowering Change through Skill Building
                   </h3>
                 </div>
-              </article>
+              </Link>
 
-              <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
+              <Link href="/news/s4" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
                 <Image
                   src="/images/site/gallery-4.jpg"
                   alt="Celebrating the Graduation of 100 Women in Ibare"
@@ -477,9 +604,9 @@ export default function Home() {
                     Celebrating the Graduation of 100 Women in Ibare
                   </h3>
                 </div>
-              </article>
+              </Link>
 
-              <article className="group relative min-h-[220px] overflow-hidden md:min-h-[232px]">
+              <Link href="/news/s5" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
                 <Image
                   src="/images/site/gallery-5.jpg"
                   alt="From Dreams to Determination"
@@ -493,7 +620,7 @@ export default function Home() {
                     From Dreams to Determination: ABADACOGORA Graduation in Rubona
                   </h3>
                 </div>
-              </article>
+              </Link>
             </div>
           </div>
         </div>
@@ -629,54 +756,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 10: GET INVOLVED - JOIN OUR COMMUNITY */}
-      <section className="relative isolate min-h-[420px] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/join-community.jpg"
-            alt="Women in community fields"
-            fill
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A7F73]/82 via-[#0A7F73]/38 to-transparent"></div>
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 md:px-8 md:py-16 lg:px-10">
-          <div className="max-w-[560px]">
-            <div className="mb-5 flex items-center gap-3 text-white/80">
-              <span className="h-px w-8 bg-white/60"></span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.34em]">Get Involved</span>
-            </div>
-
-            <h2 className="text-[3.1rem] font-black uppercase leading-[0.9] text-white md:text-[4.3rem]">
-              JOIN OUR
-              <span className="block font-extralight italic">COMMUNITY</span>
-            </h2>
-
-            <p className="mt-5 max-w-[500px] text-base leading-relaxed text-white/92 md:text-[1.05rem]">
-              Partner with us, volunteer, or donate. Every action helps us reach more women
-              across Rwanda and build a stronger nation together.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href="/get-involved"
-                className="inline-flex rounded-[4px] bg-white px-6 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#0A7F73] transition-colors hover:bg-[#EAF6F4]"
-              >
-                PARTNER WITH US
-              </Link>
-              <Link
-                href="/get-involved"
-                className="inline-flex rounded-[4px] border border-white/45 bg-white/5 px-6 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-white transition-colors hover:bg-white/12"
-              >
-                VIEW CAREERS
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <PartnersCarousel />
+      <JoinCommunitySection />
 
     </div>
   );

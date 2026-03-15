@@ -2,7 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { HeroSlider } from "../components/hero-slider";
+import { JoinCommunitySection } from "../components/join-community-section";
+
+const PROGRAMS_HERO_IMAGES = [
+  "/images/wfw/slide 6 - our programs/Main photo.jpg",
+  "/images/wfw/slide 6 - our programs/Strengthening women-led businesses.jpg",
+  "/images/wfw/slide 6 - our programs/Socio-economic empowerment.jpg",
+  "/images/wfw/slide 6 - our programs/Graduation out of poverty.JPG",
+];
 import {
   Briefcase,
   Heart,
@@ -63,8 +73,20 @@ const programTabs = [
   }
 ];
 
-export default function ProgramsPage() {
-  const [activeTab, setActiveTab] = useState("01");
+const validTabIds = ["01", "02", "03"];
+
+function ProgramsPageContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const initialTab = tabParam && validTabIds.includes(tabParam) ? tabParam : "01";
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    if (tabParam && validTabIds.includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
+
   const activeProgram =
     programTabs.find((program) => program.id === activeTab) ?? programTabs[0];
 
@@ -72,44 +94,39 @@ export default function ProgramsPage() {
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
       
       {/* --- HERO SECTION --- */}
-      <section className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden bg-[#0C3F3C]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/programs-hero.jpg"
-            alt="Students walking across a campus"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-y-0 left-0 w-[78%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent md:w-[62%]" />
-          <div className="absolute left-0 top-0 h-full w-16 bg-[#045C55]/28 md:w-24" />
-        </div>
+      <HeroSlider
+        images={PROGRAMS_HERO_IMAGES}
+        altPrefix="Our Programs"
+        overlayClassName="inset-y-0 left-0 w-[78%] md:w-[62%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent"
+        className="min-h-[calc(100vh-4rem)]"
+      >
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-12 md:px-6 md:pb-12 md:pt-14">
+            <div className="max-w-2xl">
+              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+                <Link href="/" className="transition-colors hover:text-white/80">
+                  Home
+                </Link>
+                <span className="text-white/70">/</span>
+                <span>Our Programs</span>
+              </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-10 pt-12 md:px-6 md:pb-12 md:pt-14">
-          <div className="max-w-2xl">
-            <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
-              <Link href="/" className="transition-colors hover:text-white/80">
-                Home
-              </Link>
-              <span className="text-white/70">/</span>
-              <span>Our Programs</span>
+              <div className="mb-8 h-[2px] w-9 bg-white/90" />
+
+              <h1 className="text-4xl font-black uppercase leading-[0.92] tracking-tight text-white sm:text-5xl md:text-7xl">
+                OUR
+                <span className="block font-light italic">PROGRAMS</span>
+              </h1>
+
+              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
+                Every woman possesses the potential to shape her world. When women
+                unite, they wield the strength to create a brighter collective
+                future for Rwanda.
+              </p>
             </div>
-
-            <div className="mb-8 h-[2px] w-9 bg-white/90" />
-
-            <h1 className="text-4xl font-black uppercase leading-[0.92] tracking-tight text-white sm:text-5xl md:text-7xl">
-              OUR
-              <span className="block font-light italic">PROGRAMS</span>
-            </h1>
-
-            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
-              Every woman possesses the potential to shape her world. When women
-              unite, they wield the strength to create a brighter collective
-              future for Rwanda.
-            </p>
           </div>
         </div>
-      </section>
+      </HeroSlider>
 
       {/* --- PROGRAM TABS --- */}
       <section className="relative z-20 border-b border-[#D8DEDD] bg-[#E7ECEB]">
@@ -142,7 +159,7 @@ export default function ProgramsPage() {
         </div>
       </section>
 
-      <section className="bg-white pt-12 md:pt-14">
+      <section id="program-details" className="bg-white pt-12 md:pt-14">
         <div className="mx-auto max-w-7xl px-4 md:px-8 relative">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
             <div className="max-w-[640px] pt-2 md:pt-5">
@@ -589,48 +606,16 @@ export default function ProgramsPage() {
 </section>
 
 
-      {/* --- JOIN OUR COMMUNITY --- */}
-      <section className="relative min-h-[320px] md:min-h-[420px] lg:min-h-[520px] w-full overflow-hidden bg-[#0C3F3C]">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/join-community.jpg"
-            alt="Community gathering"
-            fill
-            priority={false}
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-y-0 left-0 w-[72%] bg-gradient-to-r from-[#06564F]/86 via-[#0A6D66]/56 to-transparent md:w-[56%]" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
-          <div className="max-w-2xl">
-            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/90">GET INVOLVED</div>
-
-            <h2 className="text-5xl md:text-7xl font-black uppercase leading-[0.92] tracking-tight text-white">
-              JOIN OUR
-              <span className="block font-light italic text-white/90 text-[2.3rem] md:text-[3.8rem]">COMMUNITY</span>
-            </h2>
-
-            <p className="mt-6 max-w-lg text-[13px] leading-relaxed text-white/90 md:text-[14px]">
-              Partner with us, volunteer, or donate — every action helps us reach more women across Rwanda and build a stronger nation together.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/partner" className="inline-flex items-center gap-3 bg-white text-[#007A71] px-5 py-3 rounded-md font-semibold shadow-sm hover:opacity-95 text-[13px]">
-                <span>PARTNER WITH US</span>
-                <ArrowRight className="w-4 h-4" strokeWidth={2} />
-              </Link>
-
-              <Link href="/careers" className="inline-flex items-center gap-3 border border-white/40 text-white px-5 py-3 rounded-md font-semibold hover:bg-white/10 text-[13px]">
-                VIEW CAREERS
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* pager removed to sit flush with gallery above */}
-      </section>
+      <JoinCommunitySection />
 
     </div>
+  );
+}
+
+export default function ProgramsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <ProgramsPageContent />
+    </Suspense>
   );
 }

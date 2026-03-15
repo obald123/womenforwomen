@@ -27,3 +27,19 @@ body {
 .partners-scrollbar-hidden::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Infinite slow slide for partners carousel */
+@keyframes partners-infinite-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.partners-infinite-slide {
+  animation: partners-infinite-slide 90s linear infinite;
+}
+.partners-infinite-slide:hover {
+  animation-play-state: paused;
+}
