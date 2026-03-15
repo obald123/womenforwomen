@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { articles, stories, events } from "./data";
+import { publicFetch, resolveImageUrl } from "../../lib/publicApi";
 import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
 
@@ -13,34 +13,45 @@ const NEWS_HERO_IMAGES = [
   "/images/wfw/slide 2/Born from resilience.jpg",
   "/images/wfw/slide 2/Learn, share and support.jpeg",
 ];
+const FALLBACK_IMAGE = "/images/site/gallery-1.jpg";
+
+function formatDate(value?: string) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
+}
 
 export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleCount, setVisibleCount] = useState(6);
+  const [articles, setArticles] = useState<any[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
 
   useEffect(() => {
     setVisibleCount(6);
   }, [selectedCategory]);
 
-  const categories = [
-    "All",
-    "Program Update",
-    "Impact Story",
-    "Success Story",
-    "Training",
-    "Graduation",
-    "Cooperative",
-    "Partnership",
-  ];
+  useEffect(() => {
+    publicFetch<any>("/api/public/articles")
+      .then((res) => setArticles(Array.isArray(res.data) ? res.data : []))
+      .catch(() => setArticles([]));
+    publicFetch<any>("/api/public/events?upcoming=true")
+      .then((res) => setEvents(Array.isArray(res.data) ? res.data : []))
+      .catch(() => setEvents([]));
+  }, []);
+
+  const categories = ["All", "NEWS", "STORY", "PRESS", "BLOG"];
 
   const filteredStories =
     selectedCategory === "All"
-      ? stories
-      : stories.filter((s) => s.category === selectedCategory);
+      ? articles
+      : articles.filter((s) => s.category === selectedCategory);
 
   const visibleStories = filteredStories.slice(0, visibleCount);
   const canLoadMore = visibleCount < filteredStories.length;
-  const featured = articles[0];
+  const featured = articles[0] || null;
+  const featuredEvent = events[0] || null;
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
@@ -82,39 +93,41 @@ export default function NewsPage() {
             <div className="text-xs uppercase tracking-widest text-[#007A71] font-semibold">FEATURED STORY</div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-x-0 lg:gap-y-8 items-stretch">
-            <div className="relative w-full min-h-[160px] md:min-h-[220px] lg:min-h-[260px] overflow-hidden">
-              <Image src={featured.image} alt={featured.title} fill className="object-cover object-center" />
-              <div className="absolute top-4 left-4">
-                <span className="inline-block bg-[#007A71] text-white text-[10px] font-semibold uppercase px-2 py-1 tracking-wide">
-                  {featured.category ?? "News Update"}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center">
-              <div className="w-full bg-[#F7F6F3] p-4 md:p-6 lg:p-8 h-full">
-                <div className="text-[10px] font-semibold uppercase text-[#007A71] tracking-[0.18em]">
-                  {featured.date}
-                </div>
-                <h2 className="mt-3 text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold leading-tight text-[#0D2323]">
-                  {featured.title}
-                </h2>
-                <p className="mt-3 text-[#6B7574] text-xs leading-relaxed">
-                  {featured.excerpt}
-                </p>
-
-                <div className="mt-4">
-                  <Link href={`/news/${featured.id}`} className="inline-flex items-center gap-2 text-[#007A71] font-semibold uppercase text-xs">
-                    <span>Read full story</span>
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </Link>
+          {featured && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-x-0 lg:gap-y-8 items-stretch">
+              <div className="relative w-full min-h-[160px] md:min-h-[220px] lg:min-h-[260px] overflow-hidden">
+                <Image src={resolveImageUrl(featured.coverImage) || FALLBACK_IMAGE} alt={featured.title} fill sizes="100vw" className="object-cover object-center" />
+                <div className="absolute top-4 left-4">
+                  <span className="inline-block bg-[#007A71] text-white text-[10px] font-semibold uppercase px-2 py-1 tracking-wide">
+                    {featured.category ?? "News Update"}
+                  </span>
                 </div>
               </div>
+
+              <div className="flex items-center">
+                <div className="w-full bg-[#F7F6F3] p-4 md:p-6 lg:p-8 h-full">
+                  <div className="text-[10px] font-semibold uppercase text-[#007A71] tracking-[0.18em]">
+                    {formatDate(featured.publishedAt || featured.createdAt)}
+                  </div>
+                  <h2 className="mt-3 text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold leading-tight text-[#0D2323]">
+                    {featured.title}
+                  </h2>
+                  <p className="mt-3 text-[#6B7574] text-xs leading-relaxed">
+                    {featured.excerpt}
+                  </p>
+
+                  <div className="mt-4">
+                    <Link href={`/news/${featured.slug}`} className="inline-flex items-center gap-2 text-[#007A71] font-semibold uppercase text-xs">
+                      <span>Read full story</span>
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -158,9 +171,10 @@ export default function NewsPage() {
               <article key={s.id} className="flex flex-col h-full bg-white group shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg transition-shadow duration-300">
                 <div className="relative aspect-[16/9] overflow-hidden">
                   <Image 
-                    src={s.image} 
+                    src={resolveImageUrl(s.coverImage) || FALLBACK_IMAGE} 
                     alt={s.title} 
                     fill 
+                    sizes="100vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute top-2 left-2">
@@ -172,7 +186,7 @@ export default function NewsPage() {
 
                 <div className="p-6 pt-8 flex-1 flex flex-col">
                   <div className="text-[10px] font-bold uppercase text-[#00A991] tracking-[0.2em] mb-3">
-                    {s.date}
+                    {formatDate(s.publishedAt || s.createdAt)}
                   </div>
                   <h3 className="text-[18px] font-[700] text-[#0D2323] leading-tight mb-4 group-hover:text-[#007A71] transition-colors">
                     {s.title}
@@ -181,7 +195,7 @@ export default function NewsPage() {
                     {s.excerpt}
                   </p>
                   <div>
-                    <Link href={`/news/${s.id}`} className="inline-flex items-center gap-3 text-[#007A71] font-black uppercase text-[10px] tracking-[0.2em] group/link">
+                    <Link href={`/news/${s.slug}`} className="inline-flex items-center gap-3 text-[#007A71] font-black uppercase text-[10px] tracking-[0.2em] group/link">
                       READ MORE
                       <span className="transition-transform duration-300 group-hover/link:translate-x-2">
                         <svg width="16" height="10" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,60 +238,55 @@ export default function NewsPage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch border border-[#0E3A36]">
-            <div className="relative min-h-[260px] md:min-h-[320px] overflow-hidden group">
-              <Image src={featured.image} alt={featured.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105 object-center" />
-              <div className="absolute top-4 left-4">
-                <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">FEATURED EVENT</span>
+          {featuredEvent && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch border border-[#0E3A36]">
+              <div className="relative min-h-[260px] md:min-h-[320px] overflow-hidden group">
+                <Image src={resolveImageUrl(featuredEvent.coverImage) || FALLBACK_IMAGE} alt={featuredEvent.title} fill sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105 object-center" />
+                <div className="absolute top-4 left-4">
+                  <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">FEATURED EVENT</span>
+                </div>
+              </div>
+
+              <div className="bg-[#0B2E2B] p-8 flex flex-col justify-center border-l border-[#0E3A36]">
+                <div>
+                  <span className="inline-block bg-[#00A991] text-[#05201f] text-[10px] uppercase px-2 py-1 tracking-[0.12em]">EVENT</span>
+                </div>
+
+                <h3 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase leading-tight tracking-tight">
+                  {featuredEvent.title}
+                </h3>
+
+                <ul className="mt-4 space-y-2 text-xs text-[#B9D0CC]">
+                  <li className="flex items-center gap-3">
+                    <Calendar className="w-4 h-4 text-[#00A991]" />
+                    <span>{formatDate(featuredEvent.eventDate)}</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Clock className="w-4 h-4 text-[#00A991]" />
+                    <span>{featuredEvent.isOnline ? "Online" : "In person"}</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <MapPin className="w-4 h-4 text-[#00A991]" />
+                    <span>{featuredEvent.location}</span>
+                  </li>
+                </ul>
+
+                <p className="mt-4 text-[#9FB0AE] text-xs leading-relaxed max-w-xl">
+                  {featuredEvent.excerpt}
+                </p>
               </div>
             </div>
-
-            <div className="bg-[#0B2E2B] p-8 flex flex-col justify-center border-l border-[#0E3A36]">
-              <div>
-                <span className="inline-block bg-[#00A991] text-[#05201f] text-[10px] uppercase px-2 py-1 tracking-[0.12em]">CONFERENCE</span>
-              </div>
-
-              <h3 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase leading-tight tracking-tight">
-                ANNUAL WOMEN'S EMPOWERMENT SUMMIT 2026
-              </h3>
-
-              <ul className="mt-4 space-y-2 text-xs text-[#B9D0CC]">
-                <li className="flex items-center gap-3">
-                  <Calendar className="w-4 h-4 text-[#00A991]" />
-                  <span>April 15–16, 2026</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Clock className="w-4 h-4 text-[#00A991]" />
-                  <span>9:00 AM – 5:00 PM</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-[#00A991]" />
-                  <span>Kigali Convention Centre, Kigali</span>
-                </li>
-              </ul>
-
-              <p className="mt-4 text-[#9FB0AE] text-xs leading-relaxed max-w-xl">
-                Join over 500 women leaders, stakeholders, and partners for our flagship annual summit, featuring keynote speeches, panel discussions on economic empowerment, and networking sessions.
-              </p>
-
-              <div className="mt-6">
-                <Link href="/events/register" className="inline-flex items-center gap-2 bg-[#007A71] hover:bg-[#008f7e] text-white font-semibold uppercase text-xs px-5 py-2">
-                  REGISTER NOW
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
+          )}
 
           <div className="mt-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {events.map((ev) => (
                 <article key={ev.id} className="bg-[#061E1C] border border-[#0E3A36] overflow-hidden group hover:shadow-lg transition-shadow duration-300">
                   <div className="relative aspect-[16/9] overflow-hidden">
-                    <Image src={ev.image} alt={ev.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105 object-center" />
+                    <Image src={resolveImageUrl(ev.coverImage) || FALLBACK_IMAGE} alt={ev.title} fill sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105 object-center" />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#05201f]/70 to-transparent pointer-events-none z-10" />
                     <div className="absolute top-3 left-3 z-20">
-                      <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">{ev.category}</span>
+                      <span className="inline-block bg-[#00A991] text-white text-[10px] uppercase px-2 py-1 tracking-[0.12em]">EVENT</span>
                     </div>
                   </div>
 
@@ -285,14 +294,14 @@ export default function NewsPage() {
                     <h4 className="text-[13px] md:text-[14px] font-extrabold uppercase text-white mb-2 leading-tight">{ev.title}</h4>
 
                     <ul className="text-[11px] text-[#B9D0CC] space-y-1 mb-2">
-                      <li className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#00A991]" /><span>{ev.date}</span></li>
-                      <li className="flex items-center gap-2"><Clock className="w-4 h-4 text-[#00A991]" /><span>{ev.time}</span></li>
+                      <li className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#00A991]" /><span>{formatDate(ev.eventDate)}</span></li>
+                      <li className="flex items-center gap-2"><Clock className="w-4 h-4 text-[#00A991]" /><span>{ev.isOnline ? "Online" : "In person"}</span></li>
                       <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-[#00A991]" /><span>{ev.location}</span></li>
                     </ul>
 
                     <p className="text-[#9FB0AE] text-[12px] mb-3">{ev.excerpt}</p>
 
-                    <Link href={`/events/${ev.id}`} className="inline-flex items-center gap-2 text-[#00A991] font-semibold uppercase text-[10px]">
+                    <Link href="#" className="inline-flex items-center gap-2 text-[#00A991] font-semibold uppercase text-[10px]">
                       LEARN MORE
                       <span className="transition-transform duration-300 group-hover:translate-x-2">
                         <svg width="14" height="10" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">

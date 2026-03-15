@@ -7,6 +7,7 @@ import { ArrowRight, Heart } from "lucide-react";
 import PartnersCarousel from "./components/partners-carousel";
 import { HeroSlider } from "./components/hero-slider";
 import { JoinCommunitySection } from "./components/join-community-section";
+import { publicFetch, resolveImageUrl } from "../lib/publicApi";
 
 const HOME_HERO_IMAGES = [
   "/images/wfw/Home page/Strengthening women-led businesses.jpg",
@@ -14,6 +15,39 @@ const HOME_HERO_IMAGES = [
   "/images/wfw/Home page/Graduation out of poverty.JPG",
   "/images/wfw/Home page/Empowering change through skills building.jpg",
   "/images/wfw/Home page/Over 25 years of transformation.jpg",
+];
+
+const FALLBACK_LATEST = [
+  {
+    title: "From Setbacks to Strength",
+    slug: "from-setbacks-to-strength",
+    image: "/images/site/gallery-1.jpg",
+    date: "2025-09-04",
+  },
+  {
+    title: "Empowered Women, Thriving Communities",
+    slug: "empowered-women-thriving-communities",
+    image: "/images/site/gallery-2.jpg",
+    date: "2025-08-26",
+  },
+  {
+    title: "Empowering Change through Skill Building",
+    slug: "empowering-change-through-skill-building",
+    image: "/images/site/gallery-3.jpg",
+    date: "2025-07-14",
+  },
+  {
+    title: "Celebrating the Graduation of 100 Women in Ibare",
+    slug: "celebrating-the-graduation-of-100-women-in-ibare",
+    image: "/images/site/gallery-4.jpg",
+    date: "2025-07-12",
+  },
+  {
+    title: "From Dreams to Determination",
+    slug: "from-dreams-to-determination",
+    image: "/images/site/gallery-5.jpg",
+    date: "2025-07-09",
+  },
 ];
 
 function StatCounter({
@@ -98,10 +132,18 @@ function GlassCardStatCounter({
   return <>{formatted}</>;
 }
 
+function formatShortDate(value?: string) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
+}
+
 export default function Home() {
   const glassCardRef = useRef<HTMLDivElement | null>(null);
   const [glassCardProgress, setGlassCardProgress] = useState(0);
   const [glassCardAnimated, setGlassCardAnimated] = useState(false);
+  const [latest, setLatest] = useState<any[]>([]);
 
   useEffect(() => {
     const element = glassCardRef.current;
@@ -138,6 +180,14 @@ export default function Home() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    publicFetch<any>("/api/public/articles?pageSize=5")
+      .then((res) => setLatest(Array.isArray(res.data) ? res.data : []))
+      .catch(() => setLatest([]));
+  }, []);
+
+  const latestItems = latest.length ? latest : FALLBACK_LATEST;
 
   useEffect(() => {
     const el = glassCardRef.current;
@@ -239,6 +289,7 @@ export default function Home() {
                   src="/images/site/home-grid-1.jpg"
                   alt="Women in cohort program"
                   fill
+                  sizes="100vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -254,6 +305,7 @@ export default function Home() {
                   src="/images/site/home-grid-2.jpg"
                   alt="Community gathering"
                   fill
+                  sizes="100vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -270,6 +322,7 @@ export default function Home() {
                   src="/images/site/home-grid-3.jpg"
                   alt="Skills training"
                   fill
+                  sizes="100vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -360,7 +413,8 @@ export default function Home() {
                 src="/images/site/programs-core.jpg"
                 alt="Strengthening Women-Led Businesses"
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
@@ -379,7 +433,8 @@ export default function Home() {
                 src="/images/site/programs-complementary.jpg"
                 alt="Socioeconomic Empowerment"
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
@@ -398,7 +453,8 @@ export default function Home() {
                 src="/images/site/programs-graduate.jpg"
                 alt="Graduation Out of Poverty"
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
@@ -422,7 +478,8 @@ export default function Home() {
             src="/images/site/home-impact.jpg"
             alt="Women receiving certificates"
             fill
-            className="object-cover object-center"
+                  sizes="100vw"
+                  className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A5F58]/86 via-[#0A5F58]/42 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent"></div>
@@ -541,86 +598,48 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-[6px] md:grid-cols-12">
-            <Link href="/news/s1" className="group relative min-h-[320px] overflow-hidden md:col-span-5 md:min-h-[470px] block">
-              <Image
-                src="/images/site/gallery-1.jpg"
-                alt="From Setbacks to Strength"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/92 via-[#0D5B57]/32 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">04 SEP 2025</p>
-                <h3 className="max-w-[92%] text-[1.45rem] md:text-[1.75rem] font-semibold leading-[1.14] text-white">
-                  From Setbacks to Strength: 60 Girls Graduate from ABADACOGORA Program in Masaka
-                </h3>
-              </div>
-            </Link>
+            {latestItems[0] && (
+              <Link href={`/news/${latestItems[0].slug}`} className="group relative min-h-[320px] overflow-hidden md:col-span-5 md:min-h-[470px] block">
+                <Image
+                  src={resolveImageUrl(latestItems[0].coverImage) || latestItems[0].image || "/images/site/gallery-1.jpg"}
+                  alt={latestItems[0].title}
+                  fill
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/92 via-[#0D5B57]/32 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+                  <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+                    {formatShortDate(latestItems[0].publishedAt || latestItems[0].date || latestItems[0].createdAt)}
+                  </p>
+                  <h3 className="max-w-[92%] text-[1.45rem] md:text-[1.75rem] font-semibold leading-[1.14] text-white">
+                    {latestItems[0].title}
+                  </h3>
+                </div>
+              </Link>
+            )}
 
             <div className="grid grid-cols-1 gap-[6px] md:col-span-7 md:grid-cols-2 md:grid-rows-2">
-              <Link href="/news/s2" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
-                <Image
-                  src="/images/site/gallery-2.jpg"
-                  alt="Empowered Women, Thriving Communities"
-                  fill
+              {latestItems.slice(1, 5).map((item: any) => (
+                <Link key={item.slug || item.title} href={`/news/${item.slug}`} className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
+                  <Image
+                    src={resolveImageUrl(item.coverImage) || item.image || "/images/site/gallery-2.jpg"}
+                    alt={item.title}
+                    fill
+                  sizes="100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/86 via-[#0D5B57]/28 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                  <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/70">26 AUG 2025</p>
-                  <h3 className="text-[1.02rem] font-semibold leading-[1.18] text-white md:text-[1.16rem]">
-                    Empowered Women, Thriving Communities
-                  </h3>
-                </div>
-              </Link>
-
-              <Link href="/news/s3" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
-                <Image
-                  src="/images/site/gallery-3.jpg"
-                  alt="Empowering Change through Skill Building"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/86 via-[#0D5B57]/28 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                  <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/70">14 JUL 2025</p>
-                  <h3 className="text-[1.02rem] font-semibold leading-[1.18] text-white md:text-[1.16rem]">
-                    Empowering Change through Skill Building
-                  </h3>
-                </div>
-              </Link>
-
-              <Link href="/news/s4" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
-                <Image
-                  src="/images/site/gallery-4.jpg"
-                  alt="Celebrating the Graduation of 100 Women in Ibare"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/86 via-[#0D5B57]/28 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                  <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/70">12 JUL 2025</p>
-                  <h3 className="text-[1.02rem] font-semibold leading-[1.18] text-white md:text-[1.16rem]">
-                    Celebrating the Graduation of 100 Women in Ibare
-                  </h3>
-                </div>
-              </Link>
-
-              <Link href="/news/s5" className="group relative min-h-[220px] overflow-hidden md:min-h-[232px] block">
-                <Image
-                  src="/images/site/gallery-5.jpg"
-                  alt="From Dreams to Determination"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/86 via-[#0D5B57]/28 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                  <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/70">09 JUL 2025</p>
-                  <h3 className="text-[1.02rem] font-semibold leading-[1.18] text-white md:text-[1.16rem]">
-                    From Dreams to Determination: ABADACOGORA Graduation in Rubona
-                  </h3>
-                </div>
-              </Link>
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/86 via-[#0D5B57]/28 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                    <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/70">
+                      {formatShortDate(item.publishedAt || item.date || item.createdAt)}
+                    </p>
+                    <h3 className="text-[1.02rem] font-semibold leading-[1.18] text-white md:text-[1.16rem]">
+                      {item.title}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -634,7 +653,8 @@ export default function Home() {
               src="/images/site/impact-hero.jpg"
               alt="Woman farmer in Rwanda"
               fill
-              className="object-cover"
+                  sizes="100vw"
+                  className="object-cover"
             />
             <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#D3E1DF]/95 to-transparent"></div>
           </div>
@@ -744,6 +764,7 @@ export default function Home() {
                   src={value.image}
                   alt={value.title}
                   fill
+                  sizes="100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0D5B57]/90 via-[#0D5B57]/20 to-transparent"></div>
@@ -762,3 +783,4 @@ export default function Home() {
     </div>
   );
 }
+

@@ -1,39 +1,50 @@
 import Image from "next/image";
 import Link from "next/link";
-import { articles, stories, type NewsItem } from "../data";
+
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:4000";
 
 export const dynamic = "force-dynamic";
-export const dynamicParams = true;
 
-function getItemById(id: string): NewsItem | undefined {
-  return articles.find((a) => a.id === id) ?? stories.find((s) => s.id === id);
+async function getArticle(slug: string) {
+  const res = await fetch(`${API_URL}/api/public/articles/${slug}`, { cache: "no-store" });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data?.data ?? null;
 }
 
-export function generateStaticParams() {
-  return [...articles, ...stories].map((item) => ({ id: item.id }));
+function resolveImageUrl(url?: string) {
+  if (!url) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `${API_URL}${url}`;
 }
 
-export default function NewsDetailPage({ params }: { params: { id: string } }) {
-  const item =
-    getItemById(params.id) ??
-    ({
-      id: params.id,
-      title: "Story Update",
-      date: "2026",
-      excerpt:
-        "This story is still being prepared. Please check back soon for the full update.",
-      image: "/images/site/home-hero.jpg",
-      category: "News",
-    } satisfies NewsItem);
+function formatDate(value?: string) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
+}
+
+export default async function NewsDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const item = await getArticle(slug);
+  if (!item) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Story not found.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
       <section className="relative min-h-[55vh] w-full overflow-hidden bg-[#0C3F3C]">
         <div className="absolute inset-0 z-0">
           <Image
-            src={item.image}
+            src={resolveImageUrl(item.coverImage) || "/images/site/home-hero.jpg"}
             alt={item.title}
             fill
+            sizes="100vw"
             priority
             className="object-cover object-center"
           />
@@ -58,7 +69,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
             {item.title}
           </h1>
           <p className="mt-4 text-[12px] uppercase tracking-[0.25em] text-white/80">
-            {item.date}
+            {formatDate(item.publishedAt || item.createdAt)}
           </p>
         </div>
       </section>
@@ -70,21 +81,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
           </p>
 
           <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-[#5F6E6C]">
-            <p>
-              Our programs continue to expand opportunities for women through
-              skills training, financial literacy, and community support. These
-              initiatives are designed to build resilience, strengthen local
-              economies, and create lasting impact for families across Rwanda.
-            </p>
-            <p>
-              We collaborate with partners and local leaders to ensure each
-              program responds to community needs, reaches vulnerable groups,
-              and provides long-term pathways to independence.
-            </p>
-            <p>
-              Thank you for following our work and helping to amplify these
-              stories of transformation.
-            </p>
+            <div dangerouslySetInnerHTML={{ __html: item.content }} />
           </div>
 
           <div className="mt-10">

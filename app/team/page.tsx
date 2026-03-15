@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
+import { publicFetch } from "../../lib/publicApi";
 
 const TEAM_HERO_IMAGES = [
   "/images/wfw/slide 2/Born from resilience.jpg",
@@ -21,8 +22,6 @@ const teamTabs = [
     paragraphs: [
       "Our Board of Directors provides strategic oversight and governance to ensure Women for Women Rwanda fulfills its mission with accountability and impact."
     ],
-    image: "/images/site/gallery-1.jpg",
-    imageAlt: "Board meeting"
   },
   {
     id: "02",
@@ -32,65 +31,44 @@ const teamTabs = [
     paragraphs: [
       "Our leadership team runs programs on the ground, builds partnerships, and supports our graduates to thrive." 
     ],
-    image: "/images/site/gallery-2.jpg",
-    imageAlt: "Leadership"
   }
 ];
 
-const boardMembers = [
-  { name: "Jane Mukasa", role: "Chairperson", image: "/images/site/gallery-1.jpg" },
-  { name: "Elijah Nkurunziza", role: "Treasurer", image: "/images/site/gallery-1.jpg" },
-  { name: "Amina Uwase", role: "Secretary", image: "/images/site/gallery-1.jpg" },
-  { name: "Pauline Iradukunda", role: "Member", image: "/images/site/gallery-1.jpg" },
-  { name: "Grace Niyonsaba", role: "Member", image: "/images/site/gallery-1.jpg" },
-  { name: "Beatrice Habimana", role: "Member", image: "/images/site/gallery-1.jpg" }
+const fallbackBoard = [
+  { name: "Jane Mukasa", role: "Chairperson", photo: "/images/site/gallery-1.jpg" },
+  { name: "Elijah Nkurunziza", role: "Treasurer", photo: "/images/site/gallery-1.jpg" },
+  { name: "Amina Uwase", role: "Secretary", photo: "/images/site/gallery-1.jpg" },
+  { name: "Pauline Iradukunda", role: "Member", photo: "/images/site/gallery-1.jpg" },
+  { name: "Grace Niyonsaba", role: "Member", photo: "/images/site/gallery-1.jpg" },
+  { name: "Beatrice Habimana", role: "Member", photo: "/images/site/gallery-1.jpg" }
 ];
 
-const teamMembers = [
-  { name: "Mr. Nkusi Bukeye Eric", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Beatrice Biyoga", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Debra Bowers", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Alice Uwimana", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Josephine Mukamana", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Claire Niyonzima", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Pauline Iradukunda", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Grace Niyonsaba", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Beatrice Habimana", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Anne Mukarubega", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Esther Uwizeyimana", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Ruth Kayitesi", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Clementine Niyigena", role: "Team", image: "/images/site/gallery-1.jpg" },
-  { name: "Martha Ingabire", role: "Team", image: "/images/site/gallery-1.jpg" }
-];
-
-const leadership = [
-  { name: "Susan Kamanzi", role: "Executive Director", image: "/images/site/gallery-1.jpg" },
-  { name: "Mark Rwagasana", role: "Program Director", image: "/images/site/gallery-1.jpg" },
-  { name: "Claire Bizimana", role: "Operations Lead", image: "/images/site/gallery-1.jpg" }
-];
-
-const teamImages = [
-  "/images/site/gallery-1.jpg",
-  "/images/site/gallery-2.jpg",
-  "/images/site/gallery-3.jpg",
-  "/images/site/gallery-4.jpg",
-  "/images/site/gallery-5.jpg",
-  "/images/site/gallery-6.jpg",
-  "/images/site/gallery-7.jpg",
-  "/images/site/gallery-8.jpg",
-  "/images/site/gallery-9.jpg",
-  "/images/site/gallery-10.jpg",
-  "/images/site/gallery-11.jpg",
-  "/images/site/gallery-12.jpg",
-  "/images/site/gallery-13.jpg",
-  "/images/site/home-hero.jpg",
+const fallbackTeam = [
+  { name: "Mr. Nkusi Bukeye Eric", role: "Team", photo: "/images/site/gallery-1.jpg" },
+  { name: "Beatrice Biyoga", role: "Team", photo: "/images/site/gallery-1.jpg" },
+  { name: "Debra Bowers", role: "Team", photo: "/images/site/gallery-1.jpg" },
+  { name: "Alice Uwimana", role: "Team", photo: "/images/site/gallery-1.jpg" }
 ];
 
 export default function TeamPage() {
   const [activeTab, setActiveTab] = useState("01");
-  const active = teamTabs.find((t) => t.id === activeTab) ?? teamTabs[0];
+  const [board, setBoard] = useState<any[]>(fallbackBoard);
+  const [team, setTeam] = useState<any[]>(fallbackTeam);
 
-  const members = activeTab === "01" ? boardMembers : teamMembers;
+  useEffect(() => {
+    publicFetch<any>("/api/public/team")
+      .then((res) => {
+        const items = Array.isArray(res.data) ? res.data : [];
+        const boardItems = items.filter((i: any) => i.category === "BOARD");
+        const teamItems = items.filter((i: any) => i.category !== "BOARD");
+        if (boardItems.length) setBoard(boardItems);
+        if (teamItems.length) setTeam(teamItems);
+      })
+      .catch(() => {});
+  }, []);
+
+  const active = teamTabs.find((t) => t.id === activeTab) ?? teamTabs[0];
+  const members = activeTab === "01" ? board : team;
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
@@ -177,16 +155,9 @@ export default function TeamPage() {
               <span className="text-[10px] font-black uppercase tracking-[0.28em] text-[#007A71] md:text-[11px]">{active.kicker}</span>
             </div>
 
-            {activeTab === "01" ? (
-              <h2 className="text-[26px] md:text-[36px] font-black uppercase leading-[0.94] tracking-tight text-[#0D2323] whitespace-nowrap">
-                <span className="mr-3">BOARD OF</span>
-                <span className="font-light italic text-[#00A991]">DIRECTORS</span>
-              </h2>
-            ) : (
-              <h2 className="text-[26px] md:text-[36px] font-black uppercase leading-[0.94] tracking-tight text-[#0D2323]">
-                {active.titleMain}
-              </h2>
-            )}
+            <h2 className="text-[26px] md:text-[36px] font-black uppercase leading-[0.94] tracking-tight text-[#0D2323]">
+              {active.titleMain}
+            </h2>
 
             <div className="mt-7 space-y-4 pb-10 font-medium leading-[1.82] text-[#6B7574] md:pb-12 text-[14px] md:text-[14px]">
               {active.paragraphs.map((p) => (
@@ -197,10 +168,12 @@ export default function TeamPage() {
 
           <div className="mt-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {members.map((m, idx) => (
-                <div key={m.name} className="overflow-hidden bg-white">
+              {members.map((m: any, idx: number) => (
+                <div key={`${m.name}-${idx}`} className="overflow-hidden bg-white">
                   <div className="relative h-[360px] sm:h-[420px] w-full">
-                    <Image src={teamImages[idx % teamImages.length]} alt={m.name} fill className="object-cover object-center" />
+                    <Image src={m.photo || "/images/site/gallery-1.jpg"} alt={m.name} fill
+                  sizes="100vw"
+                  className="object-cover object-center" />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#06564F]/85 via-[#06564F]/40 to-transparent" />
                     <div className="absolute left-4 top-4 bg-[#00A991] text-white text-[11px] font-bold px-3 py-1 z-10">{m.role}</div>
                   </div>
