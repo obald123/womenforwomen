@@ -17,6 +17,13 @@ const HOME_HERO_IMAGES = [
   "/images/wfw/Home page/Over 25 years of transformation.jpg",
 ];
 
+const IMPACT_SLIDES = [
+  "/images/wfw/Home page/Over 25 years of transformation.jpg",
+  "/images/wfw/Home page/Strengthening women-led businesses.jpg",
+  "/images/wfw/Home page/Socio-economic empowerment.jpg",
+  "/images/wfw/Home page/Empowering change through skills building.jpg",
+];
+
 const FALLBACK_LATEST = [
   {
     title: "From Setbacks to Strength",
@@ -471,106 +478,102 @@ export default function Home() {
       </section>
 
       {/* SECTION 6: IMPACT - 23 YEARS OF TRANSFORMATION */}
-      <section className="relative isolate min-h-[560px] md:min-h-[640px] overflow-hidden bg-[#0D6B63]">
-        {/* Background image and layered color wash to match the reference */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/site/home-impact.jpg"
-            alt="Women receiving certificates"
-            fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A5F58]/86 via-[#0A5F58]/42 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent"></div>
-        </div>
+      <HeroSlider
+        images={IMPACT_SLIDES}
+        altPrefix="Impact"
+        overlayClassName="bg-gradient-to-r from-[#0A5F58]/86 via-[#0A5F58]/42 to-transparent"
+        className="min-h-[560px] md:min-h-[640px]"
+      >
+        <div className="relative flex-1">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent pointer-events-none" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 pt-10 md:pt-14 pb-24 md:pb-32">
-          <div className="max-w-[620px]">
-            <div className="mb-6 flex items-center gap-3 text-white/75">
-              <span className="h-px w-7 bg-white/55"></span>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.35em]">Our Impact</span>
+          <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 pt-10 md:pt-14 pb-24 md:pb-32">
+            <div className="max-w-[620px]">
+              <div className="mb-6 flex items-center gap-3 text-white/75">
+                <span className="h-px w-7 bg-white/55"></span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.35em]">Our Impact</span>
+              </div>
+
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.94] uppercase">
+                23 YEARS OF
+                <span className="mt-1 block font-extralight italic tracking-normal">TRANSFORMATION</span>
+              </h2>
+
+              <p className="mt-7 max-w-[560px] text-base md:text-[1.05rem] text-white/92 leading-relaxed">
+                Over 23 years we've supported over 80,000 marginalized women,
+                established digitized savings groups, and introduced men's
+                engagement programs to combat gender-based violence across
+                Rwanda.
+              </p>
+
+              <Link
+                href="/impact"
+                className="mt-8 inline-flex rounded-[4px] bg-white px-8 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#0D6B63] transition-colors hover:bg-[#EEF8F6]"
+              >
+                FULL IMPACT REPORT
+              </Link>
             </div>
-
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.94] uppercase">
-              23 YEARS OF
-              <span className="mt-1 block font-extralight italic tracking-normal">TRANSFORMATION</span>
-            </h2>
-
-            <p className="mt-7 max-w-[560px] text-base md:text-[1.05rem] text-white/92 leading-relaxed">
-              Over 23 years we've supported over 80,000 marginalized women,
-              established digitized savings groups, and introduced men's
-              engagement programs to combat gender-based violence across
-              Rwanda.
-            </p>
-
-            <Link
-              href="/impact"
-              className="mt-8 inline-flex rounded-[4px] bg-white px-8 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#0D6B63] transition-colors hover:bg-[#EEF8F6]"
-            >
-              FULL IMPACT REPORT
-            </Link>
           </div>
-        </div>
 
-        <div className="absolute inset-x-0 bottom-5 z-20 px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div
-              ref={glassCardRef}
-              className="grid w-full grid-cols-2 gap-7 border px-5 py-6 shadow-[0_14px_30px_rgba(0,0,0,0.28)] transition-[transform,opacity,background,border-color,backdrop-filter] duration-200 md:w-[78%] md:grid-cols-4 md:px-8 md:py-7 lg:w-[72%]"
-              style={{
-                borderColor: `rgba(255,255,255,${0.14 + glassCardProgress * 0.16})`,
-                background: `linear-gradient(118deg, rgba(0,0,0,${0.32 - glassCardProgress * 0.22}) 0%, rgba(27,81,84,${0.36 + glassCardProgress * 0.18}) 100%)`,
-                backdropFilter: `blur(${2 + glassCardProgress * 3}px)`,
-                WebkitBackdropFilter: `blur(${2 + glassCardProgress * 3}px)`,
-                transform: `translateY(${(1 - glassCardProgress) * 8}px)`,
-                opacity: 0.9 + glassCardProgress * 0.1,
-              }}
-            >
-              <div>
-                <div className="text-4xl md:text-5xl font-black text-white">
-                  <GlassCardStatCounter end={80} format="k" start={glassCardAnimated} />
+          <div className="absolute inset-x-0 bottom-5 z-20 px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <div
+                ref={glassCardRef}
+                className="grid w-full grid-cols-2 gap-7 border px-5 py-6 shadow-[0_14px_30px_rgba(0,0,0,0.28)] transition-[transform,opacity,background,border-color,backdrop-filter] duration-200 md:w-[78%] md:grid-cols-4 md:px-8 md:py-7 lg:w-[72%]"
+                style={{
+                  borderColor: `rgba(255,255,255,${0.14 + glassCardProgress * 0.16})`,
+                  background: `linear-gradient(118deg, rgba(0,0,0,${0.32 - glassCardProgress * 0.22}) 0%, rgba(27,81,84,${0.36 + glassCardProgress * 0.18}) 100%)`,
+                  backdropFilter: `blur(${2 + glassCardProgress * 3}px)`,
+                  WebkitBackdropFilter: `blur(${2 + glassCardProgress * 3}px)`,
+                  transform: `translateY(${(1 - glassCardProgress) * 8}px)`,
+                  opacity: 0.9 + glassCardProgress * 0.1,
+                }}
+              >
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-white">
+                    <GlassCardStatCounter end={80} format="k" start={glassCardAnimated} />
+                  </div>
+                  <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
+                    Women Served
+                    <br />
+                    Since 1997
+                  </div>
                 </div>
-                <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
-                  Women Served
-                  <br />
-                  Since 1997
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-white">
+                    <GlassCardStatCounter end={500} format="plus" start={glassCardAnimated} />
+                  </div>
+                  <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
+                    Business Plan
+                    <br />
+                    Training Recipients
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-black text-white">
-                  <GlassCardStatCounter end={500} format="plus" start={glassCardAnimated} />
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-white">
+                    <GlassCardStatCounter end={50} format="moneyK" start={glassCardAnimated} />
+                  </div>
+                  <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
+                    Business Awards
+                    <br />
+                    Disbursed
+                  </div>
                 </div>
-                <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
-                  Business Plan
-                  <br />
-                  Training Recipients
-                </div>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-black text-white">
-                  <GlassCardStatCounter end={50} format="moneyK" start={glassCardAnimated} />
-                </div>
-                <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
-                  Business Awards
-                  <br />
-                  Disbursed
-                </div>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-black text-white">
-                  <GlassCardStatCounter end={10} format="plain" start={glassCardAnimated} />
-                </div>
-                <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
-                  Business Competitions
-                  <br />
-                  Successfully Held
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-white">
+                    <GlassCardStatCounter end={10} format="plain" start={glassCardAnimated} />
+                  </div>
+                  <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 leading-relaxed">
+                    Business Competitions
+                    <br />
+                    Successfully Held
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </HeroSlider>
 
       {/* SECTION 7: LATEST NEWS & STORIES */}
       <section className="bg-[#F1F2F2] py-16 md:py-20">

@@ -39,7 +39,12 @@ body {
 }
 .partners-infinite-slide {
   animation: partners-infinite-slide 90s linear infinite;
+  will-change: transform;
 }
 .partners-infinite-slide:hover {
   animation-play-state: paused;
+}
+
+.partners-infinite-mask {
+  overflow: hidden;
 }

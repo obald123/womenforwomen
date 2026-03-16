@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     template: "%s | Women for Women Rwanda",
   },
   description: "Figma-matched Women for Women website",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

@@ -90,7 +90,7 @@ export function HeroSlider({
                 fill
                 className="object-cover object-center"
                 sizes="100vw"
-                priority={i === 0}
+                loading="lazy"
               />
             </div>
           ))}
@@ -102,6 +102,7 @@ export function HeroSlider({
                 fill
                 className="object-cover object-center"
                 sizes="100vw"
+                loading="lazy"
               />
             </div>
           ))}

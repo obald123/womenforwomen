@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 export function SiteFooter() {
@@ -12,16 +13,8 @@ export function SiteFooter() {
           {/* Column 1: Branding and Socials */}
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
-              <div className="h-10 w-12 shrink-0">
-                {/* Custom SVG matching the footer logo */}
-                <svg viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
-                  <path d="M15 25C15 15 25 10 35 10C45 10 55 15 55 25C55 35 45 40 35 40C25 40 15 35 15 25Z" fill="#00A991"/>
-                  <path d="M5 25C5 45 30 55 50 55C70 55 95 45 95 25C70 25 50 40 5 25Z" fill="#00A991"/>
-                </svg>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-[1.05rem] font-bold tracking-tight text-white font-montserrat">WOMEN FOR WOMEN</span>
-                <span className="text-[0.8rem] font-light tracking-[0.2em] text-gray-300 font-montserrat">RWANDA</span>
+              <div className="relative h-10 w-36 shrink-0">
+                <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="144px" className="object-contain" />
               </div>
             </div>
             <p className="max-w-xs text-[13.5px] leading-[1.55] opacity-75 font-inter">
@@ -29,11 +22,18 @@ export function SiteFooter() {
               A national organization created and legally registered in 2020.
             </p>
             <div className="flex gap-3">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                <Link key={i} href="#" className="flex h-9 w-9 items-center justify-center border border-white/20 rounded-sm hover:border-white/40 transition-colors">
-                  <Icon size={16} className="text-gray-300" />
-                </Link>
-              ))}
+              <Link href="https://www.facebook.com/wfwrwanda/" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center border border-white/20 rounded-sm hover:border-white/40 transition-colors">
+                <Facebook size={16} className="text-gray-300" />
+              </Link>
+              <Link href="https://x.com/WfWRwanda" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center border border-white/20 rounded-sm hover:border-white/40 transition-colors">
+                <Twitter size={16} className="text-gray-300" />
+              </Link>
+              <Link href="https://www.instagram.com/wfw_rwanda/" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center border border-white/20 rounded-sm hover:border-white/40 transition-colors">
+                <Instagram size={16} className="text-gray-300" />
+              </Link>
+              <Link href="https://www.linkedin.com/company/women-for-women-rwanda/?originalSubdomain=rw" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center border border-white/20 rounded-sm hover:border-white/40 transition-colors">
+                <Linkedin size={16} className="text-gray-300" />
+              </Link>
             </div>
           </div>
 

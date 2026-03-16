@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { Heart, ChevronDown, Menu, X } from 'lucide-react';
@@ -79,24 +80,13 @@ export function SiteHeader() {
         
         {/* LOGO SECTION */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          <div className="relative h-9 w-12">
-            <svg viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
-              <path d="M15 25C15 15 25 10 35 10C45 10 55 15 55 25C55 35 45 40 35 40C25 40 15 35 15 25Z" fill="#00A991"/>
-              <path d="M5 25C5 45 30 55 50 55C70 55 95 45 95 25C70 25 50 40 5 25Z" fill="#00A991"/>
-            </svg>
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-[0.95rem] font-black tracking-tighter text-[#1A1A1A]">
-              WOMEN FOR WOMEN
-            </span>
-            <span className="text-[0.75rem] font-semibold tracking-[0.15em] text-[#666666]">
-              RWANDA
-            </span>
+          <div className="relative h-10 w-32 sm:w-36">
+            <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="144px" className="object-contain" />
           </div>
         </Link>
 
         {/* CENTER NAVIGATION */}
-        <nav className="hidden flex-1 items-center justify-center gap-10 md:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-10 lg:flex">
           {/* HOME */}
           <Link href="/" className={navLinkClass(pathname === '/')}>
             HOME
@@ -206,7 +196,7 @@ export function SiteHeader() {
         </nav>
 
         {/* RIGHT SIDE ACTIONS */}
-        <div className="hidden md:flex items-center gap-3 shrink-0">
+        <div className="hidden lg:flex items-center gap-3 shrink-0">
           {/* DONATE BUTTON */}
           <button
             type="button"
@@ -230,7 +220,7 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="md:hidden inline-flex items-center justify-center p-2 text-[#0D2323]"
+          className="lg:hidden inline-flex items-center justify-center p-2 text-[#0D2323]"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -243,7 +233,7 @@ export function SiteHeader() {
 
       {/* MOBILE MENU */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40">
+        <div className="lg:hidden fixed inset-0 z-40">
           <div
             className="absolute inset-0 bg-black/40"
             onClick={() => setIsMenuOpen(false)}
