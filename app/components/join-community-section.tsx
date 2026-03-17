@@ -51,7 +51,7 @@ export function JoinCommunitySection({ className = "" }: JoinCommunitySectionPro
                 Partner With Us
               </Link>
               <Link
-                href="/careers"
+                href="/partner#career-opportunities"
                 className="inline-flex items-center justify-center rounded-md border border-white/40 px-6 py-3 text-[12px] font-bold uppercase tracking-[0.2em] text-white"
               >
                 View Careers

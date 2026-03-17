@@ -76,12 +76,12 @@ export function SiteHeader() {
   return (
     <>
       <header ref={headerRef} className={headerClass}>
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 lg:px-8">
         
         {/* LOGO SECTION */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          <div className="relative h-10 w-32 sm:w-36">
-            <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="144px" className="object-contain" />
+          <div className="relative h-12 w-36 sm:w-40">
+            <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="160px" className="object-contain" />
           </div>
         </Link>
 
@@ -201,7 +201,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={openDonateModal}
-            className="flex items-center gap-1.5 rounded-[3px] bg-[#C73D35] px-4 py-2.5 text-[11px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#B03530] transition-colors"
+            className="flex items-center gap-1.5 rounded-[3px] bg-[#C73D35] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#B03530] transition-colors"
           >
             <Heart size={14} fill="currentColor" />
             DONATE
@@ -210,7 +210,7 @@ export function SiteHeader() {
           {/* PARTNER BUTTON */}
           <Link
             href="/partner"
-            className="rounded-[3px] bg-[#00A991] px-5 py-2.5 text-[11px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#008472] transition-colors"
+            className="rounded-[3px] bg-[#00A991] px-5 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#008472] transition-colors"
           >
             PARTNER WITH US
           </Link>

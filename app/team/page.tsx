@@ -34,26 +34,10 @@ const teamTabs = [
   }
 ];
 
-const fallbackBoard = [
-  { name: "Jane Mukasa", role: "Chairperson", photo: "/images/site/gallery-1.jpg" },
-  { name: "Elijah Nkurunziza", role: "Treasurer", photo: "/images/site/gallery-1.jpg" },
-  { name: "Amina Uwase", role: "Secretary", photo: "/images/site/gallery-1.jpg" },
-  { name: "Pauline Iradukunda", role: "Member", photo: "/images/site/gallery-1.jpg" },
-  { name: "Grace Niyonsaba", role: "Member", photo: "/images/site/gallery-1.jpg" },
-  { name: "Beatrice Habimana", role: "Member", photo: "/images/site/gallery-1.jpg" }
-];
-
-const fallbackTeam = [
-  { name: "Mr. Nkusi Bukeye Eric", role: "Team", photo: "/images/site/gallery-1.jpg" },
-  { name: "Beatrice Biyoga", role: "Team", photo: "/images/site/gallery-1.jpg" },
-  { name: "Debra Bowers", role: "Team", photo: "/images/site/gallery-1.jpg" },
-  { name: "Alice Uwimana", role: "Team", photo: "/images/site/gallery-1.jpg" }
-];
-
 export default function TeamPage() {
   const [activeTab, setActiveTab] = useState("01");
-  const [board, setBoard] = useState<any[]>(fallbackBoard);
-  const [team, setTeam] = useState<any[]>(fallbackTeam);
+  const [board, setBoard] = useState<any[]>([]);
+  const [team, setTeam] = useState<any[]>([]);
   const [selectedMember, setSelectedMember] = useState<any | null>(null);
 
   useEffect(() => {
@@ -62,8 +46,8 @@ export default function TeamPage() {
         const items = Array.isArray(res.data) ? res.data : [];
         const boardItems = items.filter((i: any) => i.category === "BOARD");
         const teamItems = items.filter((i: any) => i.category !== "BOARD");
-        if (boardItems.length) setBoard(boardItems);
-        if (teamItems.length) setTeam(teamItems);
+        setBoard(boardItems);
+        setTeam(teamItems);
       })
       .catch(() => {});
   }, []);
@@ -172,9 +156,17 @@ export default function TeamPage() {
               {members.map((m: any, idx: number) => (
                 <div key={`${m.name}-${idx}`} className="overflow-hidden bg-white">
                   <div className="relative h-[360px] sm:h-[420px] w-full">
-                    <Image src={m.photo || "/images/site/gallery-1.jpg"} alt={m.name} fill
-                  sizes="100vw"
-                  className="object-cover object-center" />
+                    {m.photo ? (
+                      <Image
+                        src={m.photo}
+                        alt={m.name}
+                        fill
+                        sizes="100vw"
+                        className="object-cover object-center"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-[#E7ECEB]" />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-b from-[#06564F]/85 via-[#06564F]/40 to-transparent" />
                     <div className="absolute left-4 top-4 bg-[#00A991] text-white text-[11px] font-bold px-3 py-1 z-10">{m.role}</div>
                   </div>
@@ -214,13 +206,17 @@ export default function TeamPage() {
           <div className="min-h-screen flex items-center justify-center p-6">
             <div className="w-full max-w-3xl bg-white shadow-2xl">
               <div className="relative min-h-[280px] w-full overflow-hidden bg-[#0C3F3C]">
-                <Image
-                  src={selectedMember.photo || "/images/site/home-hero.jpg"}
-                  alt={selectedMember.name}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                />
+                {selectedMember.photo ? (
+                  <Image
+                    src={selectedMember.photo}
+                    alt={selectedMember.name}
+                    fill
+                    sizes="100vw"
+                    className="object-cover object-center"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-[#0C3F3C]" />
+                )}
                 <div className="absolute inset-0 bg-black/45" />
                 <div className="absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/45 to-transparent md:w-[55%]" />
                 <div className="absolute right-6 top-6">

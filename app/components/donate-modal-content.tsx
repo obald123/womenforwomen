@@ -98,7 +98,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
         type="button"
         onClick={onClose}
         aria-label="Close donate modal"
-        className="absolute right-6 top-6 z-20 flex h-9 w-9 items-center justify-center border border-[#E5E9E9] bg-white text-[#5C6B69] hover:text-[#102022]"
+        className="absolute right-4 top-4 md:right-6 md:top-6 z-20 flex h-9 w-9 items-center justify-center border border-[#E5E9E9] bg-white text-[#5C6B69] hover:text-[#102022]"
       >
         <X className="h-4 w-4" />
       </button>
@@ -106,7 +106,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
       <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr]">
         {/* Left panel */}
         <div className="relative flex flex-col bg-[#11221F] text-white">
-          <div className="relative h-64 md:h-72">
+          <div className="relative h-48 sm:h-56 md:h-72">
             <Image
               src="/images/site/join-community.jpg"
               alt="Women in Rwanda"
@@ -115,7 +115,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
             />
             <div className="absolute inset-0 bg-black/55" />
             <div
-              className="absolute left-6 top-6 inline-flex items-center gap-2 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-white"
+              className="absolute left-4 top-4 md:left-6 md:top-6 inline-flex items-center gap-2 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-white"
               style={{ backgroundColor: theme.accent }}
             >
               <Heart className="h-3 w-3" />
@@ -123,7 +123,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col gap-4 px-8 py-7">
+          <div className="flex flex-1 flex-col gap-4 px-5 py-6 sm:px-6 md:px-8 md:py-7">
             <div className="flex items-center gap-3">
               <span className="flex items-center justify-center">
                 <Image src="/favicon.png" alt="WFW" width={28} height={28} className="h-7 w-7 object-contain" />
@@ -133,7 +133,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
               </div>
             </div>
 
-            <h2 className="text-2xl font-black">{theme.title}</h2>
+            <h2 className="text-xl sm:text-2xl font-black">{theme.title}</h2>
             <p className="text-[13px] leading-relaxed text-white/70">{theme.helper}</p>
 
             <ul className="space-y-2 text-[12px] text-white/70">
@@ -152,7 +152,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
         </div>
 
         {/* Right panel */}
-        <div className="flex flex-col gap-6 px-8 py-8 md:px-10">
+        <div className="flex flex-col gap-5 px-5 py-6 sm:px-6 md:px-10 md:py-8">
           <div className="flex items-center gap-3 text-[13px] font-semibold text-[#1E2F2D]">
             <ShieldCheck className="h-4 w-4 text-[#0B7A6D]" />
             Secure Donation
@@ -183,7 +183,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {amounts.map((amount) => {
               const isActive = selectedAmount === amount.value && customAmount === "";
               return (
@@ -191,7 +191,7 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
                   key={amount.value}
                   type="button"
                   onClick={() => handleAmountClick(amount.value)}
-                  className={`border px-3 py-2 text-sm font-bold ${
+                  className={`border px-3 py-2 text-[13px] sm:text-sm font-bold ${
                     isActive
                       ? "text-white"
                       : "text-[#1E2F2D] hover:border-[#C2D0CF]"
@@ -236,13 +236,13 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
           </button>
 
           <div className="flex items-center justify-center">
-            <div className="flex h-16 w-56 items-center justify-center border border-[#E6ECEC] bg-white px-4">
+            <div className="flex h-14 w-full max-w-[240px] items-center justify-center border border-[#E6ECEC] bg-white px-4">
               <Image
                 src="/images/site/Visa-Mastercard-1-1024x378.webp"
                 alt="Visa and Mastercard"
                 width={220}
                 height={80}
-                className="h-12 w-auto object-contain"
+                className="h-10 w-auto object-contain"
               />
             </div>
           </div>
