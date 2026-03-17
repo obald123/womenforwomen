@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
+import { publicFetch } from "../../lib/publicApi";
 import {
   TrendingUp,
   Users,
@@ -138,79 +139,55 @@ const milestones = [
   },
 ];
 
-const successStories = [
-  {
-    name: "Nikuze Esther",
-    program: "Adolescent Girls Program",
-    image: "/images/site/gallery-1.jpg",
-    title: "From Teenage Motherhood To Self-Belief",
-    quote:
-      "WfW-Rwanda gave me friends, sisters, and even parents. We studied life skills together, learning about our bodies, about parenting, saving, and much more.",
-    body:
-      "At 14, Esther became pregnant while in Senior 4. After her mother passed away during her eighth month of pregnancy, she was left entirely alone. Through WfW-Rwanda's adolescent girls program, she regained confidence, learned hair braiding and make-up skills, and rebuilt her sense of self-worth.",
-  },
-  {
-    name: "Mukarakundo Olive",
-    program: "Core Program",
-    image: "/images/site/gallery-2.jpg",
-    title: "From Market Stall To Business Leader",
-    quote:
-      "The program helped me turn my small stall into a stable business and gave me a support network I can count on.",
-    body:
-      "With training in business planning, savings, and leadership, Mukarakundo expanded her customer base, improved her products, and built a steady income for her family.",
-  },
-  {
-    name: "Kirungi Viviane",
-    program: "Graduate Support",
-    image: "/images/site/gallery-3.jpg",
-    title: "Building A Future Through Graduate Support",
-    quote:
-      "I learned to price my products, keep records, and plan for growth. My confidence changed everything.",
-    body:
-      "Graduate support connected Kirungi to mentors, finance fairs, and new markets. She now mentors other women starting similar businesses.",
-  },
-  {
-    name: "Claudine",
-    program: "Core Program",
-    image: "/images/site/gallery-4.jpg",
-    title: "Skills To Stability",
-    quote:
-      "I can provide for my children and make decisions for our future. That is real freedom.",
-    body:
-      "Claudine completed vocational training and joined a savings group. The support helped her invest in equipment and build a reliable income stream.",
-  },
-  {
-    name: "Odette Nyirankundimana",
-    program: "Core Program",
-    image: "/images/site/gallery-5.jpg",
-    title: "Confidence Through Community",
-    quote:
-      "The group became my family. Together we learned, saved, and lifted each other.",
-    body:
-      "Odette used the program's health and financial literacy sessions to improve her family's well-being and became a local advocate for women's rights.",
-  },
-  {
-    name: "Umutoni Clementine",
-    program: "Adolescent Girls Program",
-    image: "/images/site/gallery-6.jpg",
-    title: "From Setbacks To Self-Worth",
-    quote:
-      "I found a path back to school and a future I can shape on my own terms.",
-    body:
-      "Umutoni rejoined education while learning life skills and income generation. She now supports younger girls in her community.",
-  },
-];
+type StoryItem = {
+  id: string;
+  name: string;
+  program: string;
+  image: string;
+  title: string;
+  quote: string;
+  body: string;
+};
 
 export default function ImpactPage() {
   const [activeStory, setActiveStory] = useState(0);
-  const currentStory = successStories[activeStory];
+  const [stories, setStories] = useState<StoryItem[]>([]);
+  const currentStory = stories[activeStory];
+
+  useEffect(() => {
+    publicFetch<any>("/api/public/articles")
+      .then((res) => {
+        const items = Array.isArray(res.data) ? res.data : [];
+        const mapped = items
+          .filter((item: any) => item.category === "STORY")
+          .map((item: any) => ({
+            id: item.id,
+            name: item.title || "Success Story",
+            program: "Success Story",
+            image: item.coverImage || "/images/site/gallery-1.jpg",
+            title: item.title || "Success Story",
+            quote: item.excerpt || item.title || "",
+            body: item.content || item.excerpt || "",
+          }));
+        setStories(mapped);
+      })
+      .catch(() => setStories([]));
+  }, []);
+
+  useEffect(() => {
+    if (activeStory >= stories.length && stories.length) {
+      setActiveStory(0);
+    }
+  }, [activeStory, stories.length]);
 
   const goPrev = () => {
-    setActiveStory((prev) => (prev - 1 + successStories.length) % successStories.length);
+    if (!stories.length) return;
+    setActiveStory((prev) => (prev - 1 + stories.length) % stories.length);
   };
 
   const goNext = () => {
-    setActiveStory((prev) => (prev + 1) % successStories.length);
+    if (!stories.length) return;
+    setActiveStory((prev) => (prev + 1) % stories.length);
   };
 
   return (
@@ -340,37 +317,42 @@ export default function ImpactPage() {
       </section>
 
       {/* DIGITAL TRANSFORMATION */}
-      <section className="bg-[#0B1E1A] py-16 text-white min-h-screen flex items-center">
+      <section className="bg-[#0B1E1A] py-16 text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="mb-6 flex items-center gap-3 text-[#7BB6AF]">
-            <span className="h-[2px] w-8 bg-[#0A8F82]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Key Milestones</span>
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.95]">
-            Digital
-            <span className="ml-2 font-light italic text-[#8BA8A3]">Transformation</span>
-          </h2>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {milestones.map((item) => (
-              <div key={item.title} className="border border-white/10 bg-[#0F2420] p-6">
-                <div className="text-3xl font-black text-[#0A8F82]">{item.year}</div>
-                <div className="mt-4 text-[12px] font-bold uppercase">{item.title}</div>
-                <p className="mt-4 text-[12px] leading-relaxed text-white/60">{item.body}</p>
+          <div className="grid grid-cols-1 gap-10">
+            <div>
+              <div className="mb-6 flex items-center gap-3 text-[#7BB6AF]">
+                <span className="h-[2px] w-8 bg-[#0A8F82]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Key Milestones</span>
               </div>
-            ))}
-          </div>
 
-          <div className="mt-10 border-t border-white/10 pt-6 text-[13px] text-white/65">
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 items-center justify-center bg-white/10">
-                <Wifi className="h-5 w-5 text-[#7BB6AF]" />
+              <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.95]">
+                Digital
+                <span className="ml-2 font-light italic text-[#8BA8A3]">Transformation</span>
+              </h2>
+
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:gap-6">
+              {milestones.map((item) => (
+                <div key={item.title} className="border border-white/10 bg-[#0F2420] p-6">
+                  <div className="text-3xl font-black text-[#0A8F82]">{item.year}</div>
+                  <div className="mt-4 text-[12px] font-bold uppercase">{item.title}</div>
+                  <p className="mt-4 text-[12px] leading-relaxed text-white/60">{item.body}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 border-t border-white/10 pt-6 text-[13px] text-white/65">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 items-center justify-center bg-white/10">
+                  <Wifi className="h-5 w-5 text-[#7BB6AF]" />
+                </div>
+                <p>
+                  Currently, we are closely monitoring over 2,000 conventional savings groups across
+                  seven districts. With funding secured, we plan to digitize 240 savings groups by 2026.
+                </p>
               </div>
-              <p>
-                Currently, we are closely monitoring over 2,000 conventional savings groups across
-                seven districts. With funding secured, we plan to digitize 240 savings groups by 2026.
-              </p>
             </div>
           </div>
         </div>
@@ -414,73 +396,81 @@ export default function ImpactPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="relative overflow-hidden">
-              <div className="relative h-[360px] w-full sm:h-[420px] lg:h-[480px]">
-                <Image
-                  src={currentStory.image}
-                  alt={currentStory.program}
-                  fill
-                  className="object-cover object-center"
-                />
-              </div>
-              <div className="absolute left-6 top-6 bg-[#007A71] px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-white">
-                {currentStory.program}
-              </div>
+          {!stories.length ? (
+            <div className="mt-10 border border-dashed border-[#DDE7E4] bg-[#FBFAF7] p-10 text-center text-[13px] text-[#6B7574]">
+              No success stories published yet.
             </div>
-
-            <div className="bg-[#FBFAF7] p-8 lg:p-10">
-              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center bg-[#E7F6F3] text-[#007A71]">
-                <span className="text-2xl leading-none">"</span>
-              </div>
-              <div className="text-[11px] font-black uppercase tracking-[0.3em] text-[#007A71]">
-                {currentStory.name}, Age 17
-              </div>
-              <h3 className="mt-3 text-3xl md:text-4xl font-black uppercase leading-tight text-[#0D2323]">
-                {currentStory.title}
-              </h3>
-              <div className="mt-4 border-l-2 border-[#007A71] pl-5 text-[14px] leading-relaxed text-[#6B7574]">
-                <p className="italic">"{currentStory.quote}"</p>
-                <p className="mt-4">{currentStory.body}</p>
-              </div>
-              <div className="mt-8 flex items-center gap-2">
-                {successStories.map((story, idx) => (
-                  <span
-                    key={story.name}
-                    className={`h-[3px] ${
-                      idx === activeStory ? "w-10 bg-[#007A71]" : "w-6 bg-[#CFE4E1]"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-            {successStories.map((story, idx) => (
-              <button
-                key={story.name}
-                type="button"
-                onClick={() => setActiveStory(idx)}
-                className="relative h-[200px] overflow-hidden text-left"
-                aria-label={`View story for ${story.name}`}
-              >
-                <Image
-                  src={story.image}
-                  alt={story.name}
-                  fill
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B2B27]/85 via-[#0B2B27]/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <div className="text-[12px] font-bold leading-tight">{story.name}</div>
-                  <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/70">
-                    {story.program}
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+                <div className="relative overflow-hidden">
+                  <div className="relative h-[360px] w-full sm:h-[420px] lg:h-[480px]">
+                    <Image
+                      src={currentStory.image}
+                      alt={currentStory.program}
+                      fill
+                      className="object-cover object-center"
+                    />
+                  </div>
+                  <div className="absolute left-6 top-6 bg-[#007A71] px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-white">
+                    {currentStory.program}
                   </div>
                 </div>
-              </button>
-            ))}
-          </div>
+
+                <div className="bg-[#FBFAF7] p-8 lg:p-10">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center bg-[#E7F6F3] text-[#007A71]">
+                    <span className="text-2xl leading-none">"</span>
+                  </div>
+                  <div className="text-[11px] font-black uppercase tracking-[0.3em] text-[#007A71]">
+                    {currentStory.name}
+                  </div>
+                  <h3 className="mt-3 text-3xl md:text-4xl font-black uppercase leading-tight text-[#0D2323]">
+                    {currentStory.title}
+                  </h3>
+                  <div className="mt-4 border-l-2 border-[#007A71] pl-5 text-[14px] leading-relaxed text-[#6B7574]">
+                    <p className="italic">"{currentStory.quote}"</p>
+                    <p className="mt-4">{currentStory.body}</p>
+                  </div>
+                  <div className="mt-8 flex items-center gap-2">
+                    {stories.map((story, idx) => (
+                      <span
+                        key={story.id}
+                        className={`h-[3px] ${
+                          idx === activeStory ? "w-10 bg-[#007A71]" : "w-6 bg-[#CFE4E1]"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+                {stories.map((story, idx) => (
+                  <button
+                    key={story.id}
+                    type="button"
+                    onClick={() => setActiveStory(idx)}
+                    className="relative h-[200px] overflow-hidden text-left"
+                    aria-label={`View story for ${story.name}`}
+                  >
+                    <Image
+                      src={story.image}
+                      alt={story.name}
+                      fill
+                      className="object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B2B27]/85 via-[#0B2B27]/20 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <div className="text-[12px] font-bold leading-tight">{story.name}</div>
+                      <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/70">
+                        {story.program}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 

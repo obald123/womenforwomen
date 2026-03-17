@@ -9,6 +9,7 @@ import { JoinCommunitySection } from "../components/join-community-section";
 import { publicFetch } from "../../lib/publicApi";
 
 const GALLERY_HERO_IMAGES = [
+  "/images/site/gallery-home.jpeg",
   "/images/wfw/slide 5 - photo gallery/Stronger Women Stronger Nation.jpg",
   "/images/wfw/slide 5 - photo gallery/Abadacogora.jpg",
   "/images/wfw/slide 5 - photo gallery/Men Engage.jpeg",

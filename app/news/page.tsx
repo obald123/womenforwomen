@@ -106,14 +106,14 @@ export default function NewsPage() {
               </div>
 
               <div className="flex items-center">
-                <div className="w-full bg-[#F7F6F3] p-4 md:p-6 lg:p-8 h-full">
+                <div className="w-full bg-[#F7F6F3] p-5 md:p-7 lg:p-8 h-full">
                   <div className="text-[10px] font-semibold uppercase text-[#007A71] tracking-[0.18em]">
                     {formatDate(featured.publishedAt || featured.createdAt)}
                   </div>
-                  <h2 className="mt-3 text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold leading-tight text-[#0D2323]">
+                  <h2 className="mt-3 text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-extrabold leading-tight text-[#0D2323] line-clamp-2">
                     {featured.title}
                   </h2>
-                  <p className="mt-3 text-[#6B7574] text-xs leading-relaxed">
+                  <p className="mt-3 text-[13px] md:text-[14px] text-[#6B7574] leading-relaxed line-clamp-3">
                     {featured.excerpt}
                   </p>
 
@@ -167,7 +167,7 @@ export default function NewsPage() {
             ))}
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
             {visibleStories.map((s) => (
               <article key={s.id} className="flex flex-col h-full bg-white group shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg transition-shadow duration-300">
                 <div className="relative aspect-[16/9] overflow-hidden">
@@ -185,14 +185,14 @@ export default function NewsPage() {
                   </div>
                 </div>
 
-                <div className="p-6 pt-8 flex-1 flex flex-col">
+                <div className="p-6 pt-7 flex-1 flex flex-col">
                   <div className="text-[10px] font-bold uppercase text-[#00A991] tracking-[0.2em] mb-3">
                     {formatDate(s.publishedAt || s.createdAt)}
                   </div>
-                  <h3 className="text-[18px] font-[700] text-[#0D2323] leading-tight mb-4 group-hover:text-[#007A71] transition-colors">
+                  <h3 className="text-[18px] sm:text-[19px] font-[800] text-[#0D2323] leading-snug mb-3 group-hover:text-[#007A71] transition-colors line-clamp-2">
                     {s.title}
                   </h3>
-                  <p className="text-[#6B7574] text-[13px] leading-relaxed mb-6 flex-1">
+                  <p className="text-[#6B7574] text-[13px] leading-relaxed mb-6 flex-1 line-clamp-3">
                     {s.excerpt}
                   </p>
                   <div>

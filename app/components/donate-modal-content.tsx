@@ -125,8 +125,8 @@ export function DonateModalContent({ onClose }: DonateModalContentProps) {
 
           <div className="flex flex-1 flex-col gap-4 px-8 py-7">
             <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0A6D66] text-[10px] font-black">
-                WFW
+              <span className="flex items-center justify-center">
+                <Image src="/favicon.png" alt="WFW" width={28} height={28} className="h-7 w-7 object-contain" />
               </span>
               <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/80">
                 WOMEN FOR WOMEN RWANDA
