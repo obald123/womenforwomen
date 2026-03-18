@@ -41,7 +41,7 @@ export default function TeamPage() {
   const [selectedMember, setSelectedMember] = useState<any | null>(null);
 
   useEffect(() => {
-    publicFetch<any>("/api/public/team")
+    publicFetch<any>("/api/public/team?pageSize=100")
       .then((res) => {
         const items = Array.isArray(res.data) ? res.data : [];
         const boardItems = items.filter((i: any) => i.category === "BOARD");
