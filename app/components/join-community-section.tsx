@@ -45,7 +45,7 @@ export function JoinCommunitySection({ className = "" }: JoinCommunitySectionPro
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                href="/partner"
+                href="/partner#contact-section"
                 className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-[12px] font-bold uppercase tracking-[0.2em] text-[#0A7F73]"
               >
                 Partner With Us

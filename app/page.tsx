@@ -10,14 +10,16 @@ import { JoinCommunitySection } from "./components/join-community-section";
 import { publicFetch, resolveImageUrl } from "../lib/publicApi";
 
 const HOME_HERO_IMAGES = [
+  "/images/site/home-slide.jpg",
   "/images/wfw/Home page/Strengthening women-led businesses.jpg",
   "/images/wfw/Home page/Socio-economic empowerment.jpg",
   "/images/wfw/Home page/Graduation out of poverty.JPG",
-  "/images/wfw/Home page/Empowering change through skills building.jpg",
+  "/images/site/home-skills training.jpeg",
   "/images/wfw/Home page/Over 25 years of transformation.jpg",
 ];
 
 const IMPACT_SLIDES = [
+  "/images/site/home-23yearsof transformation.jpeg",
   "/images/wfw/Home page/Over 25 years of transformation.jpg",
   "/images/wfw/Home page/Strengthening women-led businesses.jpg",
   "/images/wfw/Home page/Socio-economic empowerment.jpg",
@@ -293,7 +295,7 @@ export default function Home() {
               {/* First Image - Large: COHORT 2024 */}
               <div className="group relative overflow-hidden rounded-lg row-span-2">
                 <Image 
-                  src="/images/site/home-grid-1.jpg"
+                  src="/images/site/aboutus-cohort 2024.jpeg"
                   alt="Women in cohort program"
                   fill
                   sizes="100vw"
@@ -326,7 +328,7 @@ export default function Home() {
               {/* Third Image - SKILLS TRAINING */}
               <div className="group relative overflow-hidden rounded-lg">
                 <Image 
-                  src="/images/site/home-grid-3.jpg"
+                  src="/images/site/aboutus-home.jpeg"
                   alt="Skills training"
                   fill
                   sizes="100vw"

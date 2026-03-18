@@ -114,7 +114,7 @@ export default function AboutPage() {
               {/* Large Image - Top Left and Bottom Left */}
               <div className="relative overflow-hidden row-span-2">
                 <Image 
-                  src="/images/site/about-grid-1.jpg"
+                  src="/images/site/aboutus-cohort 2024.jpeg"
                   alt="Cohort 2024"
                   fill
                   className="object-cover"
@@ -146,7 +146,7 @@ export default function AboutPage() {
               {/* Bottom Right Image */}
               <div className="relative overflow-hidden h-[208px]">
                 <Image 
-                  src="/images/site/about-grid-3.jpg"
+                  src="/images/site/aboutus-home.jpeg"
                   alt="Skills Training"
                   fill
                   className="object-cover"
