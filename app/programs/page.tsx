@@ -32,44 +32,44 @@ import {
 const programTabs = [
   {
     id: "01",
-    navLabel: "CORE PROGRAM",
-    kicker: "01 - CORE PROGRAM",
-    titleMain: "STRENGTHENING WOMEN-LED BUSINESSES",
+    navLabel: "GRADUATION OUT OF POVERTY",
+    kicker: "01 - GRADUATION OUT OF POVERTY",
+    titleMain: "GRADUATION OUT OF POVERTY",
     titleAccent: "",
     paragraphs: [
-      "For the past 25 years, our Core Program has been a beacon of transformation, strengthening women-led businesses across Rwanda. This comprehensive 12-month initiative empowers vulnerable women to achieve financial independence, build sustainable enterprises, and forge vital connections.",
-      "Women for Women Rwanda's CORE Program is at the heart of this endeavor. It reaches across rural and semi-urban landscapes, bringing hope and empowerment to vulnerable women, including widows and survivors.",
-      "In this journey, women embark on a year-long exploration of self-discovery and growth. Through education, they gain a deeper understanding of their rights, financial literacy, health, and advocacy, igniting the spark of change."
+      "After completing our 12-month program, graduates embark on a pathway to graduation out of poverty - becoming change-makers, business owners, cooperative leaders, and advocates. Through graduate support, women receive advanced training, access additional resources, improve their vocational skills, and connect to other graduates for production and employment.",
+      "We know that women may need additional tools to overcome their challenges, especially in starting and growing their businesses, after graduation. By connecting women to financial services, advanced business and vocational training, and support networks, we increase opportunities to grow their businesses and unlock their full potential."
     ],
-    image: "/images/site/programs-core.jpg",
-    imageAlt: "Women seated together during a training session",
-    badgeValue: "25+",
-    badgeLabel: "YEARS OF IMPACT"
+    image: "/images/site/programs-graduate.jpg",
+    imageAlt: "Graduate program participants"
   },
   {
     id: "02",
-    navLabel: "COMPLEMENTARY",
-    kicker: "02 — COMPLEMENTARY PROGRAM",
+    navLabel: "SUPPORT PROGRAM",
+    kicker: "02 - SUPPORT PROGRAM",
     titleMain: "SOCIOECONOMIC EMPOWERMENT",
     titleAccent: "",
     paragraphs: [
-      "At Women for Women Rwanda, our commitment to socioeconomic empowerment extends beyond individual growth. Recognizing that true progress requires a unified approach, our complementary initiatives extend to men's engagement, community advocacy, GBV prevention, and adolescent girls programming."
+      "At Women for Women Rwanda, our commitment to socioeconomic empowerment extends beyond individual growth. Recognizing that true progress requires a unified approach, our support initiatives extend to men's engagement, community advocacy, GBV prevention, and adolescent girls programming."
     ],
     image: "/images/site/programs-complementary.jpg",
     imageAlt: "Socioeconomic empowerment"
   },
   {
     id: "03",
-    navLabel: "GRADUATE PROGRAM",
-    kicker: "03 — GRADUATE PROGRAM",
-    titleMain: "GRADUATION OUT OF POVERTY",
+    navLabel: "DEVELOPMENT PROGRAM",
+    kicker: "03 - DEVELOPMENT PROGRAM",
+    titleMain: "STRENGTHENING WOMEN-LED BUSINESSES",
     titleAccent: "",
     paragraphs: [
-      "After completing our 12-month program, graduates embark on a pathway to graduation out of poverty — becoming change-makers, business owners, cooperative leaders, and advocates. Through graduate support, women receive advanced training, access additional resources, improve their vocational skills, and connect to other graduates for production and employment.",
-      "We know that women may need additional tools to overcome their challenges, especially in starting and growing their businesses, after graduation. By connecting women to financial services, advanced business and vocational training, and support networks, we increase opportunities to grow their businesses and unlock their full potential."
+      "For the past 25 years, our Development Program has been a beacon of transformation, strengthening women-led businesses across Rwanda. This comprehensive 12-month initiative empowers vulnerable women to achieve financial independence, build sustainable enterprises, and forge vital connections.",
+      "Women for Women Rwanda's Development Program is at the heart of this endeavor. It reaches across rural and semi-urban landscapes, bringing hope and empowerment to vulnerable women, including widows and survivors.",
+      "In this journey, women embark on a year-long exploration of self-discovery and growth. Through education, they gain a deeper understanding of their rights, financial literacy, health, and advocacy, igniting the spark of change."
     ],
-    image: "/images/site/programs-graduate.jpg",
-    imageAlt: "Graduate program participants"
+    image: "/images/site/programs-core.jpg",
+    imageAlt: "Women seated together during a training session",
+    badgeValue: "25+",
+    badgeLabel: "YEARS OF IMPACT"
   }
 ];
 
@@ -193,7 +193,7 @@ function ProgramsPageContent() {
                   className="object-cover object-center"
                 />
 
-                {activeProgram.id === "03" && (
+                {activeProgram.id === "01" && (
                   <div className="absolute bottom-0 left-0 right-0">
                     <div className="bg-gradient-to-b from-transparent via-[#007A71]/40 to-[#007A71]/95 py-8">
                       <div className="w-full text-left text-white/95 uppercase text-[11px] tracking-widest pl-6 md:pl-10">EMPOWERING ENTREPRENEURS</div>
@@ -205,7 +205,7 @@ function ProgramsPageContent() {
           </div>
           
           {/* Badge overlaps both columns at the bottom */}
-          {activeProgram.id === "01" ? (
+          {activeProgram.id === "03" ? (
             <div className="hidden lg:block absolute left-0 right-0 mx-auto z-20" style={{ bottom: '-32px', width: 'fit-content' }}>
               <div className="bg-[#00A991] px-8 py-5 text-white shadow-xl flex flex-col items-center">
                 <p className="text-4xl font-black leading-none tracking-tight md:text-5xl">
@@ -218,7 +218,7 @@ function ProgramsPageContent() {
             </div>
           ) : null}
           {/* For mobile, keep badge inside image at bottom left */}
-          {activeProgram.id === "01" ? (
+          {activeProgram.id === "03" ? (
             <div className="lg:hidden relative z-20 -mt-6 w-fit">
               <div className="bg-[#00A991] px-7 py-5 text-white shadow-xl flex flex-col items-center">
                 <p className="text-3xl font-black leading-none tracking-tight">
@@ -249,7 +249,7 @@ function ProgramsPageContent() {
                     </div>
                     <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">EMPOWERING TOGETHER FOR LASTING CHANGE</div>
                     <h3 className="text-[28px] md:text-[40px] font-black uppercase text-[#0D2323] mb-4">HOLISTIC EMPOWERMENT</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Our commitment to transformative change extends beyond individual growth. For over 25 years, our CORE Program has empowered 18–55-year-old vulnerable women in rural and semi-urban areas, igniting hope and fostering empowerment.</p>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Our commitment to transformative change extends beyond individual growth. For over 25 years, our Development Program has empowered 18–55-year-old vulnerable women in rural and semi-urban areas, igniting hope and fostering empowerment.</p>
                   </div>
                 </div>
               </div>
@@ -356,7 +356,7 @@ function ProgramsPageContent() {
             </section>
           )}
 
-          {activeTab === '03' && (
+          {activeTab === '01' && (
             <section className="bg-[#FBF9F6] py-16 mt-12  border-[#ecebe6]">
               <div className="mx-auto max-w-7xl px-4 md:px-8">
                 <div className="mb-3 flex items-center gap-3">
@@ -428,7 +428,7 @@ function ProgramsPageContent() {
             </section>
           )}
           {/* Two-panel graduate features: Business Competitions & Building Networks */}
-          {activeTab === '03' && (
+          {activeTab === '01' && (
             <section className="py-16 mt-8 lg:py-20">
               <div className="mx-auto max-w-7xl px-4 md:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -477,7 +477,7 @@ function ProgramsPageContent() {
               </div>
             </section>
           )}
-          {activeTab === "01" && (
+          {activeTab === "03" && (
                       <section className="bg-[#F8F8F4] py-16 mt-16  border-[#ecebe6]">
                         <div className="mx-auto max-w-7xl px-4 md:px-8">
                           <div className="mb-3 text-[#007A71] text-[12px] font-bold tracking-[0.18em] uppercase">How it works</div>
@@ -527,7 +527,7 @@ function ProgramsPageContent() {
                       </section>
                     )}
 
-                    {activeTab === "01" && (
+                    {activeTab === "03" && (
                       <section className="bg-[#0B7A6D] py-12 mt-10">
                         <div className="mx-auto max-w-7xl px-4 md:px-8">
                           <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
@@ -619,3 +619,4 @@ export default function ProgramsPage() {
     </Suspense>
   );
 }
+

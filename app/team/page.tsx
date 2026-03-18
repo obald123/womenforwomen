@@ -44,8 +44,10 @@ export default function TeamPage() {
     publicFetch<any>("/api/public/team?pageSize=100")
       .then((res) => {
         const items = Array.isArray(res.data) ? res.data : [];
-        const boardItems = items.filter((i: any) => i.category === "BOARD");
-        const teamItems = items.filter((i: any) => i.category !== "BOARD");
+        const byCreatedAsc = (a: any, b: any) =>
+          new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime();
+        const boardItems = items.filter((i: any) => i.category === "BOARD").sort(byCreatedAsc);
+        const teamItems = items.filter((i: any) => i.category !== "BOARD").sort(byCreatedAsc);
         setBoard(boardItems);
         setTeam(teamItems);
       })

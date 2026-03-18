@@ -386,7 +386,7 @@ export default function AboutPage() {
           </div>
 
           {/* Heading */}
-          <h2 className="text-6xl font-black text-[#0D1F1C] uppercase leading-none mb-1">SIX</h2>
+          <h2 className="text-6xl font-black text-[#0D1F1C] uppercase leading-none mb-1">SEVEN</h2>
           <h2 className="text-6xl font-extralight italic text-[#0D6B63] uppercase leading-none mb-6">DISTRICTS</h2>
 
           {/* Description */}
@@ -398,6 +398,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-3 max-w-lg">
             {[
               { name: "Nyaruguru", province: "Southern Province" },
+              { name: "Muhanga", province: "Southern Province" },
               { name: "Kicukiro", province: "Kigali City" },
               { name: "Rwamagana", province: "Eastern Province" },
               { name: "Bugesera", province: "Eastern Province" },

@@ -414,13 +414,13 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Program Cards Grid */}
+                    {/* Program Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 - Core Program */}
+            {/* Card 1 - Graduation Out of Poverty */}
             <Link href="/programs?tab=01" className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer block">
               <Image 
-                src="/images/site/programs-core.jpg"
-                alt="Strengthening Women-Led Businesses"
+                src="/images/site/programs-graduate.jpg"
+                alt="Graduation Out of Poverty"
                 fill
                   sizes="100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -428,15 +428,15 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/70 block mb-3">
-                  01 — Core Program
+                  01 - Graduation Out of Poverty
                 </span>
                 <h3 className="text-2xl md:text-3xl font-black text-white leading-tight uppercase">
-                  Strengthening<br />Women-Led<br />Businesses
+                  Graduation Out<br />of Poverty
                 </h3>
               </div>
             </Link>
 
-            {/* Card 2 - Complementary */}
+            {/* Card 2 - Support Program */}
             <Link href="/programs?tab=02" className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer block">
               <Image 
                 src="/images/site/programs-complementary.jpg"
@@ -448,7 +448,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/70 block mb-3">
-                  02 — Complementary
+                  02 - Support Program
                 </span>
                 <h3 className="text-2xl md:text-3xl font-black text-white leading-tight uppercase">
                   Socioeconomic<br />Empowerment
@@ -456,11 +456,11 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Card 3 - Graduate Program */}
+            {/* Card 3 - Development Program */}
             <Link href="/programs?tab=03" className="relative h-[500px] overflow-hidden rounded-lg group cursor-pointer block">
               <Image 
-                src="/images/site/programs-graduate.jpg"
-                alt="Graduation Out of Poverty"
+                src="/images/site/programs-core.jpg"
+                alt="Strengthening Women-Led Businesses"
                 fill
                   sizes="100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -468,10 +468,10 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/70 block mb-3">
-                  03 — Graduate Program
+                  03 - Development Program
                 </span>
                 <h3 className="text-2xl md:text-3xl font-black text-white leading-tight uppercase">
-                  Graduation Out<br />of Poverty
+                  Strengthening<br />Women-Led<br />Businesses
                 </h3>
               </div>
             </Link>
@@ -678,6 +678,7 @@ export default function Home() {
             <div className="mt-7 grid grid-cols-1 gap-3 md:mt-8 md:grid-cols-2 md:gap-[10px]">
               {[
                 ["Nyaruguru", "Southern Province"],
+                ["Muhanga", "Southern Province"],
                 ["Kicukiro", "Kigali City"],
                 ["Rwamagana", "Eastern Province"],
                 ["Bugesera", "Eastern Province"],
@@ -788,4 +789,5 @@ export default function Home() {
     </div>
   );
 }
+
 

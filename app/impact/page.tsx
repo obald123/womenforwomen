@@ -147,6 +147,7 @@ type StoryItem = {
   title: string;
   quote: string;
   body: string;
+  slug: string;
 };
 
 export default function ImpactPage() {
@@ -162,6 +163,7 @@ export default function ImpactPage() {
           .filter((item: any) => item.category === "STORY")
           .map((item: any) => ({
             id: item.id,
+            slug: item.slug,
             name: item.title || "Success Story",
             program: "Success Story",
             image: item.coverImage || "/images/site/gallery-1.jpg",
@@ -429,7 +431,20 @@ export default function ImpactPage() {
                   </h3>
                   <div className="mt-4 border-l-2 border-[#007A71] pl-5 text-[14px] leading-relaxed text-[#6B7574]">
                     <p className="italic">"{currentStory.quote}"</p>
-                    <p className="mt-4">{currentStory.body}</p>
+                    <p className="mt-4 line-clamp-3">{currentStory.body}</p>
+                  </div>
+                  <div className="mt-6">
+                    <Link
+                      href={`/news/${currentStory.slug}`}
+                      className="inline-flex items-center gap-2 text-[#007A71] font-black uppercase text-[10px] tracking-[0.2em]"
+                    >
+                      Read More
+                      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#007A71]">
+                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2 6H10M6 2L10 6L6 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                    </Link>
                   </div>
                   <div className="mt-8 flex items-center gap-2">
                     {stories.map((story, idx) => (

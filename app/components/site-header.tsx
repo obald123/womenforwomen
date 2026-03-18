@@ -165,21 +165,21 @@ export function SiteHeader() {
                     className="block px-4 py-2.5 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
                     onClick={() => setOpenDropdown(null)}
                   >
-                    Core Program
+                    Graduation Out of Poverty
                   </Link>
                   <Link
                     href="/programs?tab=02#program-details"
                     className="block px-4 py-2.5 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
                     onClick={() => setOpenDropdown(null)}
                   >
-                    Complementary Program
+                    Support Program
                   </Link>
                   <Link
                     href="/programs?tab=03#program-details"
                     className="block px-4 py-2.5 text-[12px] font-medium text-[#666666] hover:bg-[#F0F7F6] hover:text-[#00A991] transition-colors"
                     onClick={() => setOpenDropdown(null)}
                   >
-                    Graduate Program
+                    Development Program
                   </Link>
                 </div>
               </div>
@@ -280,13 +280,13 @@ export function SiteHeader() {
               {mobileOpen === 'programs' && (
                 <div className="ml-3 flex flex-col gap-2">
                   <Link href="/programs?tab=01#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    Core Program
+                    Graduation Out of Poverty
                   </Link>
                   <Link href="/programs?tab=02#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    Complementary Program
+                    Support Program
                   </Link>
                   <Link href="/programs?tab=03#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    Graduate Program
+                    Development Program
                   </Link>
                 </div>
               )}
