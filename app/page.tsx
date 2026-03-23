@@ -304,7 +304,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-3 left-3">
                   <span className="inline-block bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
-                    COHORT 2024
+                    COHORT 
                   </span>
                 </div>
               </div>
