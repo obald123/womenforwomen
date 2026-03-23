@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { publicFetch } from "../../lib/publicApi";
+import { sendEmail } from "../../lib/emailjsClient";
 
 export function NewsletterSection() {
   const [email, setEmail] = useState("");

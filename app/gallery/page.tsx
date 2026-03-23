@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
-import { publicFetch } from "../../lib/publicApi";
+import { publicFetch, resolveImageUrl } from "../../lib/publicApi";
 
 const GALLERY_HERO_IMAGES = [
   "/images/site/gallery-home.jpeg",
@@ -44,6 +44,9 @@ export default function GalleryPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [images, setImages] = useState(fallbackImages);
+  const [videos, setVideos] = useState<Array<{ src: string; title?: string; caption?: string }>>([]);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   useEffect(() => {
     publicFetch<any>("/api/public/gallery")
@@ -52,7 +55,7 @@ export default function GalleryPage() {
         const flattened = galleries.flatMap((g: any) =>
           Array.isArray(g.images)
             ? g.images.map((img: any) => ({
-                src: img.url,
+                src: resolveImageUrl(img.url) || img.url,
                 alt: img.caption || g.title || "Gallery image",
                 title: g.title || "Gallery",
                 kicker: "GALLERY",
@@ -60,6 +63,17 @@ export default function GalleryPage() {
             : []
         );
         if (flattened.length) setImages(flattened);
+
+        const flattenedVideos = galleries.flatMap((g: any) =>
+          Array.isArray(g.videos)
+            ? g.videos.map((vid: any) => ({
+                src: resolveImageUrl(vid.url) || vid.url,
+                title: g.title || "Gallery",
+                caption: vid.caption,
+              }))
+            : []
+        );
+        if (flattenedVideos.length) setVideos(flattenedVideos);
       })
       .catch(() => {});
   }, []);
@@ -82,6 +96,17 @@ export default function GalleryPage() {
   const next = useCallback(() => {
     setCurrentIndex((i) => (i + 1) % images.length);
   }, [images.length]);
+
+  const openVideoAt = useCallback((idx: number) => {
+    setCurrentVideoIndex(idx);
+    setVideoOpen(true);
+    if (typeof document !== "undefined") document.body.style.overflow = "hidden";
+  }, []);
+
+  const closeVideo = useCallback(() => {
+    setVideoOpen(false);
+    if (typeof document !== "undefined") document.body.style.overflow = "";
+  }, []);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -158,6 +183,98 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
+      {videos.length > 0 && (
+        <section id="gallery-videos" className="bg-[#F2F7F6] py-14 font-sans">
+          <div className="mx-auto max-w-7xl px-4 md:px-6">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-[1px] w-8 bg-[#0A9C8E]" />
+              <div className="text-[#0A9C8E] text-[10px] font-extrabold tracking-[0.25em] uppercase">VIDEO GALLERY</div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {videos.map((vid, idx) => (
+                <div key={`${idx}-${vid.src}`} className="bg-white border border-[#E6ECEB] p-3">
+                  <button
+                    type="button"
+                    onClick={() => openVideoAt(idx)}
+                    className="relative w-full aspect-video bg-black overflow-hidden group"
+                    aria-label={`Open video ${idx + 1}`}
+                  >
+                    <video
+                      src={vid.src}
+                      muted
+                      playsInline
+                      loop
+                      preload="metadata"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      onMouseEnter={(e) => {
+                        const el = e.currentTarget;
+                        el.muted = true;
+                        el.play().catch(() => {});
+                        const prevTimer = (el as any).__hoverTimer as number | undefined;
+                        if (prevTimer) window.clearTimeout(prevTimer);
+                        (el as any).__hoverTimer = window.setTimeout(() => {
+                          el.pause();
+                        }, 10000);
+                      }}
+                      onMouseLeave={(e) => {
+                        const el = e.currentTarget;
+                        const prevTimer = (el as any).__hoverTimer as number | undefined;
+                        if (prevTimer) window.clearTimeout(prevTimer);
+                        el.pause();
+                        el.currentTime = 0;
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                    <div className="absolute bottom-3 right-3 bg-white/90 text-[#0A9C8E] text-[10px] font-black tracking-[0.2em] px-2.5 py-1">
+                      PLAY
+                    </div>
+                  </button>
+                  <div className="mt-3">
+                    <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#0A9C8E]">
+                      {vid.title || "Gallery Video"}
+                    </div>
+                    {vid.caption && (
+                      <div className="mt-1 text-[12px] text-[#4A5C5B]">{vid.caption}</div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {videoOpen && videos[currentVideoIndex] && (
+        <div className="fixed inset-0 z-[90] bg-black/70 flex items-center justify-center p-6">
+          <button onClick={closeVideo} className="absolute top-6 right-6 text-white">
+            <X className="w-6 h-6" />
+          </button>
+          <div className="w-full max-w-4xl bg-black">
+            <div className="relative w-full aspect-video">
+              <video
+                src={videos[currentVideoIndex].src}
+                controls
+                autoPlay
+                className="absolute inset-0 h-full w-full object-contain"
+              />
+            </div>
+            {(videos[currentVideoIndex].title || videos[currentVideoIndex].caption) && (
+              <div className="bg-white px-4 py-3">
+                {videos[currentVideoIndex].title && (
+                  <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#0A9C8E]">
+                    {videos[currentVideoIndex].title}
+                  </div>
+                )}
+                {videos[currentVideoIndex].caption && (
+                  <div className="mt-1 text-[12px] text-[#4A5C5B]">{videos[currentVideoIndex].caption}</div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {isOpen && images[currentIndex] && (
         <div className="fixed inset-0 z-[90] bg-black/90 flex items-center justify-center">

@@ -223,7 +223,7 @@ export default function Home() {
       >
         <div className="flex flex-1 flex-col">
           <div className="flex flex-1 items-center">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full pt-20">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full pt-28 sm:pt-24 md:pt-20">
               <div className="max-w-4xl relative">
                 <h1 className="text-4xl md:text-6xl lg:text-8xl font-[900] leading-[0.85] text-white tracking-tighter uppercase">
                   STRONGER<br />

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { publicFetch } from "../../lib/publicApi";
+import { sendEmail } from "../../lib/emailjsClient";
 import {
   Mail,
   Phone,
@@ -138,6 +139,18 @@ export default function PartnerPage() {
       .then(() => {
         setSubmitted(true);
         setValues({ name: "", email: "", phone: "", organization: "", message: "" });
+        return sendEmail({
+          templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_CONTACT,
+          variables: {
+            to_email: process.env.NEXT_PUBLIC_CONTACT_RECIPIENT_EMAIL || "",
+            from_name: values.name.trim(),
+            from_email: values.email.trim(),
+            phone: values.phone.trim(),
+            organization: values.organization.trim(),
+            message: values.message.trim(),
+            subject: "New contact message",
+          },
+        });
       })
       .catch(() => setSubmitError("Something went wrong. Please try again."))
       .finally(() => setIsSubmitting(false));

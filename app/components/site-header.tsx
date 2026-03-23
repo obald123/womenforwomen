@@ -198,6 +198,7 @@ export function SiteHeader() {
         {/* RIGHT SIDE ACTIONS */}
         <div className="hidden lg:flex items-center gap-3 shrink-0">
           {/* DONATE BUTTON */}
+          {/*
           <button
             type="button"
             onClick={openDonateModal}
@@ -206,6 +207,7 @@ export function SiteHeader() {
             <Heart size={14} fill="currentColor" />
             DONATE
           </button>
+          */}
 
           {/* PARTNER BUTTON */}
           <Link
@@ -245,25 +247,30 @@ export function SiteHeader() {
               </div>
             </div>
             <nav className="flex flex-col gap-4">
-              <Link href="/" className={navLinkClass(pathname === '/')}>HOME</Link>
+              <Link
+                href="/"
+                className={`${navLinkClass(pathname === '/')} block w-full rounded-sm px-3 py-2 text-[13px]`}
+              >
+                HOME
+              </Link>
 
               <button
                 type="button"
                 onClick={() => setMobileOpen((prev) => (prev === 'about' ? null : 'about'))}
-                className={`flex items-center justify-between ${navLinkClass(isAboutActive)}`}
+                className={`flex w-full items-center justify-between rounded-sm px-3 py-2 text-[13px] ${navLinkClass(isAboutActive)}`}
               >
                 ABOUT US
                 <ChevronDown className={`h-4 w-4 transition-transform ${mobileOpen === 'about' ? 'rotate-180' : ''}`} />
               </button>
               {mobileOpen === 'about' && (
                 <div className="ml-3 flex flex-col gap-2">
-                  <Link href="/about#mission-vision" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                  <Link href="/about#mission-vision" className="rounded-sm px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
                     Mission and Vision
                   </Link>
-                  <Link href="/team#team-section" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                  <Link href="/team#team-section" className="rounded-sm px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
                     Our Team
                   </Link>
-                  <Link href="/gallery#gallery-grid" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                  <Link href="/gallery#gallery-grid" className="rounded-sm px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
                     Our Gallery
                   </Link>
                 </div>
@@ -272,30 +279,41 @@ export function SiteHeader() {
               <button
                 type="button"
                 onClick={() => setMobileOpen((prev) => (prev === 'programs' ? null : 'programs'))}
-                className={`flex items-center justify-between ${navLinkClass(isProgramsActive)}`}
+                className={`flex w-full items-center justify-between rounded-sm px-3 py-2 text-[13px] ${navLinkClass(isProgramsActive)}`}
               >
                 OUR PROGRAMS
                 <ChevronDown className={`h-4 w-4 transition-transform ${mobileOpen === 'programs' ? 'rotate-180' : ''}`} />
               </button>
               {mobileOpen === 'programs' && (
                 <div className="ml-3 flex flex-col gap-2">
-                  <Link href="/programs?tab=01#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                  <Link href="/programs?tab=01#program-details" className="rounded-sm px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
                     Graduation Out of Poverty
                   </Link>
-                  <Link href="/programs?tab=02#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                  <Link href="/programs?tab=02#program-details" className="rounded-sm px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
                     Support Program
                   </Link>
-                  <Link href="/programs?tab=03#program-details" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
+                  <Link href="/programs?tab=03#program-details" className="rounded-sm px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-500">
                     Development Program
                   </Link>
                 </div>
               )}
 
-              <Link href="/impact" className={navLinkClass(pathname.startsWith('/impact'))}>IMPACT</Link>
-              <Link href="/news" className={navLinkClass(pathname.startsWith('/news'))}>NEWS</Link>
+              <Link
+                href="/impact"
+                className={`${navLinkClass(pathname.startsWith('/impact'))} block w-full rounded-sm px-3 py-2 text-[13px]`}
+              >
+                IMPACT
+              </Link>
+              <Link
+                href="/news"
+                className={`${navLinkClass(pathname.startsWith('/news'))} block w-full rounded-sm px-3 py-2 text-[13px]`}
+              >
+                NEWS
+              </Link>
             </nav>
 
             <div className="mt-8 flex flex-col gap-3">
+              {/*
               <button
                 type="button"
                 onClick={() => {
@@ -307,6 +325,7 @@ export function SiteHeader() {
                 <Heart size={14} fill="currentColor" />
                 Donate
               </button>
+              */}
               <Link
                 href="/partner"
                 className="rounded-[3px] bg-[#00A991] px-4 py-3 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white"
