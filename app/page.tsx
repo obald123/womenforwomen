@@ -497,12 +497,12 @@ export default function Home() {
               </div>
 
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.94] uppercase">
-                23 YEARS OF
+                25 + YEARS OF
                 <span className="mt-1 block font-extralight italic tracking-normal">TRANSFORMATION</span>
               </h2>
 
               <p className="mt-7 max-w-[560px] text-base md:text-[1.05rem] text-white/92 leading-relaxed">
-                Over 23 years we've supported over 80,000 marginalized women,
+                Over 25 years we've supported over 80,000 marginalized women,
                 established digitized savings groups, and introduced men's
                 engagement programs to combat gender-based violence across
                 Rwanda.
@@ -747,17 +747,17 @@ export default function Home() {
               {
                 title: "DIGNITY",
                 image:
-                  "/images/site/gallery-6.jpg",
+                  "/images/site/dignity.jpg",
               },
               {
                 title: "EMPOWERMENT",
                 image:
-                  "/images/site/gallery-7.jpg",
+                  "/images/site/Empowerment.jpg",
               },
               {
                 title: "SUSTAINABILITY",
                 image:
-                  "/images/site/gallery-8.jpg",
+                  "/images/site/Sustainabilty.jpg",
               },
               {
                 title: "SOLIDARITY",
