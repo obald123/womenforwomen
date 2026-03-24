@@ -132,7 +132,7 @@ export default function NewsPage() {
         </div>
       </section>
 
-      <section className="bg-[#FAF9F6] py-12">
+      <section id="latest-stories" className="scroll-mt-24 bg-[#FAF9F6] py-12">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-6">

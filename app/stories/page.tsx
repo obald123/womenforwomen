@@ -1,5 +1,5 @@
-import { FigmaPrototype } from "../components/figma-prototype";
+import { redirect } from "next/navigation";
 
 export default function StoriesPage() {
-  return <FigmaPrototype nodeId="25:492" />;
+  redirect("/news#latest-stories");
 }

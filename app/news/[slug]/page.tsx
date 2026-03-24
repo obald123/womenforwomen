@@ -25,6 +25,45 @@ function formatDate(value?: string) {
   return date.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
 }
 
+function hasHtmlMarkup(content: string) {
+  return /<[a-z][\s\S]*>/i.test(content);
+}
+
+function normalizePlainText(content: string) {
+  return content
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.replace(/\n/g, " ").trim())
+    .filter(Boolean);
+}
+
+function splitIntoParagraphs(text: string) {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (!normalized) return [];
+
+  const sentences = normalized
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  if (sentences.length <= 2) return [normalized];
+
+  const chunks: string[] = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    chunks.push(sentences.slice(i, i + 2).join(" "));
+  }
+  return chunks;
+}
+
+function extractSingleParagraphHtml(content: string) {
+  const match = content.match(/^<p[^>]*>([\s\S]*?)<\/p>$/i);
+  if (!match) return null;
+  return match[1]
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
+
 export default async function NewsDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const item = await getArticle(slug);
@@ -35,6 +74,12 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
       </div>
     );
   }
+
+  const content = String(item.content || "");
+  const singleParagraphText = hasHtmlMarkup(content) ? extractSingleParagraphHtml(content) : null;
+  const shouldForceParagraphSplit = Boolean(singleParagraphText);
+  const forcedParagraphs = shouldForceParagraphSplit ? splitIntoParagraphs(singleParagraphText || "") : [];
+  const plainParagraphs = !hasHtmlMarkup(content) ? normalizePlainText(content) : [];
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
@@ -76,12 +121,29 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
 
       <section className="py-14">
         <div className="mx-auto max-w-4xl px-6">
-          <p className="text-[15px] leading-relaxed text-[#5F6E6C]">
+          <p className="text-[1.02rem] leading-8 text-[#4E5E5B]">
             {item.excerpt}
           </p>
 
-          <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-[#5F6E6C]">
-            <div dangerouslySetInnerHTML={{ __html: item.content }} />
+          <div className="mt-8 text-[#3D4B49]">
+            {shouldForceParagraphSplit ? (
+              <div className="space-y-6 text-[1.03rem] leading-8">
+                {forcedParagraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+                ))}
+              </div>
+            ) : hasHtmlMarkup(content) ? (
+              <div
+                className="text-[1.03rem] leading-8 [&_p]:mb-6 [&_p]:leading-8 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
+            ) : (
+              <div className="space-y-6 text-[1.03rem] leading-8">
+                {plainParagraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="mt-10">

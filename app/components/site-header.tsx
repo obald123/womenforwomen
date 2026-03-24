@@ -73,13 +73,19 @@ export function SiteHeader() {
   const dropdownPanel =
     'absolute left-0 top-full pt-1 min-w-[200px] transition-opacity duration-150';
 
+  const handleLogoClick = () => {
+    if (pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <header ref={headerRef} className={headerClass}>
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 lg:px-8">
         
         {/* LOGO SECTION */}
-        <Link href="/" className="flex items-center gap-3 shrink-0">
+        <Link href="/" onClick={handleLogoClick} className="flex items-center gap-3 shrink-0">
           <div className="relative h-12 w-36 sm:w-40">
             <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="160px" className="object-contain" />
           </div>

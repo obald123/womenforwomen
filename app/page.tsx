@@ -428,7 +428,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D6B63]/95 via-[#0D6B63]/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/70 block mb-3">
-                  01 - Graduation Out of Poverty
+                  01 - Core Program
                 </span>
                 <h3 className="text-2xl md:text-3xl font-black text-white leading-tight uppercase">
                   Graduation Out<br />of Poverty
@@ -594,7 +594,7 @@ export default function Home() {
             </div>
 
             <Link
-              href="/stories"
+              href="/news#latest-stories"
               className="mt-2 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0A9C8E] hover:text-[#077d72]"
             >
               ALL STORIES
