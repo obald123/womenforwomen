@@ -54,10 +54,9 @@ function splitIntoParagraphs(text: string) {
   return chunks;
 }
 
-function extractSingleParagraphHtml(content: string) {
-  const match = content.match(/^<p[^>]*>([\s\S]*?)<\/p>$/i);
-  if (!match) return null;
-  return match[1]
+function extractTextFromHtml(content: string) {
+  return content
+    .replace(/<\/p>/gi, "\n\n")
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/gi, " ")
@@ -76,10 +75,20 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   }
 
   const content = String(item.content || "");
-  const singleParagraphText = hasHtmlMarkup(content) ? extractSingleParagraphHtml(content) : null;
-  const shouldForceParagraphSplit = Boolean(singleParagraphText);
-  const forcedParagraphs = shouldForceParagraphSplit ? splitIntoParagraphs(singleParagraphText || "") : [];
-  const plainParagraphs = !hasHtmlMarkup(content) ? normalizePlainText(content) : [];
+  const contentHasHtml = hasHtmlMarkup(content);
+  const plainTextFromHtml = contentHasHtml ? extractTextFromHtml(content) : "";
+  const htmlParagraphCount = contentHasHtml ? (content.match(/<p[\s>]/gi) || []).length : 0;
+  const shouldForceParagraphSplit =
+    contentHasHtml &&
+    plainTextFromHtml.length > 280 &&
+    htmlParagraphCount <= 1;
+  const forcedParagraphs = shouldForceParagraphSplit ? splitIntoParagraphs(plainTextFromHtml) : [];
+
+  const plainParagraphsRaw = !contentHasHtml ? normalizePlainText(content) : [];
+  const plainParagraphs =
+    plainParagraphsRaw.length <= 1
+      ? splitIntoParagraphs(plainParagraphsRaw.join(" "))
+      : plainParagraphsRaw.flatMap((paragraph) => splitIntoParagraphs(paragraph));
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
@@ -120,27 +129,27 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
       </section>
 
       <section className="py-14">
-        <div className="mx-auto max-w-4xl px-6">
-          <p className="text-[1.02rem] leading-8 text-[#4E5E5B]">
+        <div className="mx-auto max-w-[68ch] px-6">
+          <p className="text-[1.08rem] leading-9 text-[#3E4E4C]">
             {item.excerpt}
           </p>
 
           <div className="mt-8 text-[#3D4B49]">
             {shouldForceParagraphSplit ? (
-              <div className="space-y-6 text-[1.03rem] leading-8">
-                {forcedParagraphs.map((paragraph) => (
-                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              <div className="space-y-7 text-[1.07rem] leading-9">
+                {forcedParagraphs.map((paragraph, index) => (
+                  <p key={`forced-${index}-${paragraph.slice(0, 24)}`}>{paragraph}</p>
                 ))}
               </div>
-            ) : hasHtmlMarkup(content) ? (
+            ) : contentHasHtml ? (
               <div
-                className="text-[1.03rem] leading-8 [&_p]:mb-6 [&_p]:leading-8 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold"
+                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             ) : (
-              <div className="space-y-6 text-[1.03rem] leading-8">
-                {plainParagraphs.map((paragraph) => (
-                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              <div className="space-y-7 text-[1.07rem] leading-9">
+                {plainParagraphs.map((paragraph, index) => (
+                  <p key={`plain-${index}-${paragraph.slice(0, 24)}`}>{paragraph}</p>
                 ))}
               </div>
             )}
