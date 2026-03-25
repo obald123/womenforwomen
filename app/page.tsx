@@ -14,7 +14,7 @@ const HOME_HERO_IMAGES = [
   "/images/wfw/Home page/Strengthening women-led businesses.jpg",
   "/images/wfw/Home page/Socio-economic empowerment.jpg",
   "/images/wfw/Home page/Graduation out of poverty.JPG",
-  "/images/site/home-skills training.jpeg",
+  "/images/site/home-skills trainig.jpeg",
   "/images/wfw/Home page/Over 25 years of transformation.jpg",
 ];
 
@@ -497,7 +497,7 @@ export default function Home() {
               </div>
 
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.94] uppercase">
-                25 + YEARS OF
+                25+ YEARS OF
                 <span className="mt-1 block font-extralight italic tracking-normal">TRANSFORMATION</span>
               </h2>
 
