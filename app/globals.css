@@ -12,6 +12,11 @@ body {
   box-sizing: border-box;
 }
 
+/* First-screen hero under fixed 72px header (matches SiteHeader bar height). */
+.hero-viewport {
+  min-height: calc(100svh - 72px);
+}
+
 /* Hide scrollbar for partners carousel while keeping programmatic scrolling */
 .partners-scrollbar-hidden {
   -ms-overflow-style: none; /* IE and Edge */

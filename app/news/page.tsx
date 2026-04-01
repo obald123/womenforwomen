@@ -15,6 +15,16 @@ const NEWS_HERO_IMAGES = [
 ];
 const FALLBACK_IMAGE = "/images/site/gallery-1.jpg";
 
+function withCloudinaryTransform(url: string, transform: string) {
+  const marker = "/upload/";
+  const idx = url.indexOf(marker);
+  if (idx === -1) return url;
+  if (!url.includes("res.cloudinary.com")) return url;
+  const prefix = url.slice(0, idx + marker.length);
+  const rest = url.slice(idx + marker.length);
+  return `${prefix}${transform}/${rest}`;
+}
+
 function formatDate(value?: string) {
   if (!value) return "";
   const date = new Date(value);
@@ -97,7 +107,16 @@ export default function NewsPage() {
           {featured && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-x-0 lg:gap-y-8 items-stretch">
               <div className="relative w-full min-h-[160px] md:min-h-[220px] lg:min-h-[260px] overflow-hidden">
-                <Image src={resolveImageUrl(featured.coverImage) || FALLBACK_IMAGE} alt={featured.title} fill sizes="100vw" className="object-cover object-center" />
+                <Image
+                  src={withCloudinaryTransform(
+                    resolveImageUrl(featured.coverImage) || FALLBACK_IMAGE,
+                    "c_fill,g_auto:subject,w_1400,h_800,f_auto,q_auto"
+                  )}
+                  alt={featured.title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover object-center"
+                />
                 <div className="absolute top-4 left-4">
                   <span className="inline-block bg-[#007A71] text-white text-[10px] font-semibold uppercase px-2 py-1 tracking-wide">
                     {featured.category ?? "News Update"}
@@ -172,10 +191,13 @@ export default function NewsPage() {
               <article key={s.id} className="flex flex-col h-full bg-white group shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg transition-shadow duration-300">
                 <div className="relative aspect-[16/9] overflow-hidden">
                   <Image 
-                    src={resolveImageUrl(s.coverImage) || FALLBACK_IMAGE} 
+                    src={withCloudinaryTransform(
+                      resolveImageUrl(s.coverImage) || FALLBACK_IMAGE,
+                      "c_fill,g_auto:faces,w_1200,h_675,f_auto,q_auto"
+                    )} 
                     alt={s.title} 
                     fill 
-                    sizes="100vw"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute top-2 left-2">

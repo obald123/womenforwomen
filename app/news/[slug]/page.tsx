@@ -18,6 +18,17 @@ function resolveImageUrl(url?: string) {
   return `${API_URL}${url}`;
 }
 
+function withCloudinaryTransform(url: string, transform: string) {
+  const marker = "/upload/";
+  const idx = url.indexOf(marker);
+  if (idx === -1) return url;
+  // Only transform Cloudinary URLs (avoid breaking other CDNs / local assets)
+  if (!url.includes("res.cloudinary.com")) return url;
+  const prefix = url.slice(0, idx + marker.length);
+  const rest = url.slice(idx + marker.length);
+  return `${prefix}${transform}/${rest}`;
+}
+
 function formatDate(value?: string) {
   if (!value) return "";
   const date = new Date(value);
@@ -92,10 +103,16 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <div className="flex flex-col font-[family-name:var(--font-montserrat)] antialiased bg-white">
-      <section className="relative min-h-[55vh] w-full overflow-hidden bg-[#0C3F3C]">
+      <section className="hero-viewport relative flex w-full flex-col overflow-hidden bg-[#0C3F3C]">
         <div className="absolute inset-0 z-0">
           <Image
-            src={resolveImageUrl(item.coverImage) || "/images/site/home-hero.jpg"}
+            src={
+              withCloudinaryTransform(
+                resolveImageUrl(item.coverImage) || "/images/site/home-hero.jpg",
+                // Smart crop to a wide hero while focusing the subject/face.
+                "c_fill,g_auto:faces,w_2400,h_1350,f_auto,q_auto"
+              )
+            }
             alt={item.title}
             fill
             sizes="100vw"
@@ -103,10 +120,9 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-black/45" />
-          <div className="absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/45 to-transparent md:w-[55%]" />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-14 pt-16 text-white">
+        <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-16 pt-24 text-white items-start">
           <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/85">
             <Link href="/" className="transition-colors hover:text-white">Home</Link>
             <span className="text-white/60">/</span>
@@ -114,7 +130,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
           </div>
 
           {item.category && (
-            <div className="mb-4 inline-flex bg-[#00A991] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+            <div className="mb-4 w-fit max-w-full self-start rounded-sm bg-[#00A991] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
               {item.category}
             </div>
           )}
@@ -143,7 +159,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
               </div>
             ) : contentHasHtml ? (
               <div
-                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold"
+                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold [&_img]:my-8 [&_img]:w-full [&_img]:max-w-full [&_img]:rounded-xl [&_img]:border [&_img]:border-[#E7EEED]"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             ) : (
