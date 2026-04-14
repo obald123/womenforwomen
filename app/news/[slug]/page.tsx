@@ -87,14 +87,6 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
 
   const content = String(item.content || "");
   const contentHasHtml = hasHtmlMarkup(content);
-  const plainTextFromHtml = contentHasHtml ? extractTextFromHtml(content) : "";
-  const htmlParagraphCount = contentHasHtml ? (content.match(/<p[\s>]/gi) || []).length : 0;
-  const shouldForceParagraphSplit =
-    contentHasHtml &&
-    plainTextFromHtml.length > 280 &&
-    htmlParagraphCount <= 1;
-  const forcedParagraphs = shouldForceParagraphSplit ? splitIntoParagraphs(plainTextFromHtml) : [];
-
   const plainParagraphsRaw = !contentHasHtml ? normalizePlainText(content) : [];
   const plainParagraphs =
     plainParagraphsRaw.length <= 1
@@ -151,15 +143,9 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
           </p>
 
           <div className="mt-8 text-[#3D4B49]">
-            {shouldForceParagraphSplit ? (
-              <div className="space-y-7 text-[1.07rem] leading-9">
-                {forcedParagraphs.map((paragraph, index) => (
-                  <p key={`forced-${index}-${paragraph.slice(0, 24)}`}>{paragraph}</p>
-                ))}
-              </div>
-            ) : contentHasHtml ? (
+            {contentHasHtml ? (
               <div
-                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold [&_img]:my-8 [&_img]:w-full [&_img]:max-w-full [&_img]:rounded-xl [&_img]:border [&_img]:border-[#E7EEED]"
+                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold [&_b]:font-semibold [&_em]:italic [&_i]:italic [&_u]:underline [&_img]:my-8 [&_img]:w-full [&_img]:max-w-full [&_img]:rounded-xl [&_img]:border [&_img]:border-[#E7EEED]"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             ) : (
