@@ -93,7 +93,7 @@ const impactAreas = [
     id: "04",
     title: "Men's Engagement Program",
     body:
-      "Nearly 170 men have undergone training through the Men's Engagement Program, supporting women's rights in households and communities.",
+      "Over 1500 men have undergone training through the Men's Engagement Program, supporting women's rights in households and communities.",
     icon: ShieldCheck,
   },
   {
@@ -215,7 +215,7 @@ export default function ImpactPage() {
                 <span className="block font-light italic text-white/80">IMPACT</span>
               </h1>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/85 md:text-base">
-                Over 23 years, we have expanded and adapted our programs to support more than 80,000
+                Over 29 years, we have expanded and adapted our programs to support more than 80,000
                 marginalized women across the country.
               </p>
             </div>
@@ -247,13 +247,13 @@ export default function ImpactPage() {
             </div>
 
             <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.95] text-[#0D2323]">
-              27+ Years of
+              29+ Years of
               <span className="block font-light italic text-[#007A71]">Transformation</span>
             </h2>
 
             <div className="mt-6 space-y-5 text-[14px] leading-relaxed text-[#6B7574]">
               <p>
-                Over the past 23 years, we have continuously expanded and adapted our programs to
+                Over the past 29 years, we have continuously expanded and adapted our programs to
                 provide support to more than 80,000 marginalized women across the country.
               </p>
               <p>

@@ -255,32 +255,38 @@ export default function Home() {
       </HeroSlider>
 
       {/* SECTION 2: STATS BAR */}
-      <section className="bg-[#F0F7F6] py-8">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <section className="bg-[#F0F7F6] py-6">
+        <div className="mx-auto max-w-7xl px-4 lg:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
+              <div className="text-3xl md:text-4xl font-black text-[#00A991]">
                 <StatCounter end={80000} />
               </div>
-              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Women Served Since 1997</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500">Women Served Since 1997</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
-                <StatCounter end={3160} />
+              <div className="text-3xl md:text-4xl font-black text-[#00A991]">
+                <StatCounter end={3217} />
               </div>
-              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">VSLAs Created Nationwide</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500">VSLAs Created Nationwide</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
-                <StatCounter end={390} />
+              <div className="text-3xl md:text-4xl font-black text-[#00A991]">
+                <StatCounter end={500} />
               </div>
-              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Digitalized Savings Groups</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500">Digitalized Savings Groups</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-[#00A991]">
+              <div className="text-3xl md:text-4xl font-black text-[#00A991]">
+                <StatCounter end={1500} />
+              </div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500">Men Engaged</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-black text-[#00A991]">
                 <StatCounter end={170} />
               </div>
-              <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Men Engaged as Advocates</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500">Men Engaged as Advocates</div>
             </div>
           </div>
         </div>
@@ -479,7 +485,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 6: IMPACT - 23 YEARS OF TRANSFORMATION */}
+      {/* SECTION 6: IMPACT - 29 YEARS OF TRANSFORMATION */}
       <HeroSlider
         images={IMPACT_SLIDES}
         altPrefix="Impact"
@@ -497,12 +503,12 @@ export default function Home() {
               </div>
 
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.94] uppercase">
-                25+ YEARS OF
+                29+ YEARS OF
                 <span className="mt-1 block font-extralight italic tracking-normal">TRANSFORMATION</span>
               </h2>
 
               <p className="mt-7 max-w-[560px] text-base md:text-[1.05rem] text-white/92 leading-relaxed">
-                Over 25 years we've supported over 80,000 marginalized women,
+                Over 29 years we've supported over 80,000 marginalized women,
                 established digitized savings groups, and introduced men's
                 engagement programs to combat gender-based violence across
                 Rwanda.

@@ -104,7 +104,7 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  In 2021, WfW-Rwanda transitioned from WfWI as a local organization in Rwanda as an affiliate. Through our combined efforts and with both local and international partners, we have served and supported over <span className="text-[#00A991] font-bold">80,000 women</span> and helped start up <span className="text-[#00A991] font-bold">3,160 Village Savings and Loan Associations (VSLAs)</span>, over 390 of which are digitalized.
+                  In 2021, WfW-Rwanda transitioned from WfWI as a local organization in Rwanda as an affiliate. Through our combined efforts and with both local and international partners, we have served and supported over <span className="text-[#00A991] font-bold">80,000 women</span> and helped start up <span className="text-[#00A991] font-bold">3,217 Village Savings and Loan Associations (VSLAs)</span>, over 506 of which are digitalized.
                 </p>
               </div>
             </div>
@@ -217,7 +217,7 @@ export default function AboutPage() {
               <p className="text-6xl font-black text-[#0D6B63]/40 mb-3">Today</p>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1F2937] mb-3">Growing Impact</p>
               <p className="text-xs text-gray-400 leading-relaxed">
-                Over 80,000 women served, 3,160+ VSLAs created, 390+ digitized savings groups, and 300+ women enrolled annually in our signature program.
+                Over 80,000 women served, 3,217+ VSLAs created, 500+ digitized savings groups, and 300+ women enrolled annually in our signature program.
               </p>
             </div>
           </div>
