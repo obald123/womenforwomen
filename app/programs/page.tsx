@@ -62,13 +62,13 @@ const programTabs = [
     titleMain: "STRENGTHENING WOMEN-LED BUSINESSES",
     titleAccent: "",
     paragraphs: [
-      "For the past 25 years, our Development Program has been a beacon of transformation, strengthening women-led businesses across Rwanda. This comprehensive 12-month initiative empowers vulnerable women to achieve financial independence, build sustainable enterprises, and forge vital connections.",
+      "For the past 29 years, our Development Program has been a beacon of transformation, strengthening women-led businesses across Rwanda. This comprehensive 12-month initiative empowers vulnerable women to achieve financial independence, build sustainable enterprises, and forge vital connections.",
       "Women for Women Rwanda's Development Program is at the heart of this endeavor. It reaches across rural and semi-urban landscapes, bringing hope and empowerment to vulnerable women, including widows and survivors.",
       "In this journey, women embark on a year-long exploration of self-discovery and growth. Through education, they gain a deeper understanding of their rights, financial literacy, health, and advocacy, igniting the spark of change."
     ],
     image: "/images/site/programs-core.jpg",
     imageAlt: "Women seated together during a training session",
-    badgeValue: "25+",
+    badgeValue: "29+",
     badgeLabel: "YEARS OF IMPACT"
   }
 ];
