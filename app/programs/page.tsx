@@ -249,7 +249,7 @@ function ProgramsPageContent() {
                     </div>
                     <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">EMPOWERING TOGETHER FOR LASTING CHANGE</div>
                     <h3 className="text-[28px] md:text-[40px] font-black uppercase text-[#0D2323] mb-4">HOLISTIC EMPOWERMENT</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Our commitment to transformative change extends beyond individual growth. For over 25 years, our Development Program has empowered 18–55-year-old vulnerable women in rural and semi-urban areas, igniting hope and fostering empowerment.</p>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Our commitment to transformative change extends beyond individual growth. For over 29 years, our Development Program has empowered 18–55-year-old vulnerable women in rural and semi-urban areas, igniting hope and fostering empowerment.</p>
                   </div>
                 </div>
               </div>
