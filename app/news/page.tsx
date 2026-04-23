@@ -133,7 +133,7 @@ export default function NewsPage() {
                     {featured.title}
                   </h2>
                   <p className="mt-3 text-[13px] md:text-[14px] text-[#6B7574] leading-relaxed line-clamp-3">
-                    {featured.excerpt}
+                    {featured.excerpt}...
                   </p>
 
                   <div className="mt-4">
@@ -215,7 +215,7 @@ export default function NewsPage() {
                     {s.title}
                   </h3>
                   <p className="text-[#6B7574] text-[13px] leading-relaxed mb-6 flex-1 line-clamp-3">
-                    {s.excerpt}
+                    {s.excerpt}...
                   </p>
                   <div>
                     <Link href={`/news/${s.slug}`} className="inline-flex items-center gap-3 text-[#007A71] font-black uppercase text-[10px] tracking-[0.2em] group/link">

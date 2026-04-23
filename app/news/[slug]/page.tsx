@@ -138,10 +138,6 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
 
       <section className="py-14">
         <div className="mx-auto max-w-[68ch] px-6">
-          <p className="text-[1.08rem] leading-9 text-[#3E4E4C]">
-            {item.excerpt}
-          </p>
-
           <div className="mt-8 text-[#3D4B49]">
             {contentHasHtml ? (
               <div
