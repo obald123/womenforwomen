@@ -22,7 +22,6 @@ function withCloudinaryTransform(url: string, transform: string) {
   const marker = "/upload/";
   const idx = url.indexOf(marker);
   if (idx === -1) return url;
-  // Only transform Cloudinary URLs (avoid breaking other CDNs / local assets)
   if (!url.includes("res.cloudinary.com")) return url;
   const prefix = url.slice(0, idx + marker.length);
   const rest = url.slice(idx + marker.length);
@@ -138,10 +137,16 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
 
       <section className="py-14">
         <div className="mx-auto max-w-[68ch] px-6">
+          {item.coverImageCaption && (
+            <div className="mb-8 text-center text-sm italic text-gray-600 border-l-4 border-[#00A991] pl-4">
+              {item.coverImageCaption}
+            </div>
+          )}
+          
           <div className="mt-8 text-[#3D4B49]">
             {contentHasHtml ? (
               <div
-                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold [&_b]:font-semibold [&_em]:italic [&_i]:italic [&_u]:underline [&_img]:my-8 [&_img]:w-full [&_img]:max-w-full [&_img]:rounded-xl [&_img]:border [&_img]:border-[#E7EEED]"
+                className="text-[1.07rem] leading-9 [&_p]:mb-7 [&_p]:leading-9 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#0F2224] [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-[#0F2224] [&_ul]:mb-6 [&_ul]:ml-6 [&_ul]:list-disc [&_li]:mb-2 [&_a]:text-[#007A71] [&_a]:underline [&_strong]:font-semibold [&_b]:font-semibold [&_em]:italic [&_i]:italic [&_u]:underline [&_img]:my-8 [&_img]:w-full [&_img]:max-w-full [&_img]:rounded-xl [&_img]:border [&_img]:border-[#E7EEED] [&_figure]:my-10 [&_figcaption]:mt-2 [&_figcaption]:text-sm [&_figcaption]:italic [&_figcaption]:text-gray-600"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             ) : (
