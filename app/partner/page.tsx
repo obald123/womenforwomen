@@ -42,7 +42,6 @@ const partnerWays = [
   },
 ];
 
-const careerOpenings: JobOpening[] = [];
 
 type FormValues = {
   name: string;
@@ -57,11 +56,15 @@ type FormErrors = Partial<Record<keyof FormValues, string>>;
 type JobOpening = {
   id: string;
   title: string;
+  slug: string;
   department?: string | null;
   location?: string | null;
   employment?: string | null;
   description: string;
   requirements?: string[] | null;
+  dueDate?: string | null;
+  descriptionFileUrl?: string | null;
+  descriptionFileName?: string | null;
   createdAt?: string;
 };
 
@@ -78,9 +81,6 @@ export default function PartnerPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [jobs, setJobs] = useState<JobOpening[]>([]);
-  const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
-  const [applyOpen, setApplyOpen] = useState(false);
-  const [applyStatus, setApplyStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [generalOpen, setGeneralOpen] = useState(false);
   const [generalStatus, setGeneralStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -154,33 +154,6 @@ export default function PartnerPage() {
       })
       .catch(() => setSubmitError("Something went wrong. Please try again."))
       .finally(() => setIsSubmitting(false));
-  };
-
-  const openApply = (job: JobOpening) => {
-    setSelectedJob(job);
-    setApplyOpen(true);
-    setApplyStatus("idle");
-  };
-
-  const submitApplication = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!selectedJob) return;
-    const fd = new FormData(e.currentTarget);
-    const resume = fd.get("resume");
-    if (!(resume instanceof File) || resume.size === 0) {
-      setApplyStatus("error");
-      return;
-    }
-    setApplyStatus("loading");
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/public/jobs/${selectedJob.id}/apply`, {
-      method: "POST",
-      body: fd,
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        setApplyStatus("success");
-      })
-      .catch(() => setApplyStatus("error"));
   };
 
   const submitGeneral = (e: React.FormEvent<HTMLFormElement>) => {
@@ -486,12 +459,12 @@ export default function PartnerPage() {
           </div>
 
           <div className="mt-10 space-y-6">
-            {(jobs.length ? jobs : careerOpenings).map((job: any) => (
+            {jobs.map((job: any) => (
               <div
-                key={job.title}
+                key={job.id || job.title}
                 className="group flex flex-col justify-between gap-6 border border-[#E6EFEA] bg-white px-6 py-6 md:flex-row md:items-center"
               >
-                <div>
+                <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#007A71]">
                     {(job.department ? [job.department] : []).concat(job.employment ? [job.employment] : []).map((tag: string) => (
                       <span key={tag} className="bg-[#E8F6F4] px-2 py-1">
@@ -504,17 +477,21 @@ export default function PartnerPage() {
                   </h3>
                   <div className="mt-3 flex flex-wrap gap-4 text-[12px] text-[#6B7574]">
                     <span>{job.location || "Kigali, Rwanda"}</span>
-                    <span>{job.createdAt ? `Posted ${new Date(job.createdAt).toLocaleDateString()}` : ""}</span>
+                    {job.createdAt && (
+                      <span>Posted {new Date(job.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</span>
+                    )}
+                    {job.dueDate && (
+                      <span>Deadline: {new Date(job.dueDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</span>
+                    )}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => openApply(job)}
-                  className="inline-flex items-center gap-2 border border-[#D8E4E1] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#007A71] transition-colors group-hover:bg-[#007A71] group-hover:text-white"
+                <Link
+                  href={`/careers/${job.slug}`}
+                  className="inline-flex shrink-0 items-center gap-2 border border-[#D8E4E1] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#007A71] transition-colors group-hover:bg-[#007A71] group-hover:text-white"
                 >
-                  Apply
+                  View & Apply
                   <ChevronRight className="h-4 w-4" />
-                </button>
+                </Link>
               </div>
             ))}
           </div>
@@ -551,80 +528,6 @@ export default function PartnerPage() {
       </section>
 
       <JoinCommunitySection />
-
-      {applyOpen && selectedJob && (
-        <div className="fixed inset-0 z-[90] bg-black/70 flex items-start sm:items-center justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
-            <div className="border-b border-[#E6EFEA] px-4 sm:px-6 py-4 flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[#007A71]">Apply Now</div>
-                <div className="text-[18px] font-black text-[#0D2323]">{selectedJob.title}</div>
-              </div>
-              <button type="button" onClick={() => setApplyOpen(false)} className="text-[10px] font-black tracking-[0.2em] text-gray-500">Close</button>
-            </div>
-
-            <div className="px-4 sm:px-6 py-5">
-              {Array.isArray(selectedJob.requirements) && selectedJob.requirements.length > 0 && (
-                <div className="mb-5">
-                  <div className="text-[10px] font-black uppercase tracking-[0.2em] text-[#007A71] mb-2">Requirements</div>
-                  <ul className="list-disc pl-5 text-[12px] text-[#6B7574] space-y-1">
-                    {selectedJob.requirements.map((r, i) => (
-                      <li key={`${r}-${i}`}>{r}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <form onSubmit={submitApplication} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="md:col-span-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Full Name</label>
-                  <input name="name" required className="mt-2 w-full border border-[#D7E3E1] px-4 py-3 text-sm" />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Email</label>
-                  <input type="email" name="email" required className="mt-2 w-full border border-[#D7E3E1] px-4 py-3 text-sm" />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Phone</label>
-                  <input name="phone" className="mt-2 w-full border border-[#D7E3E1] px-4 py-3 text-sm" />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Cover Letter</label>
-                  <textarea name="coverLetter" rows={4} className="mt-2 w-full border border-[#D7E3E1] px-4 py-3 text-sm" />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">LinkedIn URL <span className="text-gray-400 font-bold">(optional)</span></label>
-                  <input name="linkedinUrl" className="mt-2 w-full border border-[#D7E3E1] px-4 py-3 text-sm" />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Portfolio URL <span className="text-gray-400 font-bold">(optional)</span></label>
-                  <input name="portfolioUrl" className="mt-2 w-full border border-[#D7E3E1] px-4 py-3 text-sm" />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Resume (PDF/DOC)</label>
-                  <input type="file" name="resume" className="mt-2 w-full text-sm" />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[#0D2323]">Supporting Doc (optional)</label>
-                  <input type="file" name="supporting" className="mt-2 w-full text-sm" />
-                </div>
-                <div className="md:col-span-2 flex justify-end gap-3 pt-2">
-                  <button type="button" onClick={() => setApplyOpen(false)} className="text-[10px] font-black tracking-[0.2em] text-gray-500">Cancel</button>
-                  <button type="submit" disabled={applyStatus === "loading"} className="bg-[#007A71] text-white px-6 py-3 text-[10px] font-black uppercase tracking-[0.2em]">
-                    {applyStatus === "loading" ? "Submitting..." : "Submit Application"}
-                  </button>
-                </div>
-                {applyStatus === "success" && (
-                  <div className="md:col-span-2 text-[12px] text-[#007A71]">Application submitted successfully.</div>
-                )}
-                {applyStatus === "error" && (
-                  <div className="md:col-span-2 text-[12px] text-red-600">Submission failed. Please check files and try again.</div>
-                )}
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
 
       {generalOpen && (
         <div className="fixed inset-0 z-[90] bg-black/70 flex items-start sm:items-center justify-center p-3 sm:p-6 overflow-y-auto">
