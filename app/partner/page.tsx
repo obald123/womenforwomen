@@ -506,7 +506,7 @@ export default function PartnerPage() {
                   <div className="text-[14px] font-bold">Can not see a role that fits?</div>
                   <p className="mt-2 text-[12px] text-white/60 max-w-xl">
                     We are always open to hearing from talented individuals. Send your CV
-                    and cover letter to careers@womenforwomenrwanda.org and we will keep
+                    and cover letter to info@womenforwomenrwanda.org and we will keep
                     your application on file.
                   </p>
                 </div>
