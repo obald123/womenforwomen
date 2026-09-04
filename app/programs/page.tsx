@@ -241,7 +241,7 @@ function ProgramsPageContent() {
                     <div className="absolute left-6 top-6 z-20">
                       <div className="bg-[#007A71] text-white text-[12px] font-bold px-3 py-1">01</div>
                     </div>
-                    <Image src="/images/site/programs-holistic.jpg" alt="Holistic empowerment" fill className="object-cover object-center" />
+                    <Image src="/images/site/programs-skills-building.jpeg" alt="Holistic empowerment" fill className="object-cover object-center" />
                   </div>
                   <div>
                     <div className="inline-flex items-center justify-center w-10 h-10 bg-[#E7F6F3] rounded p-2 mb-4">
