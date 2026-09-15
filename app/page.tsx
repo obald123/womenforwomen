@@ -10,7 +10,7 @@ import { JoinCommunitySection } from "./components/join-community-section";
 import { publicFetch, resolveImageUrl } from "../lib/publicApi";
 
 const HOME_HERO_IMAGES = [
-  "/images/site/home-slide.jpg",
+  { src: "/images/site/home-slide.jpg", position: "top" as const },
   "/images/wfw/Home page/Strengthening women-led businesses.jpg",
   "/images/wfw/Home page/Socio-economic empowerment.jpg",
   "/images/wfw/Home page/Graduation out of poverty.JPG",
@@ -186,7 +186,7 @@ export default function Home() {
       >
         <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-            <div className="max-w-xl rounded-lg bg-[#0D6B63] p-8 shadow-2xl sm:p-10 md:p-12">
+            <div className="max-w-xl rounded-lg border border-white/15 bg-black/30 p-8 text-white shadow-2xl backdrop-blur-sm sm:p-10 md:p-12">
               <h1 className="text-4xl md:text-5xl font-[900] leading-[0.9] text-white tracking-tight uppercase">
                 STRONGER<br />
                 <span className="font-extralight italic text-[#4DD9C4] block py-1">WOMEN,</span>

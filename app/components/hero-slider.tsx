@@ -6,9 +6,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TRANSITION_MS = 1000;
 
+type ImagePosition = "top" | "center" | "bottom";
+
+/** A slide image, either a plain path or a path with its own crop position override. */
+type HeroImage = string | { src: string; position?: ImagePosition };
+
 type HeroSliderProps = {
-  /** Image paths (from public), e.g. "/images/wfw/Home page/photo.jpg" */
-  images: string[];
+  /** Image paths (from public), e.g. "/images/wfw/Home page/photo.jpg". An entry can
+   * instead be `{ src, position }` to override imagePosition just for that slide. */
+  images: HeroImage[];
   /** Alt text prefix for each image */
   altPrefix?: string;
   /** Interval in ms between slides (default 7500) */
@@ -17,10 +23,14 @@ type HeroSliderProps = {
   overlayClassName?: string;
   /** Section min height, default min-h-screen for home, pages can override */
   className?: string;
-  /** object-position for the slides, e.g. "top" when subjects are framed near the top of the photo */
-  imagePosition?: "top" | "center" | "bottom";
+  /** Default object-position for slides that don't specify their own, e.g. "top" when subjects are framed near the top of the photo */
+  imagePosition?: ImagePosition;
   children: React.ReactNode;
 };
+
+function positionClassFor(position: ImagePosition) {
+  return position === "top" ? "object-top" : position === "bottom" ? "object-bottom" : "object-center";
+}
 
 export function HeroSlider({
   images,
@@ -34,8 +44,7 @@ export function HeroSlider({
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const count = images.length;
-  const positionClass =
-    imagePosition === "top" ? "object-top" : imagePosition === "bottom" ? "object-bottom" : "object-center";
+  const slides = images.map((img) => (typeof img === "string" ? { src: img, position: undefined } : img));
 
   const goTo = useCallback(
     (next: number) => {
@@ -70,9 +79,9 @@ export function HeroSlider({
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="absolute inset-0 z-0">
-        {images.map((src, i) => (
+        {slides.map((slide, i) => (
           <div
-            key={src}
+            key={slide.src}
             className="absolute inset-0 transition-opacity ease-out"
             style={{
               opacity: i === index ? 1 : 0,
@@ -81,10 +90,10 @@ export function HeroSlider({
             aria-hidden={i === index ? undefined : true}
           >
             <Image
-              src={encodeURI(src)}
+              src={encodeURI(slide.src)}
               alt={`${altPrefix} ${i + 1}`}
               fill
-              className={`object-cover ${positionClass}`}
+              className={`object-cover ${positionClassFor(slide.position ?? imagePosition)}`}
               sizes="100vw"
               priority={i === 0}
             />

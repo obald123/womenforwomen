@@ -74,7 +74,7 @@ export default function TeamPage() {
         <div className="flex flex-1 flex-col">
           <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
             <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-              <div className="max-w-xl rounded-lg bg-[#0D6B63] p-8 shadow-2xl sm:p-10 md:p-12">
+              <div className="max-w-xl rounded-lg border border-white/15 bg-black/30 p-8 text-white shadow-2xl backdrop-blur-sm sm:p-10 md:p-12">
                 <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/90">
                   <Link href="/" className="transition-colors hover:text-white/80">
                     Home

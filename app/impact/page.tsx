@@ -206,7 +206,7 @@ export default function ImpactPage() {
       >
         <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
-            <div className="max-w-xl rounded-lg bg-[#0B5E57] p-8 shadow-2xl text-white sm:p-10 md:p-12">
+            <div className="max-w-xl rounded-lg border border-white/15 bg-black/30 p-8 shadow-2xl text-white backdrop-blur-sm sm:p-10 md:p-12">
               <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
                 <Link href="/" className="transition-colors hover:text-white">Home</Link>
                 <span className="text-white/60">/</span>

@@ -5,6 +5,7 @@ import { SiteHeader } from "./components/site-header";
 import { SiteFooter } from "./components/site-footer";
 import { NewsletterSection } from "./components/newsletter-section";
 import { DonateModalProvider } from "./components/donate-modal-provider";
+import { ScrollToTop } from "./components/scroll-to-top";
 
 // Montserrat for Branding, Titles, and Navigation
 const montserrat = Montserrat({
@@ -39,6 +40,7 @@ export default function RootLayout({
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col bg-white font-sans antialiased">
         <DonateModalProvider>
+          <ScrollToTop />
           <SiteHeader />
           <main className="flex-1 w-full">
             {children}
