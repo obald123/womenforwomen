@@ -17,6 +17,8 @@ type HeroSliderProps = {
   overlayClassName?: string;
   /** Section min height, default min-h-screen for home, pages can override */
   className?: string;
+  /** object-position for the slides, e.g. "top" when subjects are framed near the top of the photo */
+  imagePosition?: "top" | "center" | "bottom";
   children: React.ReactNode;
 };
 
@@ -26,11 +28,14 @@ export function HeroSlider({
   interval = 7500,
   overlayClassName = "bg-gradient-to-t from-black/30 via-black/5 to-transparent",
   className = "min-h-screen",
+  imagePosition = "center",
   children,
 }: HeroSliderProps) {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const count = images.length;
+  const positionClass =
+    imagePosition === "top" ? "object-top" : imagePosition === "bottom" ? "object-bottom" : "object-center";
 
   const goTo = useCallback(
     (next: number) => {
@@ -79,7 +84,7 @@ export function HeroSlider({
               src={encodeURI(src)}
               alt={`${altPrefix} ${i + 1}`}
               fill
-              className="object-cover object-center"
+              className={`object-cover ${positionClass}`}
               sizes="100vw"
               priority={i === 0}
             />

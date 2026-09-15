@@ -7,6 +7,7 @@ import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
 import { ImpactAreasScroller } from "../components/impact-areas-scroller";
 import { WhereWeWorkRwanda } from "../components/where-we-work-rwanda";
+import { ImpactReportsSection } from "../components/impact-reports-section";
 import { publicFetch } from "../../lib/publicApi";
 import {
   TrendingUp,
@@ -357,6 +358,8 @@ export default function ImpactPage() {
           </div>
         </div>
       </section>
+
+      <ImpactReportsSection />
 
       {/* SUCCESS STORIES */}
       <section className="bg-white py-16">

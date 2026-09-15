@@ -439,10 +439,10 @@ export default function Home() {
               </p>
 
               <Link
-                href="/impact"
+                href="/impact#impact-reports"
                 className="mt-8 inline-flex rounded-[4px] bg-white px-8 py-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#0D6B63] transition-colors hover:bg-[#EEF8F6]"
               >
-                FULL IMPACT REPORT
+                OUR IMPACT REPORTS
               </Link>
             </div>
           </div>

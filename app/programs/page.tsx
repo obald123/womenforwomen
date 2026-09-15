@@ -99,6 +99,7 @@ function ProgramsPageContent() {
         altPrefix="Our Programs"
         overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-[calc(100vh-4rem)]"
+        imagePosition="top"
       >
         <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
           <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
