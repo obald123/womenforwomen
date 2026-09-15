@@ -272,7 +272,7 @@ function ProgramsPageContent() {
                     <div className="absolute left-6 top-6 z-20">
                       <div className="bg-[#007A71] text-white text-[12px] font-bold px-3 py-1">02</div>
                     </div>
-                    <Image src="/images/site/programs-community advocay.jpeg" alt="Community advocacy" fill className="object-cover object-center" />
+                    <Image src="/images/site/IMG_8210.jpeg" alt="Community advocacy" fill className="object-cover object-center" />
                   </div>
                 </div>
               </div>
@@ -333,7 +333,7 @@ function ProgramsPageContent() {
                     <div className="absolute left-6 top-6 z-20">
                       <div className="bg-[#007A71] text-white text-[12px] font-bold px-3 py-1">05</div>
                     </div>
-                    <Image src="/images/site/programs-adolescent girls.jpeg" alt="Adolescent girls program" fill className="object-cover object-center" />
+                    <Image src="/images/site/Abadacogora2.jpg" alt="Adolescent girls program" fill className="object-cover object-center" />
                   </div>
                   <div>
                     <div className="inline-flex items-center justify-center w-10 h-10 bg-[#E7F6F3] rounded p-2 mb-4">

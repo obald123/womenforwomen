@@ -252,52 +252,25 @@ export default function Home() {
       <section className="py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* LEFT SIDE - IMAGE GRID (captions below photos, not on them) */}
-            <div className="grid grid-cols-2 grid-rows-2 gap-4 h-[640px]">
-              {/* First Image - Large: COHORT */}
-              <div className="row-span-2 flex flex-col gap-2">
-                <div className="group relative flex-1 overflow-hidden rounded-lg">
-                  <Image
-                    src="/images/site/aboutus-cohort 2024.jpeg"
-                    alt="Women in cohort program"
-                    fill
-                    sizes="100vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                </div>
-                <span className="inline-block self-start bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
-                  COHORT
-                </span>
+            {/* LEFT SIDE - IMAGE GRID */}
+            <div className="grid grid-cols-2 gap-4 h-[640px]">
+              <div className="group relative overflow-hidden rounded-lg">
+                <Image
+                  src="/images/wfw/Home page/A7401584.jpg"
+                  alt="Woman for Women Rwanda program participant"
+                  fill
+                  sizes="50vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
               </div>
-              {/* Second Image - LEARNING TOGETHER */}
-              <div className="flex flex-col gap-2">
-                <div className="group relative flex-1 overflow-hidden rounded-lg">
-                  <Image
-                    src="/images/site/home-grid-2.jpg"
-                    alt="Community gathering"
-                    fill
-                    sizes="100vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                </div>
-                <span className="inline-block self-start bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
-                  LEARNING TOGETHER
-                </span>
-              </div>
-              {/* Third Image - SKILLS TRAINING */}
-              <div className="flex flex-col gap-2">
-                <div className="group relative flex-1 overflow-hidden rounded-lg">
-                  <Image
-                    src="/images/site/aboutus-home.jpeg"
-                    alt="Skills training"
-                    fill
-                    sizes="100vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                </div>
-                <span className="inline-block self-start bg-[#0D6B63] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white rounded-sm">
-                  SKILLS TRAINING
-                </span>
+              <div className="group relative overflow-hidden rounded-lg">
+                <Image
+                  src="/images/wfw/Home page/A7401788.jpg"
+                  alt="Woman for Women Rwanda program participant"
+                  fill
+                  sizes="50vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
               </div>
             </div>
 
