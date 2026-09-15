@@ -260,7 +260,7 @@ export default function Home() {
                   alt="Woman for Women Rwanda program participant"
                   fill
                   sizes="50vw"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="object-cover object-[36%_35%] transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               </div>
               <div className="group relative overflow-hidden rounded-lg">
