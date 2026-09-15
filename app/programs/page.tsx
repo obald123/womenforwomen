@@ -97,13 +97,13 @@ function ProgramsPageContent() {
       <HeroSlider
         images={PROGRAMS_HERO_IMAGES}
         altPrefix="Our Programs"
-        overlayClassName="inset-y-0 left-0 w-[78%] md:w-[62%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-[calc(100vh-4rem)]"
       >
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-12 md:px-6 md:pb-12 md:pt-14">
-            <div className="max-w-2xl">
-              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+        <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
+          <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
+            <div className="max-w-xl rounded-lg bg-[#06564F] p-8 shadow-2xl sm:p-10 md:p-12">
+              <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
                 <Link href="/" className="transition-colors hover:text-white/80">
                   Home
                 </Link>
@@ -111,14 +111,12 @@ function ProgramsPageContent() {
                 <span>Our Programs</span>
               </div>
 
-              <div className="mb-8 h-[2px] w-9 bg-white/90" />
-
-              <h1 className="text-4xl font-black uppercase leading-[0.92] tracking-tight text-white sm:text-5xl md:text-7xl">
+              <h1 className="text-4xl md:text-5xl font-black uppercase leading-[0.92] tracking-tight text-white">
                 OUR
                 <span className="block font-light italic">PROGRAMS</span>
               </h1>
 
-              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
+              <p className="mt-6 text-sm leading-relaxed text-white/90 md:text-base md:leading-relaxed">
                 Every woman possesses the potential to shape her world. When women
                 unite, they wield the strength to create a brighter collective
                 future for Rwanda.
@@ -247,9 +245,10 @@ function ProgramsPageContent() {
                     <div className="inline-flex items-center justify-center w-10 h-10 bg-[#E7F6F3] rounded p-2 mb-4">
                       <ShieldCheck className="w-5 h-5 text-[#00A991]" strokeWidth={1.5} />
                     </div>
-                    <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">EMPOWERING TOGETHER FOR LASTING CHANGE</div>
-                    <h3 className="text-[28px] md:text-[40px] font-black uppercase text-[#0D2323] mb-4">HOLISTIC EMPOWERMENT</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Our commitment to transformative change extends beyond individual growth. For over 29 years, our Development Program has empowered 18–55-year-old vulnerable women in rural and semi-urban areas, igniting hope and fostering empowerment.</p>
+                    <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">FROM POSSIBILITY TO PROGRESS</div>
+                    <h3 className="text-[28px] md:text-[40px] font-black uppercase text-[#0D2323] mb-4">BUILDING STRONGER FUTURES</h3>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch] mb-4">For over 29 years, we have walked alongside girls and women in rural and semi-urban communities as they build stronger, more independent futures. Our approach supports the whole woman, strengthening her economic independence, wellbeing, confidence and ability to make decisions that shape her life.</p>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Because lasting transformation is about more than one opportunity. It is about girls and women having the skills, resources and support to move forward, strengthen their families and contribute to thriving communities.</p>
                   </div>
                 </div>
               </div>
@@ -264,9 +263,10 @@ function ProgramsPageContent() {
                     <div className="inline-flex items-center justify-center w-10 h-10 bg-[#E7F6F3] rounded p-2 mb-4">
                       <Megaphone className="w-5 h-5 text-[#00A991]" strokeWidth={1.5} />
                     </div>
-                    <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">WOMEN AS CHANGE AGENTS</div>
-                    <h3 className="text-[30px] md:text-[44px] font-black uppercase text-[#0D2323] mb-4">COMMUNITY ADVOCACY</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Our women graduates are more than beneficiaries — they are catalysts for change on society's front lines. Having completed the Stronger Women, Stronger Nations Program, these remarkable women leverage their newfound skills to become true Change Agents. Through local advocacy and leadership roles, they spearhead initiatives that rebuild communities and tackle persistent challenges.</p>
+                    <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">WOMEN AS AGENTS OF CHANGE</div>
+                    <h3 className="text-[30px] md:text-[44px] font-black uppercase text-[#0D2323] mb-4">LEADING TRANSFORMATION</h3>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch] mb-4">Women's journeys do not end when they complete the Stronger Women, Stronger Nations Programme. They carry their knowledge, confidence and experience into their families and communities, becoming leaders and voices for positive transformation.</p>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Many step into leadership roles, support other women, speak up on issues affecting their communities and help find solutions to shared challenges. In doing so, they create an impact that reaches far beyond their own lives, strengthening families and helping build more resilient communities.</p>
                   </div>
                   <div className="relative h-[260px] w-full overflow-hidden sm:h-[380px] lg:h-[440px]">
                     <div className="absolute left-6 top-6 z-20">
@@ -295,7 +295,7 @@ function ProgramsPageContent() {
                     </div>
                     <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">FOSTERING SAFER COMMUNITIES</div>
                     <h3 className="text-[28px] md:text-[40px] font-black uppercase text-[#0D2323] mb-4">GBV PREVENTION</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">We collaborate with influential institutions such as the Police, Health Centers, and faith-based organizations to create a united front against Gender-Based Violence. Through strategic partnerships, we deliver comprehensive campaigns on GBV prevention strategies, anti-GBV laws, hygiene, nutrition, and family planning — empowering community members with a holistic understanding of well-being and safety.</p>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">We work with key community institutions, including the Police, health centres and faith-based organisations, to strengthen efforts to prevent Gender Based Violence. Through these partnerships, we raise awareness about GBV prevention, relevant laws and available support, while also addressing important areas such as hygiene, nutrition and family planning. Together, these efforts help individuals and families make informed decisions and contribute to safer, healthier communities.</p>
                   </div>
                 </div>
               </div>
@@ -312,7 +312,7 @@ function ProgramsPageContent() {
                     </div>
                     <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">ALLIES FOR EQUALITY</div>
                     <h3 className="text-[30px] md:text-[44px] font-black uppercase text-[#0D2323] mb-4">MEN'S ENGAGEMENT</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">Breaking the chains of gender norms and inequalities demands collaborative effort. We actively involve men as allies and advocates for women's empowerment. By collaborating with male community leaders and household members, we cultivate an understanding of the substantial benefits that arise from supporting women's progress.</p>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">The Men's Engagement Program aims to ensure men and women enjoy the economic, health, and social benefits of gender equality. Whilst gender equality outcomes for women remain the primary focus of our programs, WfW-Rwanda acknowledges that, in order for the program to realize long-lasting change, it is imperative for men to appreciate that gender equality benefits everyone, including men, and that they have a role to play in realizing more equal societies. Men receive training on positive masculinity, while women are trained on life and business skills. Both participate in couple connect sessions, which include dialogues and take-home exercises to strengthen relationships. Men are encouraged to understand the challenges women face, recognize the value of shared responsibilities, and actively support women's participation in economic and social activities. Additionally, selected men and women are trained as community agents of change, promoting gender equality and empowering others in their communities.</p>
                   </div>
                   <div className="relative h-[260px] w-full overflow-hidden sm:h-[380px] lg:h-[440px]">
                     <div className="absolute left-6 top-6 z-20">
@@ -340,8 +340,8 @@ function ProgramsPageContent() {
                       <GraduationCap className="w-5 h-5 text-[#00A991]" strokeWidth={1.5} />
                     </div>
                     <div className="text-[#00A991] text-[11px] font-bold tracking-[0.18em] uppercase mb-3">INVESTING IN THE FUTURE</div>
-                    <h3 className="text-[30px] md:text-[44px] font-black uppercase text-[#0D2323] mb-4">ADOLESCENT GIRLS</h3>
-                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">We are piloting a program that reaches adolescent girls — providing bundled socioeconomic skills training that 16- and 17-year-old girls need to guard their independence and chart a course for the life they choose. We prioritize a rights-based and survivor-centered approach, developing the program through a local lens that accounts for country-specific challenges, gender norms, and traditions.</p>
+                    <h3 className="text-[30px] md:text-[44px] font-black uppercase text-[#0D2323] mb-4">ADOLESCENT GIRLS (ABADACOGORA)</h3>
+                    <p className="text-[#6B7574] text-[14px] leading-relaxed max-w-[70ch]">The Abadacogora Program reaches 16- and 17-year-old girls, equipping them with the social and economic skills they need to strengthen their independence and make informed choices about their futures. Through a rights-based and survivor-centred approach, the program responds to the realities girls face within their communities, taking into account local challenges, gender norms and traditions.</p>
                   </div>
                 </div>
               </div>
@@ -350,8 +350,9 @@ function ProgramsPageContent() {
 
           {activeTab === '02' && (
             <section className="bg-[#007A71] py-12 mt-8">
-              <div className="mx-auto max-w-7xl px-2 md:px-6">
-                <p className="italic text-white/95 text-center text-[12px] md:text-[14px] leading-none max-w-full mx-auto">“As we march forward, hand in hand with our partners and community members, we chart a course toward a violence-free, equitable, and empowered tomorrow.”</p>
+              <div className="mx-auto max-w-7xl px-6 md:px-6">
+                <p className="italic text-white/95 text-center text-[14px] md:text-[16px] leading-relaxed max-w-3xl mx-auto">“I want to transfer the knowledge and skills I have gained to other girls so they too can build a better life for themselves. As long as she is capable, she has the right to shape her own future.”</p>
+                <p className="not-italic text-white/70 text-center text-[11px] md:text-[12px] mt-3 tracking-[0.05em]">— Esther Nikuze, Abadacogora program 2017 graduate</p>
               </div>
             </section>
           )}

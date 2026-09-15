@@ -21,12 +21,12 @@ export function JoinCommunitySection({ className = "" }: JoinCommunitySectionPro
     <HeroSlider
       images={JOIN_COMMUNITY_IMAGES}
       altPrefix="Join Our Community"
-      overlayClassName="bg-gradient-to-r from-[#0A7F73]/85 via-[#0A7F73]/45 to-transparent"
+      overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
       className={`min-h-screen ${className}`}
     >
-      <div className="flex flex-1 items-center">
-        <div className="mx-auto w-full max-w-7xl px-6 py-16 lg:px-10">
-          <div className="max-w-2xl text-white">
+      <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
+          <div className="max-w-xl rounded-lg border border-white/15 bg-black/30 p-8 text-white shadow-2xl backdrop-blur-sm sm:p-10 md:p-12">
             <div className="mb-5 flex items-center gap-3 text-white/80">
               <span className="h-[2px] w-10 bg-white/50" />
               <span className="text-[10px] font-bold uppercase tracking-[0.34em]">
@@ -34,12 +34,12 @@ export function JoinCommunitySection({ className = "" }: JoinCommunitySectionPro
               </span>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-black uppercase leading-[0.95]">
+            <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.95]">
               Join Our
               <span className="block font-light italic text-white/70">Community</span>
             </h2>
 
-            <p className="mt-5 max-w-lg text-[14px] leading-relaxed text-white/85">
+            <p className="mt-5 text-[14px] leading-relaxed text-white/85">
               Partner with us, volunteer, or donate -- every action helps us reach more women across Rwanda and build a stronger nation together.
             </p>
 

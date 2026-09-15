@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
+import { ImpactAreasScroller } from "../components/impact-areas-scroller";
+import { WhereWeWorkRwanda } from "../components/where-we-work-rwanda";
 import { publicFetch } from "../../lib/publicApi";
 import {
   TrendingUp,
@@ -198,23 +200,23 @@ export default function ImpactPage() {
       <HeroSlider
         images={IMPACT_HERO_IMAGES}
         altPrefix="Our Impact"
-        overlayClassName="bg-gradient-to-r from-[#0B5E57]/85 via-[#0B5E57]/35 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-[calc(100vh-4rem)]"
       >
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 pb-12 pt-14 lg:px-10">
-            <div className="max-w-3xl text-white">
-              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+        <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
+          <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
+            <div className="max-w-xl rounded-lg bg-[#0B5E57] p-8 shadow-2xl text-white sm:p-10 md:p-12">
+              <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
                 <Link href="/" className="transition-colors hover:text-white">Home</Link>
                 <span className="text-white/60">/</span>
                 <span>Our Impact</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-black uppercase leading-[0.95]">
+              <h1 className="text-4xl md:text-5xl font-black uppercase leading-[0.95]">
                 OUR
                 <span className="block font-light italic text-white/80">IMPACT</span>
               </h1>
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/85 md:text-base">
+              <p className="mt-6 text-sm leading-relaxed text-white/85 md:text-base">
                 Over 29 years, we have expanded and adapted our programs to support more than 80,000
                 marginalized women across the country.
               </p>
@@ -253,17 +255,20 @@ export default function ImpactPage() {
 
             <div className="mt-6 space-y-5 text-[14px] leading-relaxed text-[#6B7574]">
               <p>
-                Over the past 29 years, we have continuously expanded and adapted our programs to
-                provide support to more than 80,000 marginalized women across the country.
+                Over the past 29 years, our programs have continued to grow and evolve, reaching
+                more than 80,000 women across Rwanda with the skills, knowledge, and support to
+                create lasting change in their lives.
               </p>
               <p>
-                To ensure a sustainable impact, we have established women graduates' networks in all
-                sectors and districts of our current operation, spanning seven districts.
+                To ensure that this impact continues beyond the program, we have established
+                graduate networks across the sectors and districts where we currently work. These
+                networks help women stay connected, support one another and continue contributing
+                to their communities.
               </p>
               <p>
-                In an innovative approach, we introduced the Men's Engagement Program (MEP) to
-                address gender inequalities and combat discriminatory customs and gender-based
-                violence.
+                Recognising that lasting change also requires the involvement of men, we introduced
+                the Men&apos;s Engagement Program (MEP) to challenge harmful gender norms, promote
+                healthier relationships and address gender inequality and gender-based violence.
               </p>
             </div>
           </div>
@@ -285,38 +290,31 @@ export default function ImpactPage() {
         </div>
       </section>
 
-      {/* AREAS OF IMPACT */}
-      <section className="bg-[#F6F6F2] py-16 min-h-[calc(100vh-4rem)] flex items-center">
+      {/* WHERE WE WORK — Rwanda map */}
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-8 flex items-center gap-3 text-[#007A71]">
             <span className="h-[2px] w-10 bg-[#007A71]" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.3em]">Areas of Impact</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em]">Where We Work</span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.95] text-[#0D2323]">
-            How We
-            <span className="ml-2 font-light italic text-[#007A71]">Create Change</span>
+          <h2 className="mb-10 text-4xl md:text-5xl font-black uppercase leading-[0.95] text-[#0D2323]">
+            Seven
+            <span className="ml-2 font-light italic text-[#007A71]">Districts</span>
           </h2>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {impactAreas.map((area) => {
-              const Icon = area.icon;
-              return (
-                <div key={area.id} className="relative bg-white p-6 shadow-sm">
-                  <div className="absolute right-5 top-4 text-[28px] font-black text-[#CFE4E1]">
-                    {area.id}
-                  </div>
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center bg-[#E7F3F1] text-[#007A71]">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-[13px] font-black uppercase text-[#0D2323]">{area.title}</h3>
-                  <p className="mt-3 text-[13px] leading-relaxed text-[#6B7574]">{area.body}</p>
-                </div>
-              );
-            })}
-          </div>
+          <WhereWeWorkRwanda />
         </div>
       </section>
+
+      {/* AREAS OF IMPACT — the heading and cards are pinned together by the
+          scroller for a run of page scroll, so the heading holds position. */}
+      <ImpactAreasScroller
+        areas={impactAreas}
+        eyebrow="Areas of Impact"
+        title="Where Impact"
+        titleAccent="Takes Root"
+      />
 
       {/* DIGITAL TRANSFORMATION */}
       <section className="bg-[#0B1E1A] py-16 text-white">

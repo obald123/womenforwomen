@@ -51,13 +51,13 @@ export default function AboutPage() {
       <HeroSlider
         images={ABOUT_HERO_IMAGES}
         altPrefix="About Us"
-        overlayClassName="bg-gradient-to-r from-[#0D6B63]/85 via-[#0D6B63]/40 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-screen"
       >
-        <div className="flex flex-1 items-center">
+        <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
-            <div className="max-w-3xl">
-              <div className="mb-8 flex items-center gap-2 text-white/70">
+            <div className="max-w-xl rounded-lg bg-[#0D6B63] p-8 shadow-2xl sm:p-10 md:p-12">
+              <div className="mb-6 flex items-center gap-2 text-white/70">
                 <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors">
                   HOME
                 </Link>
@@ -65,12 +65,12 @@ export default function AboutPage() {
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">ABOUT US</span>
               </div>
 
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-[900] leading-[0.9] text-white tracking-tighter uppercase">
+              <h1 className="text-4xl md:text-5xl font-[900] leading-[0.9] text-white tracking-tight uppercase">
                 ABOUT<br />
                 <span className="font-extralight italic text-[#4DD9C4]">US</span>
               </h1>
 
-              <p className="mt-6 text-sm md:text-base text-white leading-relaxed font-medium max-w-2xl">
+              <p className="mt-6 text-sm md:text-base text-white/90 leading-relaxed font-medium">
                 Promoting dignity, freedom, and equality for women in Rwanda since 1997. A story of resilience, transformation, and community.
               </p>
             </div>
@@ -86,25 +86,25 @@ export default function AboutPage() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8 bg-[#00A991]"></div>
-                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#00A991]">Who We Are</span>
+                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#00A991]">About Us</span>
               </div>
-              
+
               <h2 className="text-5xl md:text-6xl font-black text-[#1F2937] leading-[1.05]">
-                BORN FROM<br />
-                <span className="italic font-light text-[#00A991]">RESILIENCE</span>
+                ROOTED IN<br />
+                <span className="italic font-light text-[#00A991]">PURPOSE</span>
               </h2>
-              
+
               <div className="space-y-5 text-sm text-gray-600 leading-relaxed font-medium">
                 <p>
-                  Women for Women Rwanda (WfW-Rwanda) is a non-governmental organization committed to promoting dignity, freedom, and equality for women. Our journey began in 1997 when we witnessed the devastating effects of the 1994 genocide on vulnerable women facing poverty, depression, and helplessness.
-                </p>
-                
-                <p>
-                  These women were facing poverty, depression, and a strong sense of helplessness. Through our combined efforts and with a team of dedicated trainers, strategists, and governance board members, we have transformed thousands of lives.
+                  Women for Women Rwanda’s journey began in 1997, in the aftermath of the 1994 Genocide against the Tutsi. Women were among those left facing profound loss, poverty, and uncertainty about the future.
                 </p>
 
                 <p>
-                  In 2021, WfW-Rwanda transitioned from WfWI as a local organization in Rwanda as an affiliate. Through our combined efforts and with both local and international partners, we have served and supported over <span className="text-[#00A991] font-bold">80,000 women</span> and helped start up <span className="text-[#00A991] font-bold">3,217 Village Savings and Loan Associations (VSLAs)</span>, over 506 of which are digitalized.
+                  What began as a response to that reality has grown into a commitment to helping women rebuild their lives with dignity, confidence, and independence, creating opportunities not only for themselves, but for their families and communities.
+                </p>
+
+                <p>
+                  In 2021, we became a local Rwandan affiliate, continuing a journey rooted in supporting women to build stronger, more independent lives. Each year, more than 300 women aged 18 to 55 take part in our 12-month signature ‘Stronger Women, Stronger Nation’ program. In small groups, they meet every two weeks to learn practical skills, share experiences, and support one another as they work toward greater economic independence, confidence, and wellbeing.
                 </p>
               </div>
             </div>

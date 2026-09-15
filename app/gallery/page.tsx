@@ -125,13 +125,13 @@ export default function GalleryPage() {
       <HeroSlider
         images={GALLERY_HERO_IMAGES}
         altPrefix="Gallery"
-        overlayClassName="inset-y-0 left-0 w-[70%] md:w-[60%] bg-gradient-to-r from-[#06564F]/78 via-[#0A6D66]/52 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-[60vh]"
       >
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 pb-12 pt-16 md:px-8 md:pb-16 md:pt-20">
-            <div className="max-w-2xl">
-              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+        <div className="flex flex-1 items-end pb-12 pt-24 sm:items-center sm:pb-0">
+          <div className="mx-auto w-full max-w-7xl px-6 md:px-8">
+            <div className="max-w-xl rounded-lg bg-[#06564F] p-8 shadow-2xl sm:p-10 md:p-12">
+              <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
                 <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
                 <span className="text-white/70">/</span>
                 <Link href="/about" className="transition-colors hover:text-white/80">About Us</Link>
@@ -139,14 +139,12 @@ export default function GalleryPage() {
                 <span>Gallery</span>
               </div>
 
-              <div className="mb-8 h-[2px] w-9 bg-white/90" />
-
-              <h1 className="text-[3.2rem] sm:text-[4.2rem] md:text-[6.0rem] lg:text-[6.6rem] font-black uppercase leading-[0.9] tracking-tight text-white">
+              <h1 className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tight text-white">
                 <span className="block">PHOTO</span>
                 <span className="block font-light italic text-white/95 tracking-tight">GALLERY</span>
               </h1>
 
-              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
+              <p className="mt-6 text-sm leading-relaxed text-white/90 md:text-base md:leading-relaxed">
                 A visual journey through our programs, community work, and the inspiring women who make it all possible.
               </p>
             </div>

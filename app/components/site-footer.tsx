@@ -13,8 +13,8 @@ export function SiteFooter() {
           {/* Column 1: Branding and Socials */}
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
-              <div className="relative h-10 w-36 shrink-0">
-                <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="144px" className="object-contain" />
+              <div className="relative h-12 w-44 shrink-0 sm:h-14 sm:w-52">
+                <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="(min-width: 640px) 208px, 176px" className="object-contain" />
               </div>
             </div>
             <p className="max-w-xs text-[13.5px] leading-[1.55] opacity-75 font-inter">
@@ -53,11 +53,11 @@ export function SiteFooter() {
           <div className="flex flex-col gap-5">
             <h4 className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/90 font-montserrat">Programs</h4>
             <div className="flex flex-col gap-3 text-[13.5px] font-inter">
-              <Link href="#" className="hover:text-white transition-colors">Core Program</Link>
-              <Link href="#" className="hover:text-white transition-colors">Complementary</Link>
-              <Link href="#" className="hover:text-white transition-colors">Graduate Program</Link>
+              <Link href="/programs?tab=01#program-details" className="hover:text-white transition-colors">Graduation Out of Poverty</Link>
+              <Link href="/programs?tab=02#program-details" className="hover:text-white transition-colors">Support Program</Link>
+              <Link href="/programs?tab=03#program-details" className="hover:text-white transition-colors">Development Program</Link>
               <Link href="/impact" className="hover:text-white transition-colors">Our Impact</Link>
-              <Link href="#" className="hover:text-white transition-colors">Success Stories</Link>
+              <Link href="/news#latest-stories" className="hover:text-white transition-colors">Success Stories</Link>
             </div>
           </div>
 
@@ -66,10 +66,21 @@ export function SiteFooter() {
             <h4 className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/90 font-montserrat">Contact</h4>
             <div className="flex flex-col gap-3 text-[13.5px] font-inter">
               <p>P.O Box 2951</p>
-              <p>KG 624 Street #15</p>
-              <p>Kigali, Rwanda</p>
-              <p className="mt-1">+250 794 089 592</p>
-              <p className="break-all">info@womenforwomenrwanda.org</p>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=KG+624+Street+15%2C+Kigali%2C+Rwanda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col gap-3 hover:text-white transition-colors"
+              >
+                <span>KG 624 Street #15</span>
+                <span>Kigali, Rwanda</span>
+              </a>
+              <a href="tel:+250794089592" className="mt-1 hover:text-white transition-colors">
+                +250 794 089 592
+              </a>
+              <a href="mailto:info@womenforwomenrwanda.org" className="break-all hover:text-white transition-colors">
+                info@womenforwomenrwanda.org
+              </a>
             </div>
           </div>
         </div>

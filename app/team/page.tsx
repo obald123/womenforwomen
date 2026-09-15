@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { X } from "lucide-react";
 import { HeroSlider } from "../components/hero-slider";
 import { JoinCommunitySection } from "../components/join-community-section";
 import { publicFetch } from "../../lib/publicApi";
@@ -67,14 +68,14 @@ export default function TeamPage() {
       <HeroSlider
         images={TEAM_HERO_IMAGES}
         altPrefix="Our Team"
-        overlayClassName="bg-gradient-to-r from-[#0D6B63]/80 via-[#0D6B63]/35 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-screen"
       >
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 items-center">
-            <div className="mx-auto w-full max-w-7xl px-6 pt-20 lg:px-8">
-              <div className="max-w-4xl text-white">
-                <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/90">
+          <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
+            <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+              <div className="max-w-xl rounded-lg bg-[#0D6B63] p-8 shadow-2xl sm:p-10 md:p-12">
+                <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/90">
                   <Link href="/" className="transition-colors hover:text-white/80">
                     Home
                   </Link>
@@ -86,16 +87,15 @@ export default function TeamPage() {
                   <span>Our Team</span>
                 </div>
 
-                <h1 className="text-4xl md:text-6xl lg:text-8xl font-[900] leading-[0.85] tracking-tighter uppercase">
+                <h1 className="text-4xl md:text-5xl font-[900] leading-[0.9] tracking-tight uppercase text-white">
                   MEET THE
-                  <span className="block font-extralight italic text-[#4DD9C4] py-2">
+                  <span className="block font-extralight italic text-[#4DD9C4] py-1">
                     TEAM
                   </span>
-                  <span className="block">BEHIND</span>
-                  <span className="block">THE MISSION</span>
+                  <span className="block">BEHIND THE MISSION</span>
                 </h1>
 
-                <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-white/90 font-medium">
+                <p className="mt-6 text-sm md:text-base leading-relaxed text-white/90 font-medium">
                   Meet the dedicated leaders and staff guiding Women for Women Rwanda&apos;s
                   mission to promote dignity, freedom, and equality for women.
                 </p>
@@ -173,8 +173,8 @@ export default function TeamPage() {
                     ) : (
                       <div className="h-full w-full bg-[#E7ECEB]" />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#06564F]/85 via-[#06564F]/40 to-transparent" />
-                    <div className="absolute left-4 top-4 bg-[#00A991] text-white text-[11px] font-bold px-3 py-1 z-10">{m.role}</div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#06564F]/35 via-transparent to-transparent" />
+                    <div className="absolute left-4 bottom-4 bg-[#00A991] text-white text-[11px] font-bold px-3 py-1 z-10">{m.role}</div>
                   </div>
                   <div className="p-5 text-left">
                     <div className="font-black text-base text-[#0D2323]">{m.name}</div>
@@ -210,42 +210,40 @@ export default function TeamPage() {
       {selectedMember && (
         <div className="fixed inset-0 z-[90] bg-black/70 overflow-y-auto">
           <div className="min-h-screen flex items-center justify-center p-6">
-            <div className="w-full max-w-3xl bg-white shadow-2xl">
-              <div className="relative min-h-[280px] w-full overflow-hidden bg-[#0C3F3C]">
+            <div className="relative w-full max-w-4xl bg-white shadow-2xl md:flex">
+              <button
+                type="button"
+                onClick={() => setSelectedMember(null)}
+                aria-label="Close bio"
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/30 text-white transition-colors hover:bg-black/50"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              {/* Photo - own column, fully visible, no text overlaid on it */}
+              <div className="relative h-[320px] w-full shrink-0 overflow-hidden bg-[#0C3F3C] md:h-auto md:w-[42%]">
                 {selectedMember.photo ? (
                   <Image
                     src={selectedMember.photo}
                     alt={selectedMember.name}
                     fill
-                    sizes="100vw"
-                    className="object-cover object-center"
+                    sizes="(min-width: 768px) 42vw, 100vw"
+                    className="object-cover object-top"
                   />
                 ) : (
                   <div className="absolute inset-0 bg-[#0C3F3C]" />
                 )}
-                <div className="absolute inset-0 bg-black/45" />
-                <div className="absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/45 to-transparent md:w-[55%]" />
-                <div className="absolute right-6 top-6">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedMember(null)}
-                    className="text-[10px] font-black tracking-[0.2em] text-white/80 hover:text-white"
-                  >
-                    CLOSE
-                  </button>
-                </div>
-                <div className="absolute bottom-6 left-6 text-white">
-                  <div className="mb-3 inline-flex bg-[#00A991] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
-                    {selectedMember.role}
-                  </div>
-                  <div className="text-3xl md:text-4xl font-black uppercase leading-[0.95]">
-                    {selectedMember.name}
-                  </div>
-                </div>
               </div>
 
-              <div className="px-8 py-8">
-                <p className="text-[15px] leading-relaxed text-[#5F6E6C]">
+              {/* Content - name, role, and bio sit beside the photo, not on it */}
+              <div className="flex-1 px-8 py-8 md:py-10">
+                <div className="mb-3 inline-flex bg-[#00A991] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                  {selectedMember.role}
+                </div>
+                <h3 className="text-2xl md:text-3xl font-black uppercase leading-[0.95] text-[#0D2323]">
+                  {selectedMember.name}
+                </h3>
+                <p className="mt-5 text-[15px] leading-relaxed text-[#5F6E6C]">
                   {selectedMember.bio || "Bio coming soon."}
                 </p>
                 <div className="mt-8 flex justify-end">

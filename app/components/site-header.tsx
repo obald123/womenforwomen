@@ -82,12 +82,12 @@ export function SiteHeader() {
   return (
     <>
       <header ref={headerRef} className={headerClass}>
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 lg:px-8">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 sm:h-[84px] lg:px-8">
         
         {/* LOGO SECTION */}
         <Link href="/" onClick={handleLogoClick} className="flex items-center gap-3 shrink-0">
-          <div className="relative h-12 w-36 sm:w-40">
-            <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="160px" className="object-contain" />
+          <div className="relative h-14 w-40 sm:h-16 sm:w-52">
+            <Image src="/images/site/logo.png" alt="Women for Women Rwanda" fill sizes="(min-width: 640px) 208px, 160px" className="object-contain" />
           </div>
         </Link>
 

@@ -70,26 +70,24 @@ export default function NewsPage() {
       <HeroSlider
         images={NEWS_HERO_IMAGES}
         altPrefix="News and Events"
-        overlayClassName="inset-y-0 left-0 w-[75%] md:w-[62%] bg-gradient-to-r from-[#06564F]/85 via-[#0A6D66]/60 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-screen"
       >
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-16 md:px-6 md:pb-20 md:pt-20">
-            <div className="max-w-3xl">
-              <div className="mb-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95 md:mb-10">
+        <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
+          <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
+            <div className="max-w-xl rounded-lg bg-[#06564F] p-8 shadow-2xl sm:p-10 md:p-12">
+              <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
                 <Link href="/" className="transition-colors hover:text-white/80">Home</Link>
                 <span className="text-white/70">/</span>
                 <span>News &amp; Events</span>
               </div>
 
-              <div className="mb-8 h-[2px] w-9 bg-white/90" />
-
-              <h1 className="text-5xl font-extrabold uppercase leading-[0.92] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[6.5rem]">
+              <h1 className="text-4xl font-extrabold uppercase leading-[0.92] tracking-tight text-white sm:text-5xl">
                 NEWS <span className="inline-block">&amp;</span>
-                <span className="block mt-2 font-light italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl">EVENTS</span>
+                <span className="block mt-1 font-light italic">EVENTS</span>
               </h1>
 
-              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/90 md:mt-6 md:text-base md:leading-relaxed">
+              <p className="mt-6 text-sm leading-relaxed text-white/90 md:text-base md:leading-relaxed">
                 Stay up to date with the latest stories, program updates, upcoming events, and community celebrations from Women for Women Rwanda.
               </p>
             </div>

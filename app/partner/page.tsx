@@ -177,12 +177,12 @@ export default function PartnerPage() {
       <HeroSlider
         images={PARTNER_HERO_IMAGES}
         altPrefix="Partner With Us"
-        overlayClassName="bg-gradient-to-r from-[#0B5E57]/80 via-[#0B5E57]/45 to-transparent"
+        overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-screen"
       >
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 pb-12 pt-16 md:px-8 md:pb-16 md:pt-20">
-            <div className="max-w-3xl text-white">
+        <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
+          <div className="mx-auto w-full max-w-7xl px-6 md:px-8">
+            <div className="max-w-xl rounded-lg bg-[#0B5E57] p-8 shadow-2xl text-white sm:p-10 md:p-12">
               <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/85">
                 <Link href="/" className="transition-colors hover:text-white">
                   Home
@@ -191,14 +191,12 @@ export default function PartnerPage() {
                 <span>Partner With Us</span>
               </div>
 
-              <div className="mb-6 h-[2px] w-9 bg-white/70" />
-
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-black uppercase leading-[0.9] tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tight">
                 PARTNER
                 <span className="block font-light italic text-white/90">WITH US</span>
               </h1>
 
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/90 md:text-base">
+              <p className="mt-6 text-sm leading-relaxed text-white/90 md:text-base">
                 Together we can create lasting change. Partner with Women for Women
                 Rwanda to empower marginalized women and build stronger communities
                 across the nation.
