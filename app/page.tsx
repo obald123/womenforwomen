@@ -10,9 +10,9 @@ import { JoinCommunitySection } from "./components/join-community-section";
 import { publicFetch, resolveImageUrl } from "../lib/publicApi";
 
 const HOME_HERO_IMAGES = [
-  "/images/site/home-slide.jpg",
-  "/images/wfw/Home page/Strengthening women-led businesses.jpg",
-  "/images/wfw/Home page/Socio-economic empowerment.jpg",
+  "/images/wfw/Home page/A7402315.jpg",
+  "/images/wfw/Home page/pic 2.PNG",
+  "/images/wfw/Home page/pic 22.PNG",
   "/images/wfw/Home page/Graduation out of poverty.JPG",
   "/images/site/home-skills trainig.jpeg",
   "/images/wfw/Home page/Over 25 years of transformation.jpg",

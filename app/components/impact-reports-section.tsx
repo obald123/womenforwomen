@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Download, FileText } from "lucide-react";
-import { publicFetch, resolveImageUrl } from "../../lib/publicApi";
+import { publicFetch, resolveImageUrl, apiUrl } from "../../lib/publicApi";
 
 type ImpactReport = {
   id: string;
@@ -49,7 +49,7 @@ export function ImpactReportsSection() {
             {reports.map((report) => (
               <a
                 key={report.id}
-                href={resolveImageUrl(report.fileUrl)}
+                href={apiUrl(`/api/public/impact-reports/${report.id}/download`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col bg-white shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-lg"

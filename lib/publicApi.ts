@@ -9,6 +9,10 @@ export function resolveImageUrl(url?: string) {
   return `${API_URL}${url}`;
 }
 
+export function apiUrl(path: string) {
+  return `${API_URL}${path}`;
+}
+
 export async function publicFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, { cache: "no-store", ...init });
   if (!res.ok) throw new Error(await res.text());
