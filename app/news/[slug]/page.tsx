@@ -126,7 +126,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
             </div>
           )}
 
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase leading-[1.1]">
+          <h1 className="max-w-3xl text-2xl md:text-3xl lg:text-4xl font-black uppercase leading-[1.1]">
             {item.title}
           </h1>
           <p className="mt-4 text-[12px] uppercase tracking-[0.25em] text-white/80">

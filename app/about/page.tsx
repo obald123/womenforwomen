@@ -109,55 +109,14 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* RIGHT SIDE - IMAGE GRID */}
-            <div className="grid grid-cols-2 grid-rows-2 gap-4 h-[450px]">
-              {/* Large Image - Top Left and Bottom Left */}
-              <div className="relative overflow-hidden row-span-2">
-                <Image 
-                  src="/images/site/aboutus-cohort 2024.jpeg"
-                  alt="Cohort 2024"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-3 left-3">
-                  <div className="inline-block bg-[#00A991]/40 px-2 py-1">
-                    <span className="text-[8px] font-bold uppercase tracking-[0.15em] text-white">Cohort 2024</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Top Right Image */}
-              <div className="relative overflow-hidden h-[208px]">
-                <Image 
-                  src="/images/site/about-grid-2.jpg"
-                  alt="Learning Together"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-3 left-3">
-                  <div className="inline-block bg-[#00A991]/40 px-2 py-1">
-                    <span className="text-[8px] font-bold uppercase tracking-[0.15em] text-white">Learning Together</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Bottom Right Image */}
-              <div className="relative overflow-hidden h-[208px]">
-                <Image 
-                  src="/images/site/aboutus-home.jpeg"
-                  alt="Skills Training"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-3 left-3">
-                  <div className="inline-block bg-[#00A991]/40 px-2 py-1">
-                    <span className="text-[8px] font-bold uppercase tracking-[0.15em] text-white">Skills Training</span>
-                  </div>
-                </div>
-              </div>
+            {/* RIGHT SIDE - IMAGE */}
+            <div className="relative overflow-hidden h-[450px]">
+              <Image
+                src="/images/site/rooted.png"
+                alt="Women for Women Rwanda"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
