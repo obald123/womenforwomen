@@ -9,7 +9,6 @@ import { JoinCommunitySection } from "../components/join-community-section";
 import { publicFetch, resolveImageUrl } from "../../lib/publicApi";
 
 const GALLERY_HERO_IMAGES = [
-  "/images/site/gallery-home.jpeg",
   "/images/wfw/slide 5 - photo gallery/Stronger Women Stronger Nation.jpg",
   "/images/wfw/slide 5 - photo gallery/Abadacogora.jpg",
   "/images/wfw/slide 5 - photo gallery/Men Engage.jpeg",
@@ -126,9 +125,9 @@ export default function GalleryPage() {
         images={GALLERY_HERO_IMAGES}
         altPrefix="Gallery"
         overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
-        className="min-h-[60vh]"
+        className="min-h-screen"
       >
-        <div className="flex flex-1 items-end pb-12 pt-24 sm:items-center sm:pb-0">
+        <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
           <div className="mx-auto w-full max-w-7xl px-6 md:px-8">
             <div className="max-w-xl rounded-lg border border-white/15 bg-black/30 p-8 text-white shadow-2xl backdrop-blur-sm sm:p-10 md:p-12">
               <div className="mb-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
