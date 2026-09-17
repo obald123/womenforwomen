@@ -126,6 +126,7 @@ export default function GalleryPage() {
         altPrefix="Gallery"
         overlayClassName="bg-gradient-to-t from-black/20 via-transparent to-transparent"
         className="min-h-screen"
+        imagePosition="top"
       >
         <div className="flex flex-1 items-end pb-16 pt-28 sm:items-center sm:pb-0">
           <div className="mx-auto w-full max-w-7xl px-6 md:px-8">
