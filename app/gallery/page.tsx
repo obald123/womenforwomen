@@ -172,7 +172,7 @@ export default function GalleryPage() {
                   className="object-cover object-center" />
                 </div>
 
-                <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold px-3 py-1">
+                <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold uppercase px-3 py-1">
                   {img.title || img.alt}
                 </div>
               </button>
