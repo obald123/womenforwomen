@@ -39,10 +39,17 @@ const mosaicClasses = [
   "row-span-1 md:row-span-1",
 ];
 
+type GalleryGroup = {
+  id: string;
+  title: string;
+  images: Array<{ src: string; alt: string }>;
+};
+
 export default function GalleryPage() {
   const [isOpen, setIsOpen] = useState(false);
+  const [galleries, setGalleries] = useState<GalleryGroup[]>([]);
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [images, setImages] = useState(fallbackImages);
   const [videos, setVideos] = useState<Array<{ src: string; title?: string; caption?: string }>>([]);
   const [videoOpen, setVideoOpen] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -50,20 +57,22 @@ export default function GalleryPage() {
   useEffect(() => {
     publicFetch<any>("/api/public/gallery")
       .then((res) => {
-        const galleries = Array.isArray(res.data) ? res.data : [];
-        const flattened = galleries.flatMap((g: any) =>
-          Array.isArray(g.images)
-            ? g.images.map((img: any) => ({
-                src: resolveImageUrl(img.url) || img.url,
-                alt: img.caption || g.title || "Gallery image",
-                title: g.title || "Gallery",
-                kicker: "GALLERY",
-              }))
-            : []
-        );
-        if (flattened.length) setImages(flattened);
+        const data = Array.isArray(res.data) ? res.data : [];
+        const grouped: GalleryGroup[] = data
+          .map((g: any) => ({
+            id: g.id,
+            title: g.title || "Gallery",
+            images: Array.isArray(g.images)
+              ? g.images.map((img: any) => ({
+                  src: resolveImageUrl(img.url) || img.url,
+                  alt: img.caption || g.title || "Gallery image",
+                }))
+              : [],
+          }))
+          .filter((g: GalleryGroup) => g.images.length > 0);
+        if (grouped.length) setGalleries(grouped);
 
-        const flattenedVideos = galleries.flatMap((g: any) =>
+        const flattenedVideos = data.flatMap((g: any) =>
           Array.isArray(g.videos)
             ? g.videos.map((vid: any) => ({
                 src: resolveImageUrl(vid.url) || vid.url,
@@ -77,8 +86,11 @@ export default function GalleryPage() {
       .catch(() => {});
   }, []);
 
-  const openAt = useCallback((idx: number) => {
-    setCurrentIndex(idx);
+  const activeImages = galleries.length ? galleries[currentGalleryIndex]?.images ?? [] : fallbackImages;
+
+  const openAt = useCallback((galleryIdx: number, imageIdx: number) => {
+    setCurrentGalleryIndex(galleryIdx);
+    setCurrentIndex(imageIdx);
     setIsOpen(true);
     if (typeof document !== "undefined") document.body.style.overflow = "hidden";
   }, []);
@@ -89,12 +101,12 @@ export default function GalleryPage() {
   }, []);
 
   const prev = useCallback(() => {
-    setCurrentIndex((i) => (i - 1 + images.length) % images.length);
-  }, [images.length]);
+    setCurrentIndex((i) => (i - 1 + activeImages.length) % activeImages.length);
+  }, [activeImages.length]);
 
   const next = useCallback(() => {
-    setCurrentIndex((i) => (i + 1) % images.length);
-  }, [images.length]);
+    setCurrentIndex((i) => (i + 1) % activeImages.length);
+  }, [activeImages.length]);
 
   const openVideoAt = useCallback((idx: number) => {
     setCurrentVideoIndex(idx);
@@ -159,26 +171,52 @@ export default function GalleryPage() {
             <div className="text-[#00A991] text-[10px] font-extrabold tracking-[0.25em] uppercase">PHOTO GALLERY</div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[220px] md:auto-rows-[260px]">
-            {images.map((img, idx) => (
-              <button
-                key={`${idx}-${img.src}`}
-                onClick={() => openAt(idx)}
-                className={`relative block w-full h-full overflow-hidden group transition-all duration-300 ${mosaicClasses[idx % mosaicClasses.length]} ${idx === 0 ? "ring-2 ring-[#00A991] ring-inset" : ""}`}
-                aria-label={`Open gallery image ${idx + 1}`}
-              >
-                <div className="relative w-full h-full">
-                  <Image src={img.src} alt={img.alt} fill
-                  sizes="100vw"
-                  className="object-cover object-center" />
-                </div>
+          {galleries.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[220px] md:auto-rows-[260px]">
+              {galleries.map((gallery, idx) => (
+                <button
+                  key={gallery.id}
+                  onClick={() => openAt(idx, 0)}
+                  className={`relative block w-full h-full overflow-hidden group transition-all duration-300 ${mosaicClasses[idx % mosaicClasses.length]} ${idx === 0 ? "ring-2 ring-[#00A991] ring-inset" : ""}`}
+                  aria-label={`Open gallery ${gallery.title}`}
+                >
+                  <div className="relative w-full h-full">
+                    <Image src={gallery.images[0].src} alt={gallery.images[0].alt} fill
+                    sizes="100vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105" />
+                  </div>
 
-                <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold uppercase px-3 py-1">
-                  {img.title || img.alt}
-                </div>
-              </button>
-            ))}
-          </div>
+                  <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold uppercase px-3 py-1">
+                    {gallery.title}
+                  </div>
+                  <div className="absolute right-4 bottom-4 z-10 bg-black/60 text-white text-[10px] font-bold uppercase px-3 py-1">
+                    {gallery.images.length} {gallery.images.length === 1 ? "Photo" : "Photos"}
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[220px] md:auto-rows-[260px]">
+              {fallbackImages.map((img, idx) => (
+                <button
+                  key={`${idx}-${img.src}`}
+                  onClick={() => openAt(0, idx)}
+                  className={`relative block w-full h-full overflow-hidden group transition-all duration-300 ${mosaicClasses[idx % mosaicClasses.length]} ${idx === 0 ? "ring-2 ring-[#00A991] ring-inset" : ""}`}
+                  aria-label={`Open gallery image ${idx + 1}`}
+                >
+                  <div className="relative w-full h-full">
+                    <Image src={img.src} alt={img.alt} fill
+                    sizes="100vw"
+                    className="object-cover object-center" />
+                  </div>
+
+                  <div className="absolute left-4 top-4 z-10 bg-[#00A991] text-white text-[10px] font-bold uppercase px-3 py-1">
+                    {img.title || img.alt}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -274,7 +312,7 @@ export default function GalleryPage() {
         </div>
       )}
 
-      {isOpen && images[currentIndex] && (
+      {isOpen && activeImages[currentIndex] && (
         <div className="fixed inset-0 z-[90] bg-black/90 flex items-center justify-center">
           <button onClick={close} className="absolute top-6 right-6 text-white">
             <X className="w-6 h-6" />
@@ -283,13 +321,18 @@ export default function GalleryPage() {
             <ChevronLeft className="w-8 h-8" />
           </button>
           <div className="relative w-[80vw] h-[80vh]">
-            <Image src={images[currentIndex].src} alt={images[currentIndex].alt} fill
+            <Image src={activeImages[currentIndex].src} alt={activeImages[currentIndex].alt} fill
                   sizes="100vw"
                   className="object-contain" />
           </div>
           <button onClick={next} className="absolute right-6 text-white">
             <ChevronRight className="w-8 h-8" />
           </button>
+          {galleries.length > 0 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-[11px] font-bold uppercase tracking-[0.2em]">
+              {galleries[currentGalleryIndex]?.title} — {currentIndex + 1} / {activeImages.length}
+            </div>
+          )}
         </div>
       )}
 
