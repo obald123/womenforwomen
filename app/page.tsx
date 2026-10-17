@@ -677,40 +677,44 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
             {[
               {
-                title: "DIGNITY",
-                image:
-                  "/images/site/dignity.jpg",
+                title: "Integrity",
+                image: "/images/site/Integrity%202.jpg",
               },
               {
-                title: "EMPOWERMENT",
-                image:
-                  "/images/site/Empowerment.jpg",
+                title: "Teamwork",
+                image: "/images/site/Teamwork.jpeg",
               },
               {
-                title: "SUSTAINABILITY",
-                image:
-                  "/images/site/Sustainabilty.jpg",
+                title: "Respect",
+                image: "/images/site/Respect.jpg",
               },
               {
-                title: "SOLIDARITY",
-                image:
-                  "/images/site/gallery-9.jpg",
+                title: "Accountability",
+                image: "/images/site/Accountability.jpeg",
+              },
+              {
+                title: "Dignity",
+                image: "/images/site/Dignity.jpg",
+              },
+              {
+                title: "Excellence",
+                image: "/images/site/Excellence.jpg",
               },
             ].map((value) => (
               <article key={value.title} className="group">
-                <div className="relative min-h-[220px] overflow-hidden rounded-lg md:min-h-[320px]">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
                   <Image
                     src={value.image}
                     alt={value.title}
                     fill
-                    sizes="100vw"
+                    sizes="(min-width: 1280px) 384px, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
-                <h3 className="mt-4 text-lg font-bold uppercase leading-none text-[#102022] md:text-xl">
+                <h3 className="mt-4 text-lg font-bold leading-none text-[#102022] md:text-xl">
                   {value.title}
                 </h3>
               </article>
@@ -725,5 +729,4 @@ export default function Home() {
     </div>
   );
 }
-
 
