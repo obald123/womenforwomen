@@ -697,7 +697,7 @@ export default function Home() {
               },
               {
                 title: "Dignity",
-                image: "/images/site/Dignity.jpg",
+                image: "/images/site/dignity.jpg",
               },
               {
                 title: "Excellence",
@@ -729,4 +729,3 @@ export default function Home() {
     </div>
   );
 }
-
