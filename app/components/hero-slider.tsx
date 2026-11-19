@@ -36,6 +36,16 @@ function positionClassFor(position: ImagePosition) {
   return position === "top" ? "object-top" : position === "bottom" ? "object-bottom" : "object-center";
 }
 
+function normalizeImageSrc(src: string) {
+  const isAbsolute = /^[a-z][a-z\d+.-]*:/i.test(src) || src.startsWith("//");
+  try {
+    const url = new URL(src, "https://image.invalid");
+    return isAbsolute ? url.toString() : `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return encodeURI(src);
+  }
+}
+
 export function HeroSlider({
   images,
   altPrefix = "Hero",
@@ -102,7 +112,7 @@ export function HeroSlider({
             aria-hidden={i === index ? undefined : true}
           >
             <Image
-              src={encodeURI(slide.src)}
+              src={normalizeImageSrc(slide.src)}
               alt={slide.alt || `${altPrefix} ${i + 1}`}
               fill
               unoptimized={unoptimized}

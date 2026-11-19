@@ -72,7 +72,7 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
       .catch(() => setError("The Giving Tuesday campaign could not be loaded. Please try again later."));
   }, []);
 
-  const sectionClassName = fullPage ? "bg-[#F4F7F5] pb-12" : "bg-[#F4F7F5] py-16 sm:py-20";
+  const sectionClassName = fullPage ? "bg-[#F4F7F5] pb-12" : "bg-[#F4F7F5] py-10 sm:py-12";
 
   if (error || !campaign) {
     return (
@@ -103,6 +103,9 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
   const storyDetails = campaign.paragraphs.slice(1);
   const currentSlide = gallery[activeSlide % gallery.length];
   const CampaignHeading = fullPage ? "h1" : "h2";
+  const headingClassName = fullPage
+    ? "text-4xl sm:text-5xl lg:text-7xl"
+    : "text-3xl sm:text-4xl lg:text-5xl";
 
   return (
     <section className={sectionClassName} aria-labelledby="giving-tuesday-title">
@@ -114,12 +117,12 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
         altPrefix={campaign.title}
         interval={6500}
         overlayClassName="bg-gradient-to-r from-[#081513]/85 via-[#081513]/55 to-[#081513]/10"
-        className={fullPage ? "min-h-[calc(100svh-5rem)]" : "min-h-[70svh]"}
+        className={fullPage ? "min-h-[calc(100svh-5rem)]" : "min-h-[420px] sm:min-h-[460px] lg:min-h-[500px]"}
         imagePosition="center"
         unoptimized
         onIndexChange={setActiveSlide}
       >
-        <div className={`flex flex-1 items-end py-14 ${fullPage ? "md:items-center" : "md:items-end"}`}>
+        <div className={`flex flex-1 items-end ${fullPage ? "py-14 md:items-center" : "py-10 sm:py-12"}`}>
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <div className="max-w-3xl text-white">
               <div className="mb-5 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur-sm">
@@ -127,7 +130,7 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
               </div>
               <CampaignHeading
                 id="giving-tuesday-title"
-                className="max-w-3xl text-4xl font-black leading-[0.98] tracking-[-0.04em] sm:text-5xl lg:text-7xl"
+                className={`max-w-3xl font-black leading-[0.98] tracking-[-0.04em] ${headingClassName}`}
               >
                 {campaign.title}
               </CampaignHeading>
@@ -139,7 +142,7 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
               </div>
               <p
                 aria-live="polite"
-                className="mt-8 max-w-xl border-l-2 border-[#4DD9C4] pl-4 text-sm font-medium leading-relaxed text-white/85"
+                className="mt-6 max-w-xl border-l-2 border-[#4DD9C4] pl-4 text-sm font-medium leading-relaxed text-white/85 sm:mt-8"
               >
                 {currentSlide.caption}
               </p>
@@ -148,6 +151,7 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
         </div>
       </HeroSlider>
 
+      {fullPage && (
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="relative mx-auto mt-8 max-w-6xl md:mt-12">
           <div className="pointer-events-none absolute -left-8 top-10 hidden h-[85%] w-[2px] -rotate-[8deg] bg-[#00A991]/30 md:block" />
@@ -192,19 +196,7 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
 
         <div className="mx-auto mt-14 max-w-4xl lg:mt-20">
           <div className="space-y-5 text-[15px] leading-relaxed text-[#4D5C59]">
-            {fullPage ? (
-              storyDetails.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)
-            ) : (
-              <details className="group">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-bold text-[#087669]">
-                  Read the story
-                  <span className="text-lg transition-transform group-open:rotate-45">+</span>
-                </summary>
-                <div className="mt-5 space-y-4">
-                  {storyDetails.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)}
-                </div>
-              </details>
-            )}
+            {storyDetails.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)}
           </div>
           <p className="mt-8 border-l-2 border-[#00A991] pl-5 text-lg font-semibold leading-relaxed text-[#183A35]">
             {campaign.closingLine}
@@ -234,6 +226,7 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
           <CampaignDonateButton href={donationUrl} label={ctaLabel} />
         </div>
       </div>
+      )}
     </section>
   );
 }
