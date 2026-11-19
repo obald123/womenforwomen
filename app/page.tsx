@@ -8,6 +8,7 @@ import PartnersCarousel from "./components/partners-carousel";
 import { HeroSlider } from "./components/hero-slider";
 import { JoinCommunitySection } from "./components/join-community-section";
 import { publicFetch, resolveImageUrl } from "../lib/publicApi";
+import { DonationCampaignSection } from "./components/donation-campaign-section";
 
 const HOME_HERO_IMAGES = [
   { src: "/images/site/home-slide.jpg", position: "top" as const },
@@ -415,6 +416,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <DonationCampaignSection />
 
       {/* SECTION 6: IMPACT - 29 YEARS OF TRANSFORMATION (text panel separated from photo slider) */}
       <section className="bg-[#0A5F58]">

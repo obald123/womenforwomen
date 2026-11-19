@@ -9,7 +9,7 @@ const TRANSITION_MS = 1000;
 type ImagePosition = "top" | "center" | "bottom";
 
 /** A slide image, either a plain path or a path with its own crop position override. */
-type HeroImage = string | { src: string; position?: ImagePosition };
+type HeroImage = string | { src: string; position?: ImagePosition; alt?: string };
 
 type HeroSliderProps = {
   /** Image paths (from public), e.g. "/images/wfw/Home page/photo.jpg". An entry can
@@ -25,6 +25,10 @@ type HeroSliderProps = {
   className?: string;
   /** Default object-position for slides that don't specify their own, e.g. "top" when subjects are framed near the top of the photo */
   imagePosition?: ImagePosition;
+  /** Called when the active slide changes. */
+  onIndexChange?: (index: number) => void;
+  /** Skip Next.js image optimization, useful for dynamically-hosted slide URLs. */
+  unoptimized?: boolean;
   children: React.ReactNode;
 };
 
@@ -39,12 +43,16 @@ export function HeroSlider({
   overlayClassName = "bg-gradient-to-t from-black/30 via-black/5 to-transparent",
   className = "min-h-screen",
   imagePosition = "center",
+  onIndexChange,
+  unoptimized = false,
   children,
 }: HeroSliderProps) {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const count = images.length;
-  const slides = images.map((img) => (typeof img === "string" ? { src: img, position: undefined } : img));
+  const slides = images.map((img) =>
+    typeof img === "string" ? { src: img, position: undefined, alt: undefined } : img
+  );
 
   const goTo = useCallback(
     (next: number) => {
@@ -52,6 +60,10 @@ export function HeroSlider({
     },
     [count]
   );
+
+  useEffect(() => {
+    onIndexChange?.(index);
+  }, [index, onIndexChange]);
 
   // Autoplay; restarts whenever the slide changes (including manual nav) so a
   // manual click always buys a full interval before the next auto-advance.
@@ -91,8 +103,9 @@ export function HeroSlider({
           >
             <Image
               src={encodeURI(slide.src)}
-              alt={`${altPrefix} ${i + 1}`}
+              alt={slide.alt || `${altPrefix} ${i + 1}`}
               fill
+              unoptimized={unoptimized}
               className={`object-cover ${positionClassFor(slide.position ?? imagePosition)}`}
               sizes="100vw"
               priority={i === 0}

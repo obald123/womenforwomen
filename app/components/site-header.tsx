@@ -5,13 +5,11 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { Heart, ChevronDown, Menu, X } from 'lucide-react';
-import { useDonateModal } from './donate-modal-provider';
 
 type DropdownId = 'about' | 'programs' | null;
 
 export function SiteHeader() {
   const pathname = usePathname() || '';
-  const { openDonateModal } = useDonateModal();
   const [openDropdown, setOpenDropdown] = useState<DropdownId>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState<DropdownId>(null);
@@ -204,16 +202,13 @@ export function SiteHeader() {
         {/* RIGHT SIDE ACTIONS */}
         <div className="hidden lg:flex items-center gap-3 shrink-0">
           {/* DONATE BUTTON */}
-          {/*
-          <button
-            type="button"
-            onClick={openDonateModal}
+          <Link
+            href="/donate"
             className="flex items-center gap-1.5 rounded-[3px] bg-[#C73D35] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#B03530] transition-colors"
           >
             <Heart size={14} fill="currentColor" />
             DONATE
-          </button>
-          */}
+          </Link>
 
           {/* PARTNER BUTTON */}
           <Link
@@ -319,19 +314,13 @@ export function SiteHeader() {
             </nav>
 
             <div className="mt-8 flex flex-col gap-3">
-              {/*
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  openDonateModal();
-                }}
+              <Link
+                href="/donate"
                 className="flex items-center justify-center gap-2 rounded-[3px] bg-[#C73D35] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white"
               >
                 <Heart size={14} fill="currentColor" />
                 Donate
-              </button>
-              */}
+              </Link>
               <Link
                 href="/partner"
                 className="rounded-[3px] bg-[#00A991] px-4 py-3 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white"
