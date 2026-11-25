@@ -330,7 +330,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4: OUR PROGRAMS */}
-      <section className="py-20 bg-white">
+      <section className="pt-20 pb-0 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">

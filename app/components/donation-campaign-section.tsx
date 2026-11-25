@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { HeroSlider } from "./hero-slider";
@@ -42,12 +43,10 @@ function CampaignStoryRow({
   paragraph,
   item,
   index,
-  eyebrow,
 }: {
   paragraph: string;
   item: CampaignGalleryItem;
   index: number;
-  eyebrow: string;
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -104,9 +103,6 @@ function CampaignStoryRow({
           isVisible ? revealed : `${textOffset} ${revealed}`
         }`}
       >
-        <p className="mb-5 text-xs font-black uppercase tracking-[0.2em] text-[#078C7D]">
-          {String(index + 1).padStart(2, "0")} <span className="mx-2 text-[#B8C9C4]">/</span> {eyebrow}
-        </p>
         <p className="text-xl font-medium leading-relaxed tracking-[-0.02em] text-[#183A35] sm:text-2xl lg:text-[1.7rem]">
           {paragraph}
         </p>
@@ -161,23 +157,49 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
 
   if (!fullPage) {
     return (
-      <section className="w-full bg-[#F4F7F5] py-8 sm:py-12" aria-label="Giving Tuesday campaign">
-        <div className="relative w-full overflow-hidden">
-          <Image
-            src="/images/donation-campaign/giving-tuesday-home-banner-wide.png"
-            alt="Giving Tuesday 2026 banner inviting people to support Rwandan women building a trade."
-            width={1907}
-            height={442}
-            sizes="100vw"
-            className="block h-auto w-full"
-          />
-          <a
-            href={donationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Support the Giving Tuesday campaign on GlobalGiving"
-            className="absolute left-[34.7%] top-[67%] z-10 h-[20.5%] w-[28%] rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00A991] focus-visible:ring-offset-2"
-          />
+      <section className="w-full bg-[#F4F7F5] pb-8 sm:pb-12" aria-label="Giving Tuesday campaign">
+        <div className="w-full">
+          <div className="grid grid-cols-1 overflow-hidden bg-[#057266] text-white shadow-[0_20px_60px_rgba(16,38,34,0.16)] md:min-h-[380px] md:grid-cols-[minmax(210px,0.9fr)_minmax(340px,1.45fr)_minmax(280px,0.95fr)]">
+            <figure className="relative order-1 aspect-[16/8] overflow-hidden md:order-3 md:aspect-auto">
+              <Image
+                src="/images/donation-campaign/giving-tuesday-sewing-training.jpeg"
+                alt="A woman building her livelihood with sewing skills."
+                fill
+                sizes="(min-width: 768px) 28vw, 100vw"
+                className="object-cover object-[center_55%]"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -left-12 -top-[8%] hidden h-[116%] w-24 rounded-[50%] border-r-[3px] border-[#40D5BE] bg-[#057266] md:block"
+              />
+            </figure>
+
+            <figure className="relative order-2 aspect-[600/423] overflow-hidden border-y border-white/15 bg-[#057266] md:order-1 md:aspect-auto md:min-h-[380px] md:border-y-0 md:border-r">
+              <Image
+                src="/images/donation-campaign/giving-tuesday-2026-mark.png"
+                alt="Giving Tuesday 2026"
+                fill
+                sizes="(min-width: 768px) 30vw, 100vw"
+                className="object-contain"
+              />
+            </figure>
+
+            <div className="order-3 flex flex-col items-start justify-center px-6 py-7 sm:px-8 md:order-2 md:py-8">
+              <h2 className="max-w-xl text-2xl font-black leading-[1.05] tracking-[-0.03em] sm:text-3xl">
+                Help Rwandan women build a trade of their own.
+              </h2>
+              <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/90 sm:text-base">
+                Your gift helps women gain practical skills, grow their incomes, and create opportunities for others.
+              </p>
+              <Link
+                href="/donate"
+                className="group mt-5 inline-flex items-center gap-3 rounded-lg bg-[#C7F4E9] px-5 py-3 text-xs font-black uppercase tracking-[0.08em] text-[#087D72] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
+              >
+                Support the campaign
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     );
@@ -232,7 +254,6 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
                     paragraph={paragraph}
                     item={item}
                     index={index}
-                    eyebrow={campaign.eyebrow}
                   />
 
                   {index === Math.ceil(storyDetails.length / 2) - 1 && (
