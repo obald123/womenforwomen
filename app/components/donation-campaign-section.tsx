@@ -7,12 +7,6 @@ import { HeroSlider } from "./hero-slider";
 import { publicFetch, resolveImageUrl } from "../../lib/publicApi";
 import { GLOBAL_GIVING_URL } from "../../lib/donation";
 
-type CampaignImpactFact = {
-  value: string;
-  label: string;
-  detail: string;
-};
-
 type CampaignGalleryItem = {
   url: string;
   caption: string;
@@ -26,7 +20,6 @@ type DonationCampaign = {
   imageUrl: string;
   imageUrls?: string[];
   galleryItems?: CampaignGalleryItem[];
-  impactFacts?: CampaignImpactFact[];
   donationUrl?: string;
   ctaLabel?: string;
 };
@@ -42,70 +35,6 @@ function CampaignDonateButton({ href, label }: { href: string; label: string }) 
       {label}
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
     </a>
-  );
-}
-
-function AnimatedImpactValue({ value }: { value: string }) {
-  const parsedValue = /^([^\d]*)(\d[\d,]*(?:\.\d+)?)(.*)$/.exec(value);
-  const target = parsedValue ? Number(parsedValue[2].replace(/,/g, "")) : null;
-  const decimals = parsedValue?.[2].split(".")[1]?.length ?? 0;
-  const ref = useRef<HTMLSpanElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element || target === null) return;
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        if (prefersReducedMotion) setCount(target);
-        setIsVisible(true);
-        observer.disconnect();
-      },
-      { threshold: 0.5 },
-    );
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, [target]);
-
-  useEffect(() => {
-    if (!isVisible || target === null) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let frame = 0;
-    let startTime = 0;
-    const animate = (time: number) => {
-      if (!startTime) startTime = time;
-      const progress = Math.min((time - startTime) / 1400, 1);
-      setCount(target * (1 - Math.pow(1 - progress, 3)));
-      if (progress < 1) frame = requestAnimationFrame(animate);
-    };
-
-    frame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame);
-  }, [isVisible, target]);
-
-  if (!parsedValue || target === null) return <span>{value}</span>;
-
-  const formattedCount = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(count);
-
-  return (
-    <>
-      <span className="sr-only">{value}</span>
-      <span ref={ref} aria-hidden="true">
-        {parsedValue[1]}
-        {formattedCount}
-        {parsedValue[3]}
-      </span>
-    </>
   );
 }
 
@@ -168,13 +97,6 @@ function CampaignStoryRow({
           sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#081513]/80 via-transparent to-transparent" />
-        <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-white sm:p-7">
-          <span className="max-w-sm text-sm font-semibold leading-snug sm:text-base">{item.caption}</span>
-          <span className="shrink-0 text-xs font-black tracking-[0.18em] text-white/75">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        </figcaption>
       </figure>
 
       <div
@@ -195,7 +117,6 @@ function CampaignStoryRow({
 
 export function DonationCampaignSection({ fullPage = false }: { fullPage?: boolean }) {
   const [campaign, setCampaign] = useState<DonationCampaign | null>(null);
-  const [activeSlide, setActiveSlide] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -233,11 +154,34 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
   const ctaLabel = campaign.ctaLabel || "Donate now";
   const storyIntro = campaign.paragraphs[0] ?? "";
   const storyDetails = campaign.paragraphs.slice(1);
-  const currentSlide = gallery[activeSlide % gallery.length];
   const CampaignHeading = fullPage ? "h1" : "h2";
   const headingClassName = fullPage
     ? "text-4xl sm:text-5xl lg:text-7xl"
     : "text-3xl sm:text-4xl lg:text-5xl";
+
+  if (!fullPage) {
+    return (
+      <section className="w-full bg-[#F4F7F5] py-8 sm:py-12" aria-label="Giving Tuesday campaign">
+        <div className="relative w-full overflow-hidden">
+          <Image
+            src="/images/donation-campaign/giving-tuesday-home-banner-wide.png"
+            alt="Giving Tuesday 2026 banner inviting people to support Rwandan women building a trade."
+            width={1907}
+            height={442}
+            sizes="100vw"
+            className="block h-auto w-full"
+          />
+          <a
+            href={donationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Support the Giving Tuesday campaign on GlobalGiving"
+            className="absolute left-[34.7%] top-[67%] z-10 h-[20.5%] w-[28%] rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00A991] focus-visible:ring-offset-2"
+          />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={sectionClassName} aria-labelledby="giving-tuesday-title">
@@ -252,7 +196,6 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
         className={fullPage ? "min-h-[calc(100svh-5rem)]" : "min-h-[420px] sm:min-h-[460px] lg:min-h-[500px]"}
         imagePosition="center"
         unoptimized
-        onIndexChange={setActiveSlide}
       >
         <div className={`flex flex-1 items-end ${fullPage ? "py-14 md:items-center" : "py-10 sm:py-12"}`}>
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -272,12 +215,6 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
               <div className="mt-7">
                 <CampaignDonateButton href={donationUrl} label={ctaLabel} />
               </div>
-              <p
-                aria-live="polite"
-                className="mt-6 max-w-xl border-l-2 border-[#4DD9C4] pl-4 text-sm font-medium leading-relaxed text-white/85 sm:mt-8"
-              >
-                {currentSlide.caption}
-              </p>
             </div>
           </div>
         </div>
@@ -308,45 +245,32 @@ export function DonationCampaignSection({ fullPage = false }: { fullPage?: boole
             })}
           </div>
 
-          <div className="mx-auto grid max-w-6xl items-stretch overflow-hidden rounded-[2rem] bg-[#102F2B] shadow-[0_24px_70px_rgba(16,38,34,0.16)] lg:grid-cols-12">
-            {gallery.length > 1 && (
-              <figure className="group relative min-h-[300px] overflow-hidden lg:col-span-5 lg:min-h-full">
-                <Image
-                  src={resolveImageUrl(gallery[gallery.length - 1].url) || gallery[gallery.length - 1].url}
-                  alt={gallery[gallery.length - 1].caption}
-                  fill
-                  unoptimized
-                  sizes="(min-width: 1024px) 42vw, 100vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081513]/75 via-transparent to-transparent" />
-                <figcaption className="absolute inset-x-0 bottom-0 p-6 text-sm font-semibold leading-relaxed text-white sm:p-8">
-                  {gallery[gallery.length - 1].caption}
-                </figcaption>
-              </figure>
-            )}
+          <div className="mx-auto grid max-w-6xl gap-5 rounded-[2rem] bg-[#102F2B] p-5 shadow-[0_24px_70px_rgba(16,38,34,0.16)] sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-8 lg:p-10">
+            <div className="grid grid-cols-2 gap-3 lg:col-span-7 lg:gap-4">
+              {gallery.slice(-3).map((item, index) => (
+                <figure
+                  key={`${item.url}-closing-${index}`}
+                  className={`group relative overflow-hidden rounded-2xl bg-[#DCE7E3] ${
+                    index === 0 ? "col-span-2 aspect-[16/8]" : "aspect-[4/3]"
+                  }`}
+                >
+                  <Image
+                    src={resolveImageUrl(item.url) || item.url}
+                    alt={item.caption}
+                    fill
+                    unoptimized
+                    sizes="(min-width: 1024px) 55vw, 100vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </figure>
+              ))}
+            </div>
 
-            <div className="p-6 sm:p-9 lg:col-span-7 lg:p-12">
-              {!!campaign.impactFacts?.length && (
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {campaign.impactFacts.map((fact) => (
-                    <div
-                      key={`${fact.value}-${fact.label}`}
-                      className="rounded-2xl border border-white/15 bg-white/[0.06] p-4 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.1] motion-reduce:transition-none sm:p-5"
-                    >
-                      <div className="text-2xl font-black tracking-tight text-[#6FE0C9] sm:text-3xl">
-                        <AnimatedImpactValue value={fact.value} />
-                      </div>
-                      <div className="mt-2 text-[10px] font-black uppercase leading-snug tracking-[0.12em] text-white sm:text-[11px]">
-                        {fact.label}
-                      </div>
-                      <p className="mt-2 text-xs leading-relaxed text-white/65">{fact.detail}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <p className="mt-8 border-l-2 border-[#6FE0C9] pl-5 text-lg font-semibold italic leading-relaxed text-white sm:mt-10 sm:text-xl">
+            <div className="px-2 py-4 sm:px-4 lg:col-span-5 lg:px-5">
+              <p className="mb-5 text-xs font-black uppercase tracking-[0.2em] text-[#6FE0C9]">
+                {campaign.eyebrow}
+              </p>
+              <p className="border-l-2 border-[#6FE0C9] pl-5 text-xl font-semibold italic leading-relaxed text-white sm:text-2xl">
                 {campaign.closingLine}
               </p>
             </div>

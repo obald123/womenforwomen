@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { Heart, ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 
 type DropdownId = 'about' | 'programs' | null;
 
@@ -201,15 +201,6 @@ export function SiteHeader() {
 
         {/* RIGHT SIDE ACTIONS */}
         <div className="hidden lg:flex items-center gap-3 shrink-0">
-          {/* DONATE BUTTON */}
-          <Link
-            href="/donate"
-            className="flex items-center gap-1.5 rounded-[3px] bg-[#C73D35] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#B03530] transition-colors"
-          >
-            <Heart size={14} fill="currentColor" />
-            DONATE
-          </Link>
-
           {/* PARTNER BUTTON */}
           <Link
             href="/partner"
@@ -314,13 +305,6 @@ export function SiteHeader() {
             </nav>
 
             <div className="mt-8 flex flex-col gap-3">
-              <Link
-                href="/donate"
-                className="flex items-center justify-center gap-2 rounded-[3px] bg-[#C73D35] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white"
-              >
-                <Heart size={14} fill="currentColor" />
-                Donate
-              </Link>
               <Link
                 href="/partner"
                 className="rounded-[3px] bg-[#00A991] px-4 py-3 text-center text-[11px] font-black uppercase tracking-[0.14em] text-white"
